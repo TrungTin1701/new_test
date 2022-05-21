@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_test/HotelPage/ChiTiet/HotelCartExtended.dart';
+import '/HotelPage/Details/HotelCartExtended.dart';
 import 'package:new_test/main.dart';
 
 // ignore: camel_case_types

@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:new_test/Profile/profile.dart';
-import 'ChiTiet/chitiet.dart';
-import 'ChiTiet/HotelCartExtended.dart';
+import '/Profile/profile.dart';
+import 'Details/Details.dart';
+import 'Details/HotelCartExtended.dart';
+import 'Component/component.dart';
 
 // ignore: non_constant_identifier_names
 void runapp() {
@@ -32,26 +34,55 @@ Widget HotelCard(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 0.0, color: Colors.transparent),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(imgurl),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(3, 3),
-                        blurRadius: 3,
-                        color: Colors.black.withOpacity(0.1))
-                  ]),
-            ),
-            const SizedBox(
-              width: 21,
+            // Container(
+            //   width: 80,
+            //   height: 80,
+            //   decoration: BoxDecoration(
+            //       color: Colors.white,
+            //       borderRadius: BorderRadius.circular(10),
+            //       border: Border.all(width: 0.0, color: Colors.transparent),
+            //       image: DecorationImage(
+            //         fit: BoxFit.fill,
+            //         image: NetworkImage(imgurl),
+            //       ),
+            //       boxShadow: [
+            //         BoxShadow(
+            //             offset: const Offset(3, 3),
+            //             blurRadius: 3,
+            //             color: Colors.black.withOpacity(0.1))
+            //       ]),
+            // ),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: CachedNetworkImage(
+                imageBuilder: (context, imageProvider) => Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 0.0, color: Colors.transparent),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: imageProvider,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            offset: const Offset(2, 2),
+                            blurRadius: 3,
+                            color: Colors.black.withOpacity(0.1))
+                      ]),
+                ),
+                fit: BoxFit.cover,
+                imageUrl: imgurl,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.error,
+                  size: 100,
+                  color: Colors.red,
+                ),
+              ),
             ),
             Expanded(
               child: Column(
@@ -80,7 +111,8 @@ Widget HotelCard(
                           children: [
                             WidgetSpan(
                               child: Padding(
-                                padding: const EdgeInsets.all(2.0),
+                                padding: const EdgeInsets.only(
+                                    top: 2, left: 0, bottom: 2),
                                 child: Icon(
                                   Icons.location_on,
                                   color: Colors.black,
@@ -131,40 +163,7 @@ Widget HotelCard(
           ],
         ),
         const SizedBox(height: 20),
-        Row(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 0, right: 0),
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: 70),
-                  child: Text(
-                    "Loại Phòng",
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 92, 90, 90)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Container(
-              constraints: BoxConstraints(maxWidth: width1 - 80),
-              child: Text(
-                "President Room ",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromARGB(255, 44, 91, 138)),
-                textAlign: TextAlign.end,
-              ),
-            )),
-          ],
-        ),
+        TextEditor("Room", "Pressident Room", context),
         Row(
           children: [
             Align(

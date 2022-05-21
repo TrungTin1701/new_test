@@ -47,168 +47,171 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: GestureDetector(
-          onTap: () {
-            //Navigator.pop(context);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const MyApp()));
-            print(context);
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
+      // appBar: AppBar(
+      //   leading: GestureDetector(
+      //     onTap: () {
+      //       //Navigator.pop(context);
+      //       Navigator.push(context,
+      //           MaterialPageRoute(builder: (context) => const MyApp()));
+      //       print(context);
+      //     },
+      //     child: const Icon(
+      //       Icons.arrow_back,
+      //     ),
+      //   ),
+      //   title: const Text("BOOKING HOTEL ROOM"),
+      //   centerTitle: true,
+      //   actions: const [Icon(Icons.more_vert)],
+      //   backgroundColor: Color.fromARGB(255, 59, 160, 175),
+      // ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            DefaultTabController(
+                length: 3,
+                child: Expanded(
+                    child: Column(
+                  children: [
+                    Flexible(
+                      child: Builder(builder: (context) {
+                        return TabBar(
+                            indicatorColor: Colors.blue,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorWeight: 4,
+                            unselectedLabelColor:
+                                Color.fromARGB(255, 13, 10, 10),
+                            labelColor: Colors.blue,
+                            padding: const EdgeInsets.only(top: 0, bottom: 0),
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black),
+                            tabs: [
+                              Tab(
+                                text: "Tất cả",
+                              ),
+                              Tab(
+                                text: "Đang chờ phục vụ",
+                              ),
+                              Tab(
+                                text: "Đang phục vụ",
+                              )
+                            ]);
+                      }),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.70,
+                      child: TabBarView(children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.60,
+                          child: Container(
+                            child: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                HotelCard(
+                                    '/image/hotel2.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel3.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel4.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel4.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Container(
+                            child: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                HotelCard(
+                                    '/image/hotel2.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel3.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel4.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Container(
+                            child: ListView(
+                              scrollDirection: Axis.vertical,
+                              children: [
+                                HotelCard(
+                                    '/image/hotel2.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                // ignore: prefer_const_constructors
+                                HotelCard(
+                                    '/image/hotel3.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                                HotelCard(
+                                    '/image/hotel4.jpg',
+                                    'Tôi và em',
+                                    '400 Ung Van khiem',
+                                    context,
+                                    _date1,
+                                    dateSlug2),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]),
+                    )
+                  ],
+                )))
+          ],
         ),
-        title: const Text("BOOKING HOTEL ROOM"),
-        centerTitle: true,
-        actions: const [Icon(Icons.more_vert)],
-        backgroundColor: Color.fromARGB(255, 59, 160, 175),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          DefaultTabController(
-              length: 3,
-              child: Expanded(
-                  child: Column(
-                children: [
-                  Flexible(
-                    child: Builder(builder: (context) {
-                      return TabBar(
-                          indicatorColor: Colors.blue,
-                          indicatorSize: TabBarIndicatorSize.label,
-                          indicatorWeight: 4,
-                          unselectedLabelColor: Color.fromARGB(255, 13, 10, 10),
-                          labelColor: Colors.blue,
-                          padding: const EdgeInsets.only(top: 0, bottom: 0),
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black),
-                          tabs: [
-                            Tab(
-                              text: "Tất cả",
-                            ),
-                            Tab(
-                              text: "Đang chờ phục vụ",
-                            ),
-                            Tab(
-                              text: "Đang phục vụ",
-                            )
-                          ]);
-                    }),
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.70,
-                    child: TabBarView(children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.60,
-                        child: Container(
-                          child: ListView(
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              HotelCard(
-                                  '/image/hotel2.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel3.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel4.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel4.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Container(
-                          child: ListView(
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              HotelCard(
-                                  '/image/hotel2.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel3.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel4.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Container(
-                          child: ListView(
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              HotelCard(
-                                  '/image/hotel2.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              // ignore: prefer_const_constructors
-                              HotelCard(
-                                  '/image/hotel3.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                              HotelCard(
-                                  '/image/hotel4.jpg',
-                                  'Tôi và em',
-                                  '400 Ung Van khiem',
-                                  context,
-                                  _date1,
-                                  dateSlug2),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ]),
-                  )
-                ],
-              )))
-        ],
       ),
     );
   }
