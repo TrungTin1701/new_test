@@ -55,23 +55,23 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: GestureDetector(
-      //     onTap: () {
-      //       //Navigator.pop(context);
-      //       Navigator.push(context,
-      //           MaterialPageRoute(builder: (context) => const MyApp()));
-      //       print(context);
-      //     },
-      //     child: const Icon(
-      //       Icons.arrow_back,
-      //     ),
-      //   ),
-      //   title: const Text("BOOKING HOTEL ROOM"),
-      //   centerTitle: true,
-      //   actions: const [Icon(Icons.more_vert)],
-      //   backgroundColor: Color.fromARGB(255, 59, 160, 175),
-      // ),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            //Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MyApp()));
+            print(context);
+          },
+          child: const Icon(
+            Icons.arrow_back,
+          ),
+        ),
+        title: const Text("BOOKING HOTEL ROOM"),
+        centerTitle: true,
+        actions: const [Icon(Icons.more_vert)],
+        backgroundColor: Color.fromARGB(255, 59, 160, 175),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
