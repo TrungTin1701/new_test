@@ -15,8 +15,10 @@ String min =
 late String dateSlug =
     "${weekday} /${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')},  ${today.hour}:${min}";
 String _date1 = dateSlug.toString();
+String weekday2 =
+    today.weekday < 7 ? 'Thứ ' + (today.weekday + 4).toString() : 'CN';
 late String dateSlug2 =
-    "${weekday} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day + 3).toString().padLeft(2, '0')},  ${today.hour}:${min}";
+    "${weekday2} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day + 3).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
   runApp(DevicePreview(
@@ -35,7 +37,15 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       title: 'TRAVEL HOLA',
       theme: themeData,
-      home: const MyHomePage(title: 'TRAVEL HOLA'),
+      home: MyHomePage(
+        title: "TRAVEL HOLA",
+      ),
+      initialRoute: '/',
+      routes: {
+        '/profile': (context) => ProfileApp(),
+        '/Home': (context) => Home(),
+        '/Home1': (context) => Home1(),
+      },
     );
     return materialApp;
   }
@@ -76,39 +86,42 @@ class Home extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Builder(builder: (context) {
-                        return TabBar(
-                            indicatorColor: Colors.blue,
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorWeight: 4,
-                            unselectedLabelColor:
-                                Color.fromARGB(255, 13, 10, 10),
-                            labelColor: Colors.blue,
-                            padding: const EdgeInsets.only(top: 0, bottom: 0),
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.black),
-                            tabs: [
-                              Tab(
-                                text: "Tất cả",
-                              ),
-                              Tab(
-                                text: "Đang chờ phục vụ",
-                              ),
-                              Tab(
-                                text: "Đang phục vụ",
-                              )
-                            ]);
+                        return Container(
+                          height: 20,
+                          child: TabBar(
+                              indicatorColor: Colors.blue,
+                              indicatorSize: TabBarIndicatorSize.label,
+                              indicatorWeight: 4,
+                              unselectedLabelColor:
+                                  Color.fromARGB(255, 13, 10, 10),
+                              labelColor: Colors.blue,
+                              padding: const EdgeInsets.only(top: 0, bottom: 0),
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black),
+                              tabs: [
+                                Tab(
+                                  text: "Tất cả",
+                                ),
+                                Tab(
+                                  text: "Đang chờ phục vụ",
+                                ),
+                                Tab(
+                                  text: "Đang phục vụ",
+                                )
+                              ]),
+                        );
                       }),
                     ),
                     const SizedBox(
-                      height: 20.0,
+                      height: 10.0,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height * 0.70,
+                      height: MediaQuery.of(context).size.height * 0.80,
                       child: TabBarView(children: [
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.60,
+                          height: MediaQuery.of(context).size.height * 0.6,
                           child: Container(
                             child: ListView(
                               scrollDirection: Axis.vertical,
@@ -228,13 +241,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  int select = 0;
+  int select = 1;
   late TabController _tabController;
   @override
-  void initState() {
-    _tabController = TabController(length: 3, vsync: this);
-    super.initState();
-  }
+  // void initState() {
+  //   _tabController = TabController(length: _widgetOptions.length, vsync: this);
+  //   super.initState();
+  // }
 
   static const List<Widget> _widgetOptions = <Widget>[
     Home1(),
@@ -295,7 +308,7 @@ class _MyHomePageState extends State<MyHomePage>
         ],
         currentIndex: select,
         selectedItemColor: Colors.amber[800],
-        onTap: (int index) {
+        onTap: (index) {
           setState(() {
             select = index;
           });

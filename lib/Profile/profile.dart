@@ -131,8 +131,7 @@ class ProfileApp extends StatelessWidget {
             width: 300.00,
             child: RaisedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
+                  Navigator.pushNamed(context, "/");
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),

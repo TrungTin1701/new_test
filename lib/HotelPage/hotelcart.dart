@@ -27,7 +27,7 @@ Widget HotelCard(
   return Container(
     color: Color.fromARGB(255, 238, 235, 235),
     width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
+    padding: const EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 10),
     margin: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 10),
     child: Column(
       children: [
@@ -164,162 +164,13 @@ Widget HotelCard(
         ),
         const SizedBox(height: 20),
         TextEditor("Room", "Pressident Room", context),
-        Row(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 10, left: 0),
-                child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: 70,
-                  ),
-                  child: Text(
-                    "Số Người",
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 92, 90, 90)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Container(
-                constraints: BoxConstraints(maxWidth: width1 - 80),
-                child: Text(
-                  "1 người lớn , 2 trẻ em",
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 19, 9, 9)),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            )),
-          ],
-        ),
-        Row(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0, bottom: 10),
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: 120),
-                  child: Text(
-                    "Ngày nhận Phòng",
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 92, 90, 90)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: Container(
-                constraints: BoxConstraints(maxWidth: width1 - 120),
-                child: Text(
-                  Date1,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Color.fromARGB(255, 135, 41, 41)),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            )),
-          ],
-        ),
-        Row(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0, bottom: 10),
-                child: Container(
-                  constraints: BoxConstraints(maxWidth: 100),
-                  child: Text(
-                    "Ngày Trả Phòng",
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 92, 90, 90)),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: Container(
-                constraints: BoxConstraints(
-                  maxWidth: width1 - 110,
-                ),
-                child: Text(
-                  date2,
-                  style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Color.fromARGB(255, 135, 41, 41)),
-                  textAlign: TextAlign.end,
-                ),
-              ),
-            )),
-          ],
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: Container(
-                constraints: BoxConstraints(maxWidth: width1 - 200),
-                child: Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: 'Tổng Thanh Toán',
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Color.fromARGB(255, 92, 90, 90))),
-                  WidgetSpan(
-                      child: Padding(
-                    padding: EdgeInsets.all(2),
-                    child: Icon(
-                      Icons.info_outline,
-                      color: Colors.black,
-                      size: 15,
-                    ),
-                  )),
-                ])),
-              ),
-            ),
-
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Container(
-              constraints: BoxConstraints(minWidth: 200, maxWidth: 300),
-              child: Text(
-                "4.630.000  VND",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),
-                textAlign: TextAlign.end,
-              ),
-            )),
-          ],
-        ),
+        SizedBox(width: 10),
+        TextEditor("Số người", "1 Người Lớn 2 Trẻ Em", context),
+        SizedBox(width: 10),
+        Datebook("Ngày Nhận Phòng", Date1, context),
+        Datebook("Ngày Trả Phòng", date2, context),
+        //Bill
+        Payment("Tổng Thanh Toán", "4 450 000 VND", context),
         Row(
           //Button
           children: <Widget>[
