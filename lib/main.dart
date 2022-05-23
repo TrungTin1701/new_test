@@ -37,9 +37,7 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       title: 'TRAVEL HOLA',
       theme: themeData,
-      home: MyHomePage(
-        title: "TRAVEL HOLA",
-      ),
+      home: Home(),
       initialRoute: '/',
       routes: {
         '/profile': (context) => ProfileApp(),
@@ -241,7 +239,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
-  int select = 1;
+  int select = 0;
   late TabController _tabController;
   @override
   // void initState() {
@@ -309,6 +307,10 @@ class _MyHomePageState extends State<MyHomePage>
         currentIndex: select,
         selectedItemColor: Colors.amber[800],
         onTap: (index) {
+          // switch (index) {
+          //   case 1:
+          //     Navigator.pushNamed(context, "/Home");
+          //}
           setState(() {
             select = index;
           });
