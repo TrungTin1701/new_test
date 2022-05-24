@@ -21,7 +21,7 @@ class _chitietState extends State<chitiet> {
             Navigator.pop(context);
           },
           child: const Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios_new,
           ),
         ),
         title: const Text("BOOKING HOTEL ROOM"),

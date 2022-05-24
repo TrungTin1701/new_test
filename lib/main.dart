@@ -85,7 +85,7 @@ class _StackOverState extends State<StackOver>
                   children: [
                     FlatButton(
                       child: Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_ios_new,
                         color: Colors.black,
                       ),
                       color: Colors.white,
@@ -461,6 +461,7 @@ class _MyHomePageState extends State<MyHomePage>
               setState(() {
                 select = index;
               });
+            // Navigator.pushNamed(context, '/Home');
           }
         },
       ),

@@ -97,68 +97,70 @@ class ProfileApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SafeArea(
-        child: Scaffold(
-          body: ListView(
-            children: <Widget>[
-              Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.redAccent, Colors.pinkAccent])),
-                  child: Container(
-                    width: double.infinity,
-                    height: 350.0,
-                    child: Center(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Info(),
-                          CartBio(),
-                        ],
-                      ),
-                    ),
-                  )),
-              SizedBox(
-                height: 10.0,
-              ),
-              UI(),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                color: Colors.white,
-                child: RaisedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/Home");
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    elevation: 0.0,
-                    padding: EdgeInsets.all(0.0),
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            colors: [Colors.orangeAccent, Colors.pinkAccent]),
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Text(
-                        "Book Room",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    )),
-              ),
-            ],
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.redAccent, Colors.pinkAccent])),
+              child: Container(
+                width: double.infinity,
+                height: 350.0,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Info(),
+                      CartBio(),
+                    ],
+                  ),
+                ),
+              )),
+          SizedBox(
+            height: 10.0,
           ),
-        ),
+          UI(),
+          SizedBox(
+            height: 10.0,
+          ),
+          Container(
+            constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+            alignment: Alignment.center,
+            child: RaisedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/Home");
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 0.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [Colors.orangeAccent, Colors.pinkAccent]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints:
+                        BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Book Room",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+          ),
+        ],
       ),
     );
   }

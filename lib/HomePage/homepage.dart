@@ -23,15 +23,14 @@ class _Home1State extends State<Home1> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.arrow_back),
           title: const Text("HOME PAGE"),
           centerTitle: true,
           actions: const [Icon(Icons.more_vert)],
           backgroundColor: const Color.fromARGB(255, 59, 160, 175),
         ),
         body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const image_1(), //Picture roll
               Container(
