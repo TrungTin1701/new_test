@@ -85,7 +85,7 @@ class _StackOverState extends State<StackOver>
                   children: [
                     FlatButton(
                       child: Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_ios_new,
                         color: Colors.black,
                       ),
                       color: Colors.white,
@@ -99,7 +99,7 @@ class _StackOverState extends State<StackOver>
                           child: Text(
                         "Đặt phòng khác sạn",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       )),
@@ -461,6 +461,7 @@ class _MyHomePageState extends State<MyHomePage>
               setState(() {
                 select = index;
               });
+            // Navigator.pushNamed(context, '/Home');
           }
         },
       ),
