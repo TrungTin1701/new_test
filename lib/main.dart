@@ -73,6 +73,7 @@ class _StackOverState extends State<StackOver>
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(left: 5, right: 5),
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
@@ -131,7 +132,7 @@ class _StackOverState extends State<StackOver>
                   // give the indicator a decoration (color and border radius)
                   indicatorColor: Colors.blue,
                   indicatorWeight: 1,
-                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorSize: TabBarIndicatorSize.label,
                   unselectedLabelColor: Color.fromARGB(255, 13, 10, 10),
                   labelColor: Colors.blue,
                   labelPadding: EdgeInsets.symmetric(horizontal: 15.0),
