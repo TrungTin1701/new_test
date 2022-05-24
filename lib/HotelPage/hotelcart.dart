@@ -33,24 +33,6 @@ Widget HotelCard(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   width: 80,
-            //   height: 80,
-            //   decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.circular(10),
-            //       border: Border.all(width: 0.0, color: Colors.transparent),
-            //       image: DecorationImage(
-            //         fit: BoxFit.fill,
-            //         image: NetworkImage(imgurl),
-            //       ),
-            //       boxShadow: [
-            //         BoxShadow(
-            //             offset: const Offset(3, 3),
-            //             blurRadius: 3,
-            //             color: Colors.black.withOpacity(0.1))
-            //       ]),
-            // ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: CachedNetworkImage(
