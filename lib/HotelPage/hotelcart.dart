@@ -25,10 +25,9 @@ Widget HotelCard(
   double height1 = MediaQuery.of(context).size.height;
   var borderRadius2 = BorderRadius.circular(10);
   return Container(
-    color: Color.fromARGB(255, 238, 235, 235),
+    color: Color.fromARGB(255, 255, 255, 255),
     width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 10),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 10),
+    padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 20),
     child: Column(
       children: [
         Row(
