@@ -99,7 +99,7 @@ class _StackOverState extends State<StackOver>
                           child: Text(
                         "Đặt phòng khác sạn",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: 19,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       )),
