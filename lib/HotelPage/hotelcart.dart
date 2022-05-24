@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:new_test/HomePage/homepage.dart';
 import '/Profile/profile.dart';
 import 'Details/Details.dart';
 import 'Details/HotelCartExtended.dart';
@@ -152,62 +153,8 @@ Widget HotelCard(
         Datebook("Ngày Trả Phòng", date2, context),
         //Bill
         Payment("Tổng Thanh Toán", "4 450 000 VND", context),
-        Row(
-          //Button
-          children: <Widget>[
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => (chitiet())))
-                },
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.blueAccent,
-                  side: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 1,
-                  ),
-                ),
-                // ignore: prefer_const_constructors
-                child: Text(
-                  (isReadmore() ? "Xem Chi Tiết" : "Xem Chi Tiết"),
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 100, 179, 239)),
-                ),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => {},
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.redAccent,
-                  side: BorderSide(
-                    color: Colors.redAccent,
-                    width: 1,
-                  ),
-                ),
-
-                // ignore: prefer_const_constructors
-                child: Text(
-                  "Thông Tin Hoàn Tiền",
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 231, 60, 41)),
-                ),
-              ),
-            )
-          ],
-        )
+        const SizedBox(height: 20),
+        buildButton(context),
       ],
     ),
   );
