@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:new_test/HomePage/homepage.dart';
 import '/Profile/profile.dart';
 import 'Details/Details.dart';
 import 'Details/HotelCartExtended.dart';
@@ -33,24 +34,6 @@ Widget HotelCard(
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Container(
-            //   width: 80,
-            //   height: 80,
-            //   decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.circular(10),
-            //       border: Border.all(width: 0.0, color: Colors.transparent),
-            //       image: DecorationImage(
-            //         fit: BoxFit.fill,
-            //         image: NetworkImage(imgurl),
-            //       ),
-            //       boxShadow: [
-            //         BoxShadow(
-            //             offset: const Offset(3, 3),
-            //             blurRadius: 3,
-            //             color: Colors.black.withOpacity(0.1))
-            //       ]),
-            // ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: CachedNetworkImage(
@@ -162,70 +145,57 @@ Widget HotelCard(
           ],
         ),
         const SizedBox(height: 20),
-        TextEditor("Room", "Pressident Room", context),
-        SizedBox(width: 10),
-        TextEditor("Số người", "1 Người Lớn 2 Trẻ Em", context),
-        SizedBox(width: 10),
-        Datebook("Ngày Nhận Phòng", Date1, context),
-        Datebook("Ngày Trả Phòng", date2, context),
-        //Bill
-        Payment("Tổng Thanh Toán", "4 450 000 VND", context),
-        Row(
-          //Button
-          children: <Widget>[
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => (chitiet())))
-                },
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.blueAccent,
-                  side: BorderSide(
-                    color: Colors.blueAccent,
-                    width: 1,
-                  ),
-                ),
-                // ignore: prefer_const_constructors
-                child: Text(
-                  (isReadmore() ? "Xem Chi Tiết" : "Xem Chi Tiết"),
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 100, 179, 239)),
-                ),
-              ),
+        Payment(
+            "Loại Phòng",
+            "Phòng đơn",
+            color_text1,
+            color_text2,
+            SizedBox(
+              height: 0,
+              width: 0,
             ),
-            SizedBox(width: 10),
-            Expanded(
-              child: OutlinedButton(
-                onPressed: () => {},
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.redAccent,
-                  side: BorderSide(
-                    color: Colors.redAccent,
-                    width: 1,
-                  ),
-                ),
-
-                // ignore: prefer_const_constructors
-                child: Text(
-                  "Thông Tin Hoàn Tiền",
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 231, 60, 41)),
-                ),
-              ),
-            )
-          ],
-        )
+            font_nor,
+            context),
+        SizedBox(width: 10),
+        Payment(
+            "Số người",
+            "2 người lớn , 1 trẻ em",
+            color_text1,
+            color_text2,
+            SizedBox(
+              height: 0,
+              width: 0,
+            ),
+            font_nor,
+            context),
+        SizedBox(width: 10),
+        Payment(
+            "Ngày Nhận Phòng",
+            Date1,
+            color_text1,
+            color_bookingroom,
+            SizedBox(
+              height: 0,
+              width: 0,
+            ),
+            font_weight,
+            context),
+        Payment(
+            "Ngày Trả Phòng",
+            date2,
+            color_text1,
+            color_bookingroom,
+            SizedBox(
+              height: 0,
+              width: 0,
+            ),
+            font_weight,
+            context),
+        //Bill
+        Payment("Tổng Thanh Toán", "4 450 000 VND", color_text1, color_payment,
+            a, font_weight, context),
+        const SizedBox(height: 10),
+        buildButton(context),
       ],
     ),
   );

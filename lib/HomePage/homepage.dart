@@ -2,6 +2,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
+import 'package:new_test/HotelPage/Details/details.dart';
+
+import '/HotelPage/Details/HotelCartExtended.dart';
+import 'package:new_test/main.dart';
+
 // ignore: implementation_imports
 
 class Home1 extends StatefulWidget {
@@ -237,4 +242,64 @@ class _image_1State extends State<image_1> {
       );
     });
   }
+}
+
+//Button
+Widget buildButton(BuildContext context) {
+  return Row(
+    //Button
+    children: <Widget>[
+      Expanded(
+        child: OutlinedButton(
+          onPressed: () => {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => (chitiet())))
+          },
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            primary: Colors.blueAccent,
+            side: BorderSide(
+              color: Colors.blueAccent,
+              width: 1,
+            ),
+          ),
+          // ignore: prefer_const_constructors
+          child: Text(
+            ("Xem Chi Tiết"),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 100, 179, 239)),
+          ),
+        ),
+      ),
+      SizedBox(width: 10),
+      Expanded(
+        child: OutlinedButton(
+          onPressed: () => {},
+          style: OutlinedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            primary: Colors.redAccent,
+            side: BorderSide(
+              color: Colors.redAccent,
+              width: 1,
+            ),
+          ),
+
+          // ignore: prefer_const_constructors
+          child: Text(
+            "Thông Tin Hoàn Tiền",
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 231, 60, 41)),
+          ),
+        ),
+      )
+    ],
+  );
 }
