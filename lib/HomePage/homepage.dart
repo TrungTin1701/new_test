@@ -245,7 +245,14 @@ class _image_1State extends State<image_1> {
 }
 
 //Button
-Widget buildButton(BuildContext context) {
+Widget buildButton(
+  String imgurl,
+  String Hotelname,
+  String location,
+  BuildContext context,
+  String Date1,
+  String date2,
+) {
   return Row(
     //Button
     children: <Widget>[
@@ -253,7 +260,10 @@ Widget buildButton(BuildContext context) {
         child: OutlinedButton(
           onPressed: () => {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => (chitiet())))
+                context,
+                MaterialPageRoute(
+                    builder: (context) => (chitiet(
+                        imgurl, Hotelname, location, context, Date1, date2)))),
           },
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(

@@ -1,15 +1,16 @@
-// ignore: file_names
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:new_test/Profile/profile.dart';
+import 'package:new_test/HomePage/homepage.dart';
+import '/Profile/profile.dart';
+import 'package:new_test/HotelPage/Details/details.dart';
 
-DateTime _now = DateTime.now();
-// ignore: non_constant_identifier_names
-DateTime Date = new DateTime(_now.year, _now.month, _now.day);
+import 'package:new_test/HotelPage/Component/component.dart';
+
 // ignore: non_constant_identifier_names
 void runapp() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    home: const ProfileApp(),
+    home: ProfileApp(),
   ));
 }
 
@@ -18,282 +19,211 @@ Widget HotelCard1(
   String Hotelname,
   String location,
   BuildContext context,
+  String Date1,
+  String date2,
 ) {
+  double width1 = MediaQuery.of(context).size.width;
+  double height1 = MediaQuery.of(context).size.height;
   var borderRadius2 = BorderRadius.circular(10);
-  return Container(
-    color: Colors.white,
-    width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
-    margin: const EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 10),
-    child: Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(width: 0.0, color: Colors.transparent),
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(imgurl),
+  return SafeArea(
+    child: Container(
+      color: Color.fromARGB(255, 255, 255, 255),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.8,
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 20),
+      child: ListView(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CachedNetworkImage(
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        border:
+                            Border.all(width: 0.0, color: Colors.transparent),
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: imageProvider,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(2, 2),
+                              blurRadius: 3,
+                              color: Colors.black.withOpacity(0.1))
+                        ]),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(3, 3),
-                        blurRadius: 3,
-                        color: Colors.black.withOpacity(0.1))
-                  ]),
-            ),
-            const SizedBox(
-              width: 21,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0, bottom: 0),
-                    child: Text(
-                      Hotelname,
-                      style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black),
-                    ),
+                  fit: BoxFit.cover,
+                  imageUrl: imgurl,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.error,
+                    size: 100,
+                    color: Colors.red,
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0, bottom: 0),
                       child: Text(
-                        location,
+                        Hotelname,
                         style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
                     ),
-                  ]),
-                  const SizedBox(
-                    height: 10.5,
-                  ),
-                  const Text.rich(TextSpan(children: [
-                    TextSpan(
-                        text: '\$',
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Expanded(
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              WidgetSpan(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 2, left: 0, bottom: 2),
+                                  child: Icon(
+                                    Icons.location_on,
+                                    color: Colors.black,
+                                    size: 15,
+                                  ),
+                                ),
+                              ),
+                              TextSpan(
+                                text: '$location',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ]),
+                    const SizedBox(
+                      height: 10.5,
+                    ),
+                    Text.rich(TextSpan(children: [
+                      TextSpan(
+                        text: 'Mã đặt phòng',
                         style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black)),
-                    TextSpan(
-                        text: '200',
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 73, 72, 72),
+                        ),
+                      ),
+                      TextSpan(
+                        text: ':',
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)),
-                  ])),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(
-          children: const [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Loại Phòng",
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromARGB(255, 92, 90, 90)),
-              ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Text(
-              "President Room",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Color.fromARGB(255, 44, 91, 138)),
-              textAlign: TextAlign.end,
-            )),
-          ],
-        ),
-        Row(
-          children: const [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 10, left: 0),
-                child: Text(
-                  "Số Người",
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 92, 90, 90)),
+                          fontSize: 14,
+                          color: Color.fromARGB(255, 73, 72, 72),
+                        ),
+                      ),
+                      TextSpan(
+                          text: '19127463',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 9, 225, 70))),
+                    ])),
+                  ],
                 ),
               ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                "1 người lớn , 2 trẻ em",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Color.fromARGB(255, 19, 9, 9)),
-                textAlign: TextAlign.end,
+            ],
+          ),
+          const SizedBox(height: 20),
+          Payment(
+              "Loại Phòng",
+              "Phòng đơn",
+              color_text1,
+              color_text2,
+              SizedBox(
+                height: 0,
+                width: 0,
               ),
-            )),
-          ],
-        ),
-        Row(
-          children: const [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0, bottom: 10),
-                child: Text(
-                  "Ngày nhận Phòng",
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 92, 90, 90)),
-                ),
+              font_nor,
+              context),
+          SizedBox(width: 10),
+          Payment(
+              "Số người",
+              "2 người lớn , 1 trẻ em",
+              color_text1,
+              color_text2,
+              SizedBox(
+                height: 0,
+                width: 0,
               ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: Text(
-                "T6/12/2019",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromARGB(255, 135, 41, 41)),
-                textAlign: TextAlign.end,
+              font_nor,
+              context),
+          SizedBox(width: 10),
+          Payment(
+              "Giá phòng",
+              "799.000 vnđ",
+              color_text1,
+              color_text2,
+              SizedBox(
+                height: 0,
+                width: 0,
               ),
-            )),
-          ],
-        ),
-        Row(
-          children: const [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0, bottom: 10),
-                child: Text(
-                  "Ngày Trả Phòng",
-                  style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 92, 90, 90)),
-                ),
+              font_weight,
+              context),
+          SizedBox(width: 10),
+          Payment(
+              "Vị trí phòng",
+              "Tòa B - Tầng 2 - Số Phòng 201",
+              color_text1,
+              Colors.brown,
+              SizedBox(
+                height: 0,
+                width: 0,
               ),
-            ),
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: Text(
-                "T6/12/2029",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromARGB(255, 135, 41, 41)),
-                textAlign: TextAlign.end,
+              font_weight,
+              context),
+          SizedBox(width: 10),
+          Payment(
+              "Ngày Nhận Phòng",
+              Date1,
+              color_text1,
+              color_bookingroom,
+              SizedBox(
+                height: 0,
+                width: 0,
               ),
-            )),
-          ],
-        ),
-        Row(
-          children: const [
-            Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: const Text.rich(TextSpan(children: [
-                TextSpan(
-                    text: 'Mã Phòng',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black)),
-                TextSpan(
-                    text: ' !',
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black)),
-              ])),
-            ),
-
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Text(
-              "VIP 001",
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-              textAlign: TextAlign.end,
-            )),
-          ],
-        ),
-        Row(
-          children: const [
-            Padding(
-              padding: EdgeInsets.only(top: 0, bottom: 10),
-              child: const Text.rich(TextSpan(children: [
-                TextSpan(
-                    text: 'Tổng Thanh Toán',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black)),
-                TextSpan(
-                    text: '\ !',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black)),
-              ])),
-            ),
-
-            SizedBox(width: 10),
-            // ignore: prefer_const_constructors
-            Expanded(
-                child: Text(
-              "4.630.000 VND",
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-              textAlign: TextAlign.end,
-            )),
-          ],
-        ),
-      ],
+              font_weight,
+              context),
+          Payment(
+              "Ngày Trả Phòng",
+              date2,
+              color_text1,
+              color_bookingroom,
+              SizedBox(
+                height: 0,
+                width: 0,
+              ),
+              font_weight,
+              context),
+          //Bill
+          Payment("Tổng Thanh Toán", "4 450 000 VND", color_text1,
+              color_payment, a, font_weight, context),
+        ],
+      ),
     ),
   );
-}
-
-bool isReadmore() {
-  return false;
 }

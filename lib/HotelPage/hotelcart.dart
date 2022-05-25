@@ -195,12 +195,15 @@ Widget HotelCard(
         Payment("Tổng Thanh Toán", "4 450 000 VND", color_text1, color_payment,
             a, font_weight, context),
         const SizedBox(height: 10),
-        buildButton(context),
+        buildButton(
+          imgurl,
+          Hotelname,
+          location,
+          context,
+          Date1,
+          date2,
+        ),
       ],
     ),
   );
-}
-
-bool isReadmore() {
-  return false;
 }

@@ -4,10 +4,10 @@ var color_text1 = Color.fromARGB(255, 92, 90, 90); // Text Color Trái
 var color_bookingroom =
     Color.fromARGB(255, 135, 41, 41); // Color Thời gian nhận và trả phòng
 var color_payment = Color(Colors.black.value); // Màu thanh toán
-var color_text2 = Color.fromARGB(255, 73, 119, 165); // Text Color Phải
+var color_text2 = Color.fromARGB(255, 44, 91, 138); // Text Color Phải
 var font_weight = FontWeight.w700;
-var font_nor = FontWeight.w500;
-var font_thin = FontWeight.w300;
+var font_nor = FontWeight.w600;
+var font_thin = FontWeight.w400;
 // Muốn cusom Icon hãy qua bên này custom
 Widget a = Padding(
   padding: EdgeInsets.all(2),
