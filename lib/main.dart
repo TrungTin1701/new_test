@@ -17,10 +17,11 @@ String min =
 late String dateSlug =
     "${weekday} /${today.year.toString()}-${today.month.toString().padLeft(2, '0')}-${today.day.toString().padLeft(2, '0')},  ${today.hour}:${min}";
 String _date1 = dateSlug.toString();
-String weekday2 =
-    today.weekday < 7 ? 'Thứ ' + (today.weekday + 4).toString() : 'CN';
+
+String weekday3 =
+    today.weekday + 3 < 7 ? 'Thứ ' + (today.weekday + 4).toString() : 'CN';
 late String dateSlug2 =
-    "${weekday2} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day + 3).toString().padLeft(2, '0')},  ${today.hour}:${min}";
+    "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
   runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
