@@ -59,6 +59,15 @@ class StackOver extends StatefulWidget {
 class _StackOverState extends State<StackOver>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openEndDrawer() {
+    _scaffoldKey.currentState!.openEndDrawer();
+  }
+
+  void _closeEndDrawer() {
+    Navigator.of(context).pop();
+  }
 
   @override
   void initState() {
@@ -79,6 +88,7 @@ class _StackOverState extends State<StackOver>
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
+          key: _scaffoldKey,
           body: Column(
             children: [
               Container(
@@ -117,7 +127,7 @@ class _StackOverState extends State<StackOver>
                       ),
                       color: Colors.white,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/second');
+                        _openEndDrawer();
                       },
                     ),
                   ],
@@ -227,6 +237,29 @@ class _StackOverState extends State<StackOver>
               ),
             ],
           ),
+          endDrawer: Drawer(
+            child: Center(
+                child: ListView(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title:
+                      Text('Trang chủ', style: TextStyle(color: Colors.blue)),
+                  onTap: () {
+                    Navigator.pushNamed(context, "");
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Profile', style: TextStyle(color: Colors.blue)),
+                  onTap: () {
+                    Navigator.pushNamed(context, '');
+                  },
+                ),
+              ],
+            )),
+          ),
+          endDrawerEnableOpenDragGesture: false,
         ),
       ),
     );
