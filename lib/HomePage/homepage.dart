@@ -151,7 +151,7 @@ class _image_1State extends State<image_1> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: PageView.builder(
         itemCount: imageroll.length,
