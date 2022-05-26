@@ -61,7 +61,9 @@ flutter:
     - family: Roboto1
       fonts:
         - asset: fonts/TiroTamil-Regular.ttf
-
+    - family: Hehe
+      fonts:
+        - asset: fonts/JosefinSans-Medium.ttf
   # the material Icons class.
 
 

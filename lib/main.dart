@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'TRAVEL HOLA',
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: "Travel "),
-      theme: ThemeData(fontFamily: 'Roboto1'),
+      theme: ThemeData(fontFamily: 'Hehe'),
       initialRoute: '/',
       routes: {
         '/profile': (context) => ProfileApp(),
