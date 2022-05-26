@@ -7,6 +7,7 @@ import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
+import 'package:flutter/cupertino.dart';
 
 DateTime today = new DateTime.now();
 String weekday =
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var themeData = ThemeData();
     var materialApp = MaterialApp(
       useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'TRAVEL HOLA',
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: "Travel "),
+      theme: ThemeData(fontFamily: 'Roboto1'),
       initialRoute: '/',
       routes: {
         '/profile': (context) => ProfileApp(),
