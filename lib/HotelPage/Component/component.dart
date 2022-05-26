@@ -30,7 +30,12 @@ Widget Payment(String bills, String money, Color left, Color right, Widget a,
         child: Container(
           constraints: BoxConstraints(maxWidth: width1 - 200),
           child: Text.rich(TextSpan(children: [
-            TextSpan(text: bills, style: TextStyle(fontSize: 13, color: left)),
+            TextSpan(
+                text: bills,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: left,
+                )),
             WidgetSpan(child: a),
           ])),
         ),
@@ -43,7 +48,12 @@ Widget Payment(String bills, String money, Color left, Color right, Widget a,
         constraints: BoxConstraints(minWidth: 200, maxWidth: 300),
         child: Text(
           money,
-          style: TextStyle(fontSize: 14, fontWeight: fw, color: right),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: fw,
+            color: right,
+            fontFamily: "Roboto1",
+          ),
           textAlign: TextAlign.end,
         ),
       )),

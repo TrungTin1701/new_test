@@ -75,6 +75,7 @@ Widget HotelCard(
                     child: Text(
                       Hotelname,
                       style: const TextStyle(
+                          fontFamily: 'Roboto1',
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black),
