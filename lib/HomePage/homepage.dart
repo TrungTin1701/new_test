@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
+import 'package:new_test/provider/font_provider.dart';
+import 'package:provider/provider.dart';
 
 import '/HotelPage/Details/HotelCartExtended.dart';
 import 'package:new_test/main.dart';
@@ -23,13 +25,31 @@ class _Home1State extends State<Home1> {
     super.dispose();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openEndDrawer() {
+    _scaffoldKey.currentState!.openEndDrawer();
+  }
+
+  void _closeEndDrawer() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: const Text("HOME PAGE"),
           centerTitle: true,
-          actions: const [Icon(Icons.more_vert)],
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.more_vert),
+              onPressed: () {
+                _openEndDrawer();
+              },
+            ),
+          ],
           backgroundColor: const Color.fromARGB(255, 59, 160, 175),
         ),
         body: SafeArea(
@@ -75,6 +95,35 @@ class _Home1State extends State<Home1> {
                     child: const Icon(Icons.search)),
               ),
               const image_1(), //Search
+            ],
+          ),
+        ),
+        endDrawer: Drawer(
+          backgroundColor: const Color.fromARGB(255, 59, 160, 175),
+          child: ListView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              DrawerHeader(
+                child: Center(
+                    child: Text(
+                  "Custom Settings",
+                  style: TextStyle(fontSize: 16),
+                )),
+              ),
+              ListTile(
+                title: Text("Font 1"),
+                onTap: () => context.read<FontProvider>().changeFont("Hehe"),
+              ),
+              ListTile(
+                title: Text("Font 2"),
+                onTap: () =>
+                    context.read<FontProvider>().changeFont("DancingScript"),
+              ),
+              ListTile(
+                title: Text("Font Default"),
+                onTap: () => context.read<FontProvider>().changeFont("Roboto1"),
+              ),
             ],
           ),
         ));

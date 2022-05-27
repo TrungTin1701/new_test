@@ -1,8 +1,12 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:new_test/provider/font_provider.dart';
+import 'package:provider/provider.dart';
 import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
 import 'Profile/profile.dart';
@@ -28,30 +32,38 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+
+  final StreamController currentScreenObserver = StreamController.broadcast();
 
   @override
   Widget build(BuildContext context) {
-    var materialApp = MaterialApp(
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      title: 'TRAVEL HOLA',
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: "Travel "),
-      theme: ThemeData(fontFamily: 'Hehe'),
-      initialRoute: '/',
-      routes: {
-        '/profile': (context) => ProfileApp(),
-        '/Home': (context) => StackOver(),
-        '/Home1': (context) => Home1(),
-      },
+    return MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => FontProvider())],
+      child: Consumer<FontProvider>(
+        builder: (context, value, child) => MaterialApp(
+          useInheritedMediaQuery: true,
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
+          title: 'TRAVEL HOLA',
+          debugShowCheckedModeBanner: false,
+          home: MyHomePage(title: "Travel "),
+          theme: ThemeData(fontFamily: value.fontFamily),
+          initialRoute: '/',
+          routes: {
+            '/profile': (context) => ProfileApp(),
+            '/Home': (context) => StackOver(),
+            '/Home1': (context) => Home1(),
+          },
+        ),
+      ),
     );
-    return materialApp;
   }
 }
 
 class StackOver extends StatefulWidget {
+  const StackOver({Key? key}) : super(key: key);
+
   @override
   _StackOverState createState() => _StackOverState();
 }
@@ -406,9 +418,10 @@ class Home extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
+  final StreamController currentScreenObserver = StreamController.broadcast();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
