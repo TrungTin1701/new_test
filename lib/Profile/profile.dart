@@ -88,12 +88,6 @@ import 'package:new_test/main.dart';
 
 class ProfileApp extends StatelessWidget {
   const ProfileApp({Key? key}) : super(key: key);
-  void runapp() {
-    runApp(MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ProfileApp(),
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {

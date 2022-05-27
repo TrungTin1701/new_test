@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
 import 'package:new_test/provider/font_provider.dart';
 import 'package:provider/provider.dart';
-
+import 'package:new_test/Profile/profile.dart';
 import '/HotelPage/Details/HotelCartExtended.dart';
 import 'package:new_test/main.dart';
 
@@ -104,12 +104,16 @@ class _Home1State extends State<Home1> {
             physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics()),
             children: [
-              DrawerHeader(
-                child: Center(
-                    child: Text(
-                  "Custom Settings",
-                  style: TextStyle(fontSize: 16),
-                )),
+              Info(),
+              Container(
+                height: 60,
+                child: DrawerHeader(
+                  child: Text(
+                    "Custom Settings",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  margin: const EdgeInsets.only(top: 10),
+                ),
               ),
               ListTile(
                 title: Text("Font 1"),
