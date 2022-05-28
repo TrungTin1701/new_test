@@ -125,7 +125,7 @@ class _Home1State extends State<Home1> {
                     context.read<FontProvider>().changeFont("DancingScript"),
               ),
               ListTile(
-                title: Text("Font Default"),
+                title: Text("Font 3"),
                 onTap: () => context.read<FontProvider>().changeFont("Roboto1"),
               ),
             ],
