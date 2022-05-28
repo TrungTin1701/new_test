@@ -182,7 +182,7 @@ class _InfoState extends State<Info> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            "Macr Spector",
+            "Marc Spector",
             style: TextStyle(
               fontSize: 22.0,
               color: Colors.white,
