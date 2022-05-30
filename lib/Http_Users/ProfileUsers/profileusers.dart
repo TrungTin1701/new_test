@@ -44,39 +44,39 @@ class PostDetail extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          Container(
-            constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-            alignment: Alignment.center,
-            child: RaisedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/Users");
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                elevation: 0.0,
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        colors: [Colors.orangeAccent, Colors.pinkAccent]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "List Friends",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                )),
-          ),
+          // Container(
+          //   constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+          //   alignment: Alignment.center,
+          //   child: RaisedButton(
+          //       onPressed: () {
+          //         Navigator.pushNamed(context, "/Users");
+          //       },
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(80.0)),
+          //       elevation: 0.0,
+          //       padding: EdgeInsets.all(0.0),
+          //       child: Ink(
+          //         decoration: BoxDecoration(
+          //           gradient: LinearGradient(
+          //               begin: Alignment.centerRight,
+          //               end: Alignment.centerLeft,
+          //               colors: [Colors.orangeAccent, Colors.pinkAccent]),
+          //           borderRadius: BorderRadius.circular(30.0),
+          //         ),
+          //         child: Container(
+          //           constraints:
+          //               BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+          //           alignment: Alignment.center,
+          //           child: Text(
+          //             "List Friends",
+          //             style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 26.0,
+          //                 fontWeight: FontWeight.w300),
+          //           ),
+          //         ),
+          //       )),
+          // ),
         ],
       ),
     );

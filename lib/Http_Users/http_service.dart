@@ -8,7 +8,7 @@ class HttpService {
   final String postsURL = "https://reqres.in/api/users?page=2";
 
   Future<List<Person>> getPosts() async {
-    Response res = await get(postsURL);
+    Response res = await get(postsURL).timeout(Duration(seconds: 10));
     //List<dynamic> posts = a["data"];
     if (res.statusCode == 200) {
       print("Hehe");
