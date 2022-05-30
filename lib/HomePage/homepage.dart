@@ -9,6 +9,9 @@ import '/HotelPage/Details/HotelCartExtended.dart';
 import 'package:new_test/main.dart';
 
 // ignore: implementation_imports
+const kPrimaryColor = Color(0xFF0C9869);
+const kTextColor = Color(0xFF3C4046);
+const kBackgroundColor = Color(0xFFF9F8FD);
 
 class Home1 extends StatefulWidget {
   const Home1({Key? key}) : super(key: key);
@@ -50,49 +53,68 @@ class _Home1State extends State<Home1> {
               },
             ),
           ],
-          backgroundColor: const Color.fromARGB(255, 59, 160, 175),
+          backgroundColor: kPrimaryColor,
         ),
         body: SafeArea(
           child: ListView(
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const image_1(), //Picture roll
               Container(
-                color: Colors.white,
-                height: 50,
-                child: Material(
-                  elevation: 10.0,
-                  borderRadius: BorderRadius.circular(40.0),
-                  shadowColor: const Color.fromARGB(84, 44, 41, 41),
-                  child: TextField(
-                    controller: mycontroller,
-                    textAlign: TextAlign.start,
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: const InputDecoration(
-                      hintText: "Search for Hotel, Flight...",
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Color.fromARGB(137, 121, 67, 67),
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: Stack(
+                  children: [
+                    Container(
+                        height: MediaQuery.of(context).size.height * 0.3 - 50,
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                        ),
+                        padding: EdgeInsets.only(
+                            left: 20, right: 20, bottom: 20 + 50)),
+                    Container(
+                      color: Color.fromARGB(255, 146, 67, 67),
+                      height: 50,
+                      child: Material(
+                        elevation: 10.0,
+                        shadowColor: const Color.fromARGB(84, 44, 41, 41),
+                        child: TextField(
+                          controller: mycontroller,
+                          textAlign: TextAlign.start,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: const InputDecoration(
+                            hintText: "Search for Hotel, Flight...",
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Color.fromARGB(137, 121, 67, 67),
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
                       ),
-                      border: InputBorder.none,
                     ),
-                  ),
+                    Center(
+                      child: FloatingActionButton(
+                          backgroundColor: kPrimaryColor,
+                          onPressed: () => {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(mycontroller.text),
+                                        contentPadding: const EdgeInsets.only(
+                                            left: 5,
+                                            right: 5,
+                                            top: 10,
+                                            bottom: 10),
+                                      );
+                                    }),
+                              },
+                          child: const Icon(Icons.search)),
+                    ),
+                  ],
                 ),
-              ),
-              Center(
-                child: FloatingActionButton(
-                    onPressed: () => {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  content: Text(mycontroller.text),
-                                  contentPadding: const EdgeInsets.only(
-                                      left: 5, right: 5, top: 10, bottom: 10),
-                                );
-                              }),
-                        },
-                    child: const Icon(Icons.search)),
               ),
               const image_1(), //Search
             ],
