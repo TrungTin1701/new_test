@@ -1,7 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:async';
-
+import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
             '/profile': (context) => ProfileApp(),
             '/Home': (context) => StackOver(),
             '/Home1': (context) => Home1(),
+            '/Users': (context) => PostsPage(),
           },
         ),
       ),
