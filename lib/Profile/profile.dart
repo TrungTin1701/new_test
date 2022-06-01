@@ -49,7 +49,7 @@
 //   State<Profilehead> createState() => _ProfileheadState();
 // }
 
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 // class _ProfileheadState extends State<Profilehead> {
 //   @override
@@ -82,9 +82,6 @@
 //   }
 // }
 import 'package:flutter/material.dart';
-import 'package:new_test/HomePage/homepage.dart';
-import '/HotelPage/hotelcart.dart';
-import 'package:new_test/main.dart';
 
 class ProfileApp extends StatelessWidget {
   const ProfileApp({Key? key}) : super(key: key);
@@ -100,7 +97,7 @@ class ProfileApp extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [Colors.redAccent, Colors.pinkAccent])),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: 350.0,
                 child: Center(
@@ -243,7 +240,7 @@ class _CartBioState extends State<CartBio> {
                 children: <Widget>[
                   Text(
                     "Followers",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.redAccent,
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
@@ -265,7 +262,7 @@ class _CartBioState extends State<CartBio> {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Follow",
                     style: TextStyle(
                       color: Colors.redAccent,
@@ -273,10 +270,10 @@ class _CartBioState extends State<CartBio> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5.0,
                   ),
-                  Text(
+                  const Text(
                     "1300",
                     style: TextStyle(
                       fontSize: 20.0,
@@ -310,20 +307,18 @@ class _UIState extends State<UI> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            child: Center(
-              child: Text(
-                "Introduce Myself",
-                style: TextStyle(
-                    color: Colors.redAccent,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 28.0),
-              ),
+          const Center(
+            child: Text(
+              "Introduce Myself",
+              style: TextStyle(
+                  color: Colors.redAccent,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 28.0),
             ),
           ),
           Container(
-            constraints: BoxConstraints(maxHeight: 100),
-            child: Text(
+            constraints: const BoxConstraints(maxHeight: 100),
+            child: const Text(
               'My name is Macr Spector and I am  a freelance mobile app developper.\n'
               'if you need any mobile app for your company then contact me for more informations',
               style: TextStyle(

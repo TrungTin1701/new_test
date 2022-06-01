@@ -1,12 +1,15 @@
+// ignore_for_file: deprecated_member_use, prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:new_test/Http_Users/Users.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore: import_of_legacy_library_into_null_safe
 
 class PostDetail extends StatelessWidget {
   final Person post;
 
-  PostDetail({required this.post});
+  // ignore: use_key_in_widget_constructors
+  const PostDetail({required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class PostDetail extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [Colors.redAccent, Colors.pinkAccent])),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: 350.0,
                 child: Center(
@@ -85,7 +88,7 @@ class PostDetail extends StatelessWidget {
 
 class ProfileApp extends StatelessWidget {
   final Person post;
-  ProfileApp({required this.post});
+  ProfileApp({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +101,7 @@ class ProfileApp extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [Colors.redAccent, Colors.pinkAccent])),
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
                 height: 350.0,
                 child: Center(
@@ -165,7 +168,7 @@ class ProfileApp extends StatelessWidget {
 //Avar Cart
 class Info extends StatelessWidget {
   final Person post;
-  Info({required this.post});
+  Info({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -265,7 +268,7 @@ class _CartBioState extends State<CartBio> {
                 children: <Widget>[
                   Text(
                     "Follow",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.redAccent,
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
@@ -274,7 +277,7 @@ class _CartBioState extends State<CartBio> {
                   SizedBox(
                     height: 5.0,
                   ),
-                  Text(
+                  const Text(
                     "1300",
                     style: TextStyle(
                       fontSize: 20.0,
@@ -294,7 +297,7 @@ class _CartBioState extends State<CartBio> {
 //Introduction
 class Intro extends StatelessWidget {
   final Person post;
-  Intro({required this.post});
+  Intro({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -304,15 +307,13 @@ class Intro extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            child: Center(
-              child: Text(
-                "Introduce Myself",
-                style: TextStyle(
-                    color: Colors.redAccent,
-                    fontStyle: FontStyle.normal,
-                    fontSize: 28.0),
-              ),
+          Center(
+            child: Text(
+              "Introduce Myself",
+              style: TextStyle(
+                  color: Colors.redAccent,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 28.0),
             ),
           ),
           Container(

@@ -1,14 +1,18 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+// ignore: file_names
+// ignore_for_file: import_of_legacy_library_into_null_safe, file_names, prefer_const_constructors, duplicate_ignore
+
+import 'package:cached_network_image/cached_network_image.dart'
+    show CachedNetworkImage;
 import 'package:flutter/material.dart';
 import 'package:new_test/HomePage/homepage.dart';
-import 'package:new_test/Profile/profile.dart';
 import 'Users.dart';
 import 'http_service.dart';
 import 'package:new_test/Http_Users/ProfileUsers/profileusers.dart';
 
 class PostsPage extends StatelessWidget {
   final HttpService httpService = HttpService();
+
+  PostsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

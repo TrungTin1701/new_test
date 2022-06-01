@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore
 
 import 'dart:async';
 import 'Http_Users/List_Users.dart';
@@ -11,9 +11,8 @@ import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
-import 'package:flutter/cupertino.dart';
 
-DateTime today = new DateTime.now();
+DateTime today = DateTime.now();
 String weekday =
     today.weekday < 7 ? 'Thứ ' + (today.weekday + 1).toString() : 'CN';
 String min =
@@ -51,9 +50,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(fontFamily: value.fontFamily),
           initialRoute: '/',
           routes: {
-            '/profile': (context) => ProfileApp(),
-            '/Home': (context) => StackOver(),
-            '/Home1': (context) => Home1(),
+            '/profile': (context) => const ProfileApp(),
+            '/Home': (context) => const StackOver(),
+            '/Home1': (context) => const Home1(),
             '/Users': (context) => PostsPage(),
           },
         ),
@@ -78,10 +77,6 @@ class _StackOverState extends State<StackOver>
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void _closeEndDrawer() {
-    Navigator.of(context).pop();
-  }
-
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
@@ -97,7 +92,7 @@ class _StackOverState extends State<StackOver>
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 5, right: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5),
       color: Colors.white,
       child: SafeArea(
         child: Scaffold(
@@ -110,7 +105,7 @@ class _StackOverState extends State<StackOver>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FlatButton(
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back_ios_new,
                         color: Colors.black,
                       ),
@@ -121,7 +116,7 @@ class _StackOverState extends State<StackOver>
                     ),
                     Container(
                       color: Colors.white,
-                      child: Center(
+                      child: const Center(
                           child: Text(
                         "Đặt phòng khác sạn",
                         style: TextStyle(
@@ -131,7 +126,7 @@ class _StackOverState extends State<StackOver>
                       )),
                     ),
                     FlatButton(
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Icon(
                           Icons.menu,
@@ -148,7 +143,7 @@ class _StackOverState extends State<StackOver>
               ),
               // give the tab bar a height [can change hheight to preferred height]
               Container(
-                padding: EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 10),
                 height: 40,
                 color: Colors.white,
                 child: TabBar(
@@ -158,15 +153,15 @@ class _StackOverState extends State<StackOver>
                   indicatorColor: Colors.blue,
                   indicatorWeight: 1,
                   indicatorSize: TabBarIndicatorSize.label,
-                  unselectedLabelColor: Color.fromARGB(255, 13, 10, 10),
+                  unselectedLabelColor: const Color.fromARGB(255, 13, 10, 10),
                   labelColor: Colors.blue,
-                  labelPadding: EdgeInsets.symmetric(horizontal: 15.0),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 15.0),
                   padding: const EdgeInsets.only(top: 0, bottom: 0),
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
-                  tabs: [
+                  tabs: const [
                     Tab(
                       child: Text(
                         "Tất Cả",
@@ -190,60 +185,54 @@ class _StackOverState extends State<StackOver>
               Expanded(
                 child: TabBarView(controller: _tabController, children: [
                   Container(
-                    padding: EdgeInsets.only(top: 0),
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    child: Container(
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                        ],
-                      ),
+                    padding: const EdgeInsets.only(top: 0),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                      ],
                     ),
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.6,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    child: Container(
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                        ],
-                      ),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                      ],
                     ),
                   ),
                   Container(
                     height: MediaQuery.of(context).size.height * 0.6,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    child: Container(
-                      child: ListView(
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                        ],
-                      ),
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    child: ListView(
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                            '400 Ung Van khiem', context, _date1, dateSlug2),
+                      ],
                     ),
                   ),
                 ]),
@@ -255,15 +244,15 @@ class _StackOverState extends State<StackOver>
                 child: ListView(
               children: [
                 ListTile(
-                  leading: Icon(Icons.home),
-                  title:
-                      Text('Trang chủ', style: TextStyle(color: Colors.blue)),
+                  leading: const Icon(Icons.home),
+                  title: const Text('Trang chủ',
+                      style: TextStyle(color: Colors.blue)),
                   onTap: () {
                     Navigator.pushNamed(context, "");
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: const Icon(Icons.person),
                   title: Text('Profile', style: TextStyle(color: Colors.blue)),
                   onTap: () {
                     Navigator.pushNamed(context, '');
@@ -318,7 +307,7 @@ class Home extends StatelessWidget {
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
+                  colors: const [
                     Color.fromARGB(255, 236, 232, 237),
                     Color.fromARGB(255, 227, 225, 225)
                   ],
@@ -341,7 +330,7 @@ class Home extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   color: Colors.black),
 
-              tabs: [
+              tabs: const [
                 Tab(text: 'Tất Cả'),
                 Tab(text: 'Đang Phục Vụ'),
                 Tab(text: 'Đang Chờ Phục Vụ'),
@@ -357,58 +346,53 @@ class Home extends StatelessWidget {
                 Container(
                   color: Color.fromARGB(255, 212, 209, 209),
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: Container(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
-                    ),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                    ],
                   ),
                 ),
                 Container(
                   color: Color.fromARGB(255, 212, 209, 209),
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: Container(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
-                    ),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                    ],
                   ),
                 ),
                 Container(
+                  // ignore: prefer_const_constructors
                   color: Color.fromARGB(255, 212, 209, 209),
                   height: MediaQuery.of(context).size.height * 0.6,
-                  child: Container(
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
-                    ),
+                  child: ListView(
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                      HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                          '400 Ung Van khiem', context, _date1, dateSlug2),
+                    ],
                   ),
                 ),
               ]),
@@ -431,8 +415,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage>
     with SingleTickerProviderStateMixin {
   int select = 0;
-  late TabController _tabController;
-  @override
   // void initState() {
   //   _tabController = TabController(length: _widgetOptions.length, vsync: this);
   //   super.initState();
@@ -445,8 +427,6 @@ class _MyHomePageState extends State<MyHomePage>
   ];
   @override
   Widget build(BuildContext context) {
-    final controller = ScrollController();
-
     // var scaffold = MaterialApp(
     //     home: Scaffold(
     //   body: Center(child: _widgetOptions.elementAt(select)),

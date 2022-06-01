@@ -1,30 +1,33 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore: duplicate_ignore
+// ignore: import_of_legacy_library_into_null_safe
+// ignore_for_file: file_names, import_of_legacy_library_into_null_safe, prefer_const_constructors
+
+import 'package:cached_network_image/cached_network_image.dart'
+    show CachedNetworkImage;
 import 'package:flutter/material.dart';
-import 'package:new_test/HomePage/homepage.dart';
 import '/Profile/profile.dart';
-import 'package:new_test/HotelPage/Details/details.dart';
 
 import 'package:new_test/HotelPage/Component/component.dart';
 
 // ignore: non_constant_identifier_names
 void runapp() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: ProfileApp(),
   ));
 }
 
+// ignore: non_constant_identifier_names
 Widget HotelCard1(
   String imgurl,
+  // ignore: non_constant_identifier_names
   String Hotelname,
   String location,
   BuildContext context,
+  // ignore: non_constant_identifier_names
   String Date1,
   String date2,
 ) {
-  double width1 = MediaQuery.of(context).size.width;
-  double height1 = MediaQuery.of(context).size.height;
-  var borderRadius2 = BorderRadius.circular(10);
   return SafeArea(
     child: Container(
       color: Color.fromARGB(255, 255, 255, 255),
@@ -107,7 +110,7 @@ Widget HotelCard1(
                                 ),
                               ),
                               TextSpan(
-                                text: '$location',
+                                text: location,
                                 style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.black,
@@ -121,6 +124,7 @@ Widget HotelCard1(
                     const SizedBox(
                       height: 10.5,
                     ),
+                    // ignore: prefer_const_literals_to_create_immutables
                     Text.rich(TextSpan(children: [
                       TextSpan(
                         text: 'Mã đặt phòng',

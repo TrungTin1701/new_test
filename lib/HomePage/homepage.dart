@@ -1,11 +1,11 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
 import 'package:new_test/provider/font_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:new_test/Profile/profile.dart';
-import '/HotelPage/Details/HotelCartExtended.dart';
-import 'package:new_test/main.dart';
 
 // ignore: implementation_imports
 const kPrimaryColor = Color(0xFF0C9869);
@@ -33,164 +33,156 @@ class _Home1State extends State<Home1> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void _closeEndDrawer() {
-    Navigator.of(context).pop();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: const Text("HOME PAGE"),
-            centerTitle: true,
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.more_vert),
-                onPressed: () {
-                  _openEndDrawer();
-                },
-              ),
-            ],
-            backgroundColor: kPrimaryColor,
-          ),
-          body: Container(
-            child: ListView(
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  child: Stack(
-                    children: [
-                      Container(
-                          height: MediaQuery.of(context).size.height * 0.3 - 50,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                          ),
-                          padding: EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20 + 50),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 50.0),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Travel Hola",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                ),
-                                Spacer(),
-                              ],
+    return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: const Text("HOME PAGE"),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {
+                _openEndDrawer();
+              },
+            ),
+          ],
+          backgroundColor: kPrimaryColor,
+        ),
+        body: ListView(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Stack(
+                children: [
+                  Container(
+                      height: MediaQuery.of(context).size.height * 0.3 - 50,
+                      decoration: const BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20)),
+                      ),
+                      padding: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 20 + 50),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Travel Hola",
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
-                          )),
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 20,
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 20),
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromARGB(255, 255, 255, 255),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Color.fromARGB(41, 0, 0, 0),
-                                  offset: Offset(0, 10),
-                                  blurRadius: 20),
-                            ],
-                          ),
-                          height: 50,
-                          child: Material(
-                            elevation: 10.0,
-                            shadowColor: const Color.fromARGB(84, 44, 41, 41),
-                            child: TextField(
-                              controller: mycontroller,
-                              textAlign: TextAlign.start,
-                              textAlignVertical: TextAlignVertical.center,
-                              decoration: const InputDecoration(
-                                hintText: "Search for Hotel, Flight...",
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Color.fromARGB(137, 121, 67, 67),
-                                ),
-                                border: InputBorder.none,
-                              ),
+                            const Spacer(),
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 20,
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color.fromARGB(41, 0, 0, 0),
+                              offset: Offset(0, 10),
+                              blurRadius: 20),
+                        ],
+                      ),
+                      height: 50,
+                      child: Material(
+                        elevation: 10.0,
+                        shadowColor: const Color.fromARGB(84, 44, 41, 41),
+                        child: TextField(
+                          controller: mycontroller,
+                          textAlign: TextAlign.start,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: const InputDecoration(
+                            hintText: "Search for Hotel, Flight...",
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Color.fromARGB(137, 121, 67, 67),
                             ),
+                            border: InputBorder.none,
                           ),
                         ),
                       ),
-                      Positioned(
-                        right: 8,
-                        bottom: 15,
-                        child: FloatingActionButton(
-                            backgroundColor: kPrimaryColor,
-                            onPressed: () => {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          content: Text(mycontroller.text),
-                                          contentPadding: const EdgeInsets.only(
-                                              left: 5,
-                                              right: 5,
-                                              top: 10,
-                                              bottom: 10),
-                                        );
-                                      }),
-                                },
-                            child: const Icon(Icons.search)),
-                      ),
-                    ],
-                  ),
-                ),
-                const image_1(), //Search
-              ],
-            ),
-          ),
-          endDrawer: Drawer(
-            backgroundColor: const Color.fromARGB(255, 59, 160, 175),
-            child: ListView(
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              children: [
-                Info(),
-                Container(
-                  height: 60,
-                  child: DrawerHeader(
-                    child: Text(
-                      "Custom Settings",
-                      style: TextStyle(fontSize: 16),
                     ),
-                    margin: const EdgeInsets.only(top: 10),
                   ),
-                ),
-                ListTile(
-                  title: Text("Font 1"),
-                  onTap: () => context.read<FontProvider>().changeFont("Hehe"),
-                ),
-                ListTile(
-                  title: Text("Font 2"),
-                  onTap: () =>
-                      context.read<FontProvider>().changeFont("DancingScript"),
-                ),
-                ListTile(
-                  title: Text("Font 3"),
-                  onTap: () =>
-                      context.read<FontProvider>().changeFont("Roboto1"),
-                ),
-              ],
+                  Positioned(
+                    right: 8,
+                    bottom: 15,
+                    child: FloatingActionButton(
+                        backgroundColor: kPrimaryColor,
+                        onPressed: () => {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      content: Text(mycontroller.text),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 5,
+                                          right: 5,
+                                          top: 10,
+                                          bottom: 10),
+                                    );
+                                  }),
+                            },
+                        child: const Icon(Icons.search)),
+                  ),
+                ],
+              ),
             ),
-          )),
-    );
+            const image_1(), //Search
+          ],
+        ),
+        endDrawer: Drawer(
+          backgroundColor: const Color.fromARGB(255, 59, 160, 175),
+          child: ListView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              Info(),
+              const SizedBox(
+                height: 60,
+                child: DrawerHeader(
+                  child: Text(
+                    "Custom Settings",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  margin: EdgeInsets.only(top: 10),
+                ),
+              ),
+              ListTile(
+                title: Text("Font 1"),
+                onTap: () => context.read<FontProvider>().changeFont("Hehe"),
+              ),
+              ListTile(
+                title: Text("Font 2"),
+                onTap: () =>
+                    context.read<FontProvider>().changeFont("DancingScript"),
+              ),
+              ListTile(
+                title: Text("Font 3"),
+                onTap: () => context.read<FontProvider>().changeFont("Roboto1"),
+              ),
+            ],
+          ),
+        ));
   }
 }
 
+// ignore: camel_case_types
 class image_1 extends StatefulWidget {
   const image_1({Key? key}) : super(key: key);
 
@@ -198,6 +190,7 @@ class image_1 extends StatefulWidget {
   State<image_1> createState() => _image_1State();
 }
 
+// ignore: camel_case_types
 class _image_1State extends State<image_1> {
   late List<Widget> imageroll = [
     travelCard(
@@ -356,9 +349,11 @@ class _image_1State extends State<image_1> {
 //Button
 Widget buildButton(
   String imgurl,
+  // ignore: non_constant_identifier_names
   String Hotelname,
   String location,
   BuildContext context,
+  // ignore: non_constant_identifier_names
   String Date1,
   String date2,
 ) {
@@ -366,6 +361,7 @@ Widget buildButton(
     //Button
     children: <Widget>[
       Expanded(
+        // ignore: duplicate_ignore
         child: OutlinedButton(
           onPressed: () => {
             Navigator.push(
@@ -379,12 +375,11 @@ Widget buildButton(
               borderRadius: BorderRadius.circular(30),
             ),
             primary: Colors.blueAccent,
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.blueAccent,
               width: 1,
             ),
           ),
-          // ignore: prefer_const_constructors
           child: Text(
             ("Xem Chi Tiết"),
             style: TextStyle(
@@ -408,8 +403,6 @@ Widget buildButton(
               width: 1,
             ),
           ),
-
-          // ignore: prefer_const_constructors
           child: Text(
             "Thông Tin Hoàn Tiền",
             style: TextStyle(

@@ -1,7 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import '/HotelPage/Details/HotelCartExtended.dart';
-import 'package:new_test/main.dart';
-import 'package:new_test/HotelPage/hotelcart.dart';
 
 // ignore: camel_case_types
 Widget chitiet(

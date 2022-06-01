@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors, duplicate_ignore, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
+// ignore: non_constant_identifier_names
 var color_text1 = Color.fromARGB(255, 92, 90, 90); // Text Color Trái
 var color_bookingroom =
     Color.fromARGB(255, 135, 41, 41); // Color Thời gian nhận và trả phòng
@@ -21,9 +24,8 @@ Widget a = Padding(
 Widget Payment(String bills, String money, Color left, Color right, Widget a,
     FontWeight fw, BuildContext context) {
   double width1 = MediaQuery.of(context).size.width;
-  double height1 = MediaQuery.of(context).size.height;
-  var borderRadius2 = BorderRadius.circular(10);
   return Row(
+    // ignore: duplicate_ignore, duplicate_ignore
     children: [
       Padding(
         padding: EdgeInsets.only(top: 0, bottom: 10),
