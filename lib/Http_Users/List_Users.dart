@@ -59,7 +59,7 @@ class _PostpageState extends State<Postpage> {
       key: _contenKey,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onDoubleTap: () => {
+          onTap: () => {
             Navigator.push(
               context,
               MaterialPageRoute(
