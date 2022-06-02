@@ -1,10 +1,9 @@
 // ignore: file_names
-// ignore_for_file: import_of_legacy_library_into_null_safe, file_names, prefer_const_constructors, duplicate_ignore
+// ignore_for_file: import_of_legacy_library_into_null_safe, file_names, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names, avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart'
     show CachedNetworkImage;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:new_test/HomePage/homepage.dart';
 import 'Users.dart';
 import 'http_service.dart';
@@ -25,6 +24,7 @@ class _PostpageState extends State<Postpage> {
   List<Person> Posts = [];
   GlobalKey _contenKey = GlobalKey();
   GlobalKey _refreshIndicatorKey = GlobalKey();
+  @override
   void initState() {
     super.initState();
     httpService.getPosts().then((value) => {
