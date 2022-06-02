@@ -58,98 +58,113 @@ class _PostpageState extends State<Postpage> {
     return ListView.separated(
       key: _contenKey,
       itemBuilder: (context, index) {
-        return Container(
-          padding: EdgeInsets.all(10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: CachedNetworkImage(
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(width: 0.0, color: Colors.transparent),
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: imageProvider,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(2, 2),
-                              blurRadius: 3,
-                              color: Colors.black.withOpacity(0.1))
-                        ]),
-                  ),
-                  fit: BoxFit.cover,
-                  imageUrl: Posts[index].avatar,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
-                  errorWidget: (context, url, error) => Icon(
-                    Icons.error,
-                    size: 100,
-                    color: Colors.red,
-                  ),
+        return GestureDetector(
+          onDoubleTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetail(
+                  post: Posts[index],
                 ),
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0, bottom: 0),
-                      child: Text(
-                        Posts[index].firstName + " " + Posts[index].lastName,
-                        style: const TextStyle(
-                            fontFamily: 'Roboto1',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Expanded(
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "Email: ",
-                                style: const TextStyle(
-                                    fontFamily: 'Roboto1',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
-                              TextSpan(
-                                text: Posts[index].email,
-                                style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
+            ),
+          },
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: CachedNetworkImage(
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border:
+                              Border.all(width: 0.0, color: Colors.transparent),
+                          image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: imageProvider,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(2, 2),
+                                blurRadius: 3,
+                                color: Colors.black.withOpacity(0.1))
+                          ]),
+                    ),
+                    fit: BoxFit.cover,
+                    imageUrl: Posts[index].avatar,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.error,
+                      size: 100,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0, bottom: 0),
+                        child: Text(
+                          Posts[index].firstName + " " + Posts[index].lastName,
+                          style: const TextStyle(
+                              fontFamily: 'Roboto1',
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                       ),
-                    ]),
-                    const SizedBox(
-                      height: 10.5,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "Email: ",
+                                      style: const TextStyle(
+                                          fontFamily: 'Roboto1',
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: Posts[index].email,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ]),
+                      const SizedBox(
+                        height: 10.5,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
