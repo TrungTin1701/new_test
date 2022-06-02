@@ -35,6 +35,7 @@ class _PostpageState extends State<Postpage> {
   }
 
   void _onFresh() async {
+    print("On Fresh");
     await Future.delayed(Duration(seconds: 2));
     var list = await httpService.getPosts(page: 1);
     Posts.clear();
@@ -45,12 +46,13 @@ class _PostpageState extends State<Postpage> {
   }
 
   void _onLoading() async {
+    print("On Loading");
     page++;
     var list = await httpService.getPosts(page: page);
     Posts.addAll(list);
     await Future.delayed(Duration(seconds: 2));
     setState(() {
-      _refreshController.loadComplete();
+      _refreshController.refreshCompleted();
     });
   }
 
@@ -200,6 +202,14 @@ class _PostpageState extends State<Postpage> {
         onLoading: _onFresh,
         onRefresh: _onLoading,
         header: WaterDropMaterialHeader(),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Show refresh indicator programmatically on button tap.
+          _refreshController.requestRefresh();
+        },
+        icon: const Icon(Icons.refresh),
+        label: const Text('Show Indicator'),
       ),
     );
   }
