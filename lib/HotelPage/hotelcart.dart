@@ -1,30 +1,33 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore: import_of_legacy_library_into_null_safe
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
+
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:cached_network_image/cached_network_image.dart'
+    show CachedNetworkImage;
 import 'package:flutter/material.dart';
 import 'package:new_test/HomePage/homepage.dart';
 import '/Profile/profile.dart';
-import 'Details/Details.dart';
-import 'Details/HotelCartExtended.dart';
 import 'Component/component.dart';
 
 // ignore: non_constant_identifier_names
 void runapp() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: ProfileApp(),
   ));
 }
 
+// ignore: non_constant_identifier_names
 Widget HotelCard(
   String imgurl,
+  // ignore: non_constant_identifier_names
   String Hotelname,
   String location,
   BuildContext context,
+  // ignore: non_constant_identifier_names
   String Date1,
   String date2,
 ) {
-  double width1 = MediaQuery.of(context).size.width;
-  double height1 = MediaQuery.of(context).size.height;
-  var borderRadius2 = BorderRadius.circular(10);
   return Container(
     color: Color.fromARGB(255, 255, 255, 255),
     width: MediaQuery.of(context).size.width,
@@ -118,7 +121,7 @@ Widget HotelCard(
                   const SizedBox(
                     height: 10.5,
                   ),
-                  Text.rich(TextSpan(children: [
+                  Text.rich(TextSpan(children: const [
                     TextSpan(
                       text: 'Mã đặt phòng',
                       style: TextStyle(

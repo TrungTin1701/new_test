@@ -1,90 +1,15 @@
-// import 'dart:async';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
-// import 'package:flutter/src/foundation/key.dart';
-// import 'package:flutter/src/widgets/framework.dart';
+// ignore_for_file: deprecated_member_use, prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables
 
-// class MainProfile extends StatefulWidget {
-//   const MainProfile({Key? key}) : super(key: key);
-
-//   @override
-//   State<MainProfile> createState() => MainProfileState();
-// }
-
-// class MainProfileState extends State<MainProfile> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         leading: const Icon(Icons.arrow_back),
-//         title: const Text("PROFILE"),
-//         centerTitle: true,
-//         actions: const [Icon(Icons.more_vert)],
-//         backgroundColor: Color.fromARGB(255, 59, 160, 175),
-//       ),
-//       body: SafeArea(
-//           child: Column(
-//         children: [
-//           Profilehead(),
-//           Container(
-//             height: 200,
-//             color: Colors.red,
-//           ),
-//           Expanded(
-//             child: Container(
-//               height: 200,
-//             ),
-//           ),
-//         ],
-//       )),
-//     );
-//   }
-// }
-
-// class Profilehead extends StatefulWidget {
-//   const Profilehead({Key? key}) : super(key: key);
-
-//   @override
-//   State<Profilehead> createState() => _ProfileheadState();
-// }
-
-// ignore_for_file: deprecated_member_use, prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-// class _ProfileheadState extends State<Profilehead> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       children: [
-//         Column(
-//           children: [
-//             Container(
-//               padding: const EdgeInsets.all(10),
-//               child: CircleAvatar(
-//                 radius: 40,
-//                 backgroundImage: NetworkImage('/image/hotel1.jpg'),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-//               child: Text(
-//                 "Nguyen Trung Tin",
-//                 style: TextStyle(
-//                     fontSize: 20,
-//                     fontWeight: FontWeight.bold,
-//                     color: Color.fromARGB(255, 47, 108, 119)),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:new_test/Http_Users/Users.dart';
+// ignore: import_of_legacy_library_into_null_safe
 
-class ProfileApp extends StatelessWidget {
-  const ProfileApp({Key? key}) : super(key: key);
+class PostDetail extends StatelessWidget {
+  final Person post;
+
+  // ignore: use_key_in_widget_constructors
+  const PostDetail({required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +30,9 @@ class ProfileApp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Info(),
+                      Info(
+                        post: post,
+                      ),
                       CartBio(),
                     ],
                   ),
@@ -114,7 +41,88 @@ class ProfileApp extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          UI(),
+          Intro(
+            post: post,
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          // Container(
+          //   constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+          //   alignment: Alignment.center,
+          //   child: RaisedButton(
+          //       onPressed: () {
+          //         Navigator.pushNamed(context, "/Users");
+          //       },
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(80.0)),
+          //       elevation: 0.0,
+          //       padding: EdgeInsets.all(0.0),
+          //       child: Ink(
+          //         decoration: BoxDecoration(
+          //           gradient: LinearGradient(
+          //               begin: Alignment.centerRight,
+          //               end: Alignment.centerLeft,
+          //               colors: [Colors.orangeAccent, Colors.pinkAccent]),
+          //           borderRadius: BorderRadius.circular(30.0),
+          //         ),
+          //         child: Container(
+          //           constraints:
+          //               BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
+          //           alignment: Alignment.center,
+          //           child: Text(
+          //             "List Friends",
+          //             style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 26.0,
+          //                 fontWeight: FontWeight.w300),
+          //           ),
+          //         ),
+          //       )),
+          // ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileApp extends StatelessWidget {
+  final Person post;
+  ProfileApp({Key? key, required this.post}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.redAccent, Colors.pinkAccent])),
+              child: SizedBox(
+                width: double.infinity,
+                height: 350.0,
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Info(
+                        post: post,
+                      ),
+                      CartBio(),
+                    ],
+                  ),
+                ),
+              )),
+          SizedBox(
+            height: 10.0,
+          ),
+          Intro(
+            post: post,
+          ),
           SizedBox(
             height: 10.0,
           ),
@@ -158,28 +166,24 @@ class ProfileApp extends StatelessWidget {
 }
 
 //Avar Cart
-class Info extends StatefulWidget {
-  const Info({Key? key}) : super(key: key);
+class Info extends StatelessWidget {
+  final Person post;
+  Info({Key? key, required this.post}) : super(key: key);
 
-  @override
-  State<Info> createState() => _InfoState();
-}
-
-class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CircleAvatar(
           backgroundImage: NetworkImage(
-            "/image/Avar/marc.jpg",
+            post.avatar,
           ),
           radius: 50.0,
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            "Marc Spector",
+            post.firstName,
             style: TextStyle(
               fontSize: 22.0,
               color: Colors.white,
@@ -240,7 +244,7 @@ class _CartBioState extends State<CartBio> {
                 children: <Widget>[
                   Text(
                     "Followers",
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.redAccent,
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
@@ -262,15 +266,15 @@ class _CartBioState extends State<CartBio> {
             Expanded(
               child: Column(
                 children: <Widget>[
-                  const Text(
+                  Text(
                     "Follow",
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.redAccent,
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 5.0,
                   ),
                   const Text(
@@ -291,14 +295,10 @@ class _CartBioState extends State<CartBio> {
 }
 
 //Introduction
-class UI extends StatefulWidget {
-  const UI({Key? key}) : super(key: key);
+class Intro extends StatelessWidget {
+  final Person post;
+  Intro({Key? key, required this.post}) : super(key: key);
 
-  @override
-  State<UI> createState() => _UIState();
-}
-
-class _UIState extends State<UI> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -307,7 +307,7 @@ class _UIState extends State<UI> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Center(
+          Center(
             child: Text(
               "Introduce Myself",
               style: TextStyle(
@@ -317,10 +317,15 @@ class _UIState extends State<UI> {
             ),
           ),
           Container(
-            constraints: const BoxConstraints(maxHeight: 100),
-            child: const Text(
-              'My name is Macr Spector and I am  a freelance mobile app developper.\n'
-              'if you need any mobile app for your company then contact me for more informations',
+            constraints: BoxConstraints(maxHeight: 100),
+            child: Text(
+              'My name is ' +
+                  post.firstName +
+                  " " +
+                  post.lastName +
+                  "  " +
+                  ' and I am  a freelance mobile app developper.\n'
+                      'if you need any mobile app for your company then contact me for more informations',
               style: TextStyle(
                 fontSize: 17.0,
                 fontStyle: FontStyle.italic,
