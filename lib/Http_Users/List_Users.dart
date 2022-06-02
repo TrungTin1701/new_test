@@ -39,6 +39,7 @@ class _PostpageState extends State<Postpage> {
     await Future.delayed(Duration(seconds: 2));
     var list = await httpService.getPosts(page: 1);
     Posts.clear();
+    page = 1;
     Posts.addAll(list);
     setState(() {
       _refreshController.refreshCompleted();
@@ -49,10 +50,12 @@ class _PostpageState extends State<Postpage> {
     print("On Loading");
     page++;
     var list = await httpService.getPosts(page: page);
+    //page++;
     Posts.addAll(list);
     await Future.delayed(Duration(seconds: 2));
+
     setState(() {
-      _refreshController.refreshCompleted();
+      _refreshController.loadComplete();
     });
   }
 
@@ -182,35 +185,51 @@ class _PostpageState extends State<Postpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "List Users",
-          style: TextStyle(fontSize: 18),
+        appBar: AppBar(
+          title: Text(
+            "List Users",
+            style: TextStyle(fontSize: 18),
+          ),
+          backgroundColor: kPrimaryColor,
         ),
-        backgroundColor: kPrimaryColor,
-      ),
-      body: SmartRefresher(
-        controller: _refreshController,
-        key: _refreshIndicatorKey,
-        enablePullDown: true,
-        enablePullUp: true,
-        child: buildCTN(),
-        physics: BouncingScrollPhysics(),
-        footer: ClassicFooter(
-          loadStyle: LoadStyle.ShowWhenLoading,
+        body: SmartRefresher(
+          controller: _refreshController,
+          key: _refreshIndicatorKey,
+          enablePullDown: true,
+          enablePullUp: true,
+          child: buildCTN(),
+          physics: BouncingScrollPhysics(),
+          footer: ClassicFooter(
+            loadStyle: LoadStyle.ShowWhenLoading,
+          ),
+          onLoading: _onLoading,
+          onRefresh: _onFresh,
+          header: WaterDropMaterialHeader(
+            color: Colors.white,
+            backgroundColor: kPrimaryColor,
+          ),
         ),
-        onLoading: _onFresh,
-        onRefresh: _onLoading,
-        header: WaterDropMaterialHeader(),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Show refresh indicator programmatically on button tap.
-          _refreshController.requestRefresh();
-        },
-        icon: const Icon(Icons.refresh),
-        label: const Text('Show Indicator'),
-      ),
-    );
+        floatingActionButton:
+            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+          FloatingActionButton(
+            backgroundColor: kPrimaryColor,
+            child: Icon(Icons.add_circle_outline, color: Colors.white),
+            onPressed: () {
+              _refreshController.requestLoading();
+            },
+            heroTag: null,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          FloatingActionButton(
+            backgroundColor: kPrimaryColor,
+            child: Icon(Icons.refresh_outlined),
+            onPressed: () {
+              _refreshController.requestRefresh();
+            },
+            heroTag: null,
+          )
+        ]));
   }
 }
