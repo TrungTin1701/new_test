@@ -51,9 +51,13 @@ class _PostpageState extends State<Postpage> {
     page++;
     var list = await httpService.getPosts(page: page);
     //page++;
-    Posts.addAll(list);
     await Future.delayed(Duration(seconds: 2));
-
+    Posts.addAll(list);
+    // if (Posts['total_pages'] == page.toString()) {
+    //   _refreshController.loadNoData();
+    // } else {
+    //   _refreshController.loadComplete();
+    // }
     setState(() {
       _refreshController.loadComplete();
     });

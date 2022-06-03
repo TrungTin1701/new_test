@@ -17,3 +17,12 @@ class Person {
     );
   }
 }
+
+class Page {
+  int page;
+  int per_page;
+  int total;
+  int total_page;
+  List<Person> data;
+  Page(this.page, this.per_page, this.total, this.total_page, this.data);
+}
