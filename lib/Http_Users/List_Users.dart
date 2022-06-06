@@ -18,6 +18,7 @@ class Postpage extends StatefulWidget {
 }
 
 class _PostpageState extends State<Postpage> {
+  late bool enableLoadingWhenNoData;
   HttpService httpService = HttpService();
   int page = 1;
   RefreshController _refreshController = RefreshController();
@@ -46,21 +47,38 @@ class _PostpageState extends State<Postpage> {
     });
   }
 
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
   void _onLoading() async {
     print("On Loading");
     page++;
     var list = await httpService.getPosts(page: page);
     //page++;
-    await Future.delayed(Duration(seconds: 2));
-    Posts.addAll(list);
+    await Future.delayed(Duration(seconds: 1));
+    //
+    if (list.isEmpty) {
+      print('No more data');
+
+      setState(() {
+        enableLoadingWhenNoData = false;
+        _refreshController.loadNoData();
+      });
+    } else {
+      Posts.addAll(list);
+      //
+      setState(() {
+        _refreshController.loadComplete();
+      });
+    }
     // if (Posts['total_pages'] == page.toString()) {
     //   _refreshController.loadNoData();
     // } else {
     //   _refreshController.loadComplete();
     // }
-    setState(() {
-      _refreshController.loadComplete();
-    });
   }
 
   Widget buildCTN() {
@@ -219,6 +237,7 @@ class _PostpageState extends State<Postpage> {
             backgroundColor: kPrimaryColor,
             child: Icon(Icons.add_circle_outline, color: Colors.white),
             onPressed: () {
+              //_onLoading();
               _refreshController.requestLoading();
             },
             heroTag: null,

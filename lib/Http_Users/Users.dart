@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, non_constant_identifier_names
 
 class Person {
   final int id;
@@ -25,4 +25,15 @@ class Page {
   int total_page;
   List<Person> data;
   Page(this.page, this.per_page, this.total, this.total_page, this.data);
+  factory Page.fromJson(Map<String, dynamic> json) {
+    return Page(
+      json['page'],
+      json['per_page'],
+      json['total'],
+      json['total_page'],
+      json['data']
+          .map<Person>((dynamic item) => Person.fromJson(item))
+          .toList(),
+    );
+  }
 }
