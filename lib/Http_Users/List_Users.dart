@@ -237,8 +237,8 @@ class _PostpageState extends State<Postpage> {
             backgroundColor: kPrimaryColor,
             child: Icon(Icons.add_circle_outline, color: Colors.white),
             onPressed: () {
-              //_onLoading();
-              _refreshController.requestLoading();
+              _onLoading();
+              // _refreshController.requestLoading();
             },
             heroTag: null,
           ),

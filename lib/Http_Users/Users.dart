@@ -31,9 +31,7 @@ class Page {
       json['per_page'],
       json['total'],
       json['total_page'],
-      json['data']
-          .map<Person>((dynamic item) => Person.fromJson(item))
-          .toList(),
+      json['data'].map<Person>((item) => Person.fromJson(item)).toList(),
     );
   }
 }
