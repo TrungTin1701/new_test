@@ -5,12 +5,14 @@ import 'dart:async';
 import 'dart:convert' show jsonDecode;
 
 class HttpService {
-  final String postsURL = "https://reqres.in/api/users?page=2";
-
-  Future<List<Person>> getPosts() async {
+  Future<List<Person>> getPosts({int page = 1}) async {
     // ignore: prefer_const_constructors
-    Response res = await get(postsURL).timeout(Duration(seconds: 10));
+    Response res = await get("https://reqres.in/api/users?page=$page")
+        // ignore: prefer_const_constructors
+        .timeout(Duration(seconds: 10));
     //List<dynamic> posts = a["data"];
+    // ignore: avoid_print
+    print(res.body.runtimeType);
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body)['data'];
 
