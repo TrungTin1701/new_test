@@ -72,14 +72,14 @@ class _StackOverState extends State<StackOver>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final List<String> _tabs = ["Tất cả", "Đang chờ phục vụ", "Đang phục vụ"];
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: _tabs.length, vsync: this);
     super.initState();
   }
 
@@ -161,80 +161,38 @@ class _StackOverState extends State<StackOver>
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        "Tất Cả",
+                  tabs: [
+                    for (var i = 0; i < _tabs.length; i++)
+                      Tab(
+                        child: Text(
+                          _tabs[i],
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Đang chờ phục vụ",
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Đang phục vụ",
-                      ),
-                    ),
                   ],
                 ),
               ),
               // tab bar view here
               Expanded(
                 child: TabBarView(controller: _tabController, children: [
-                  Container(
-                    padding: const EdgeInsets.only(top: 0),
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
+                  for (var i = 0; i < _tabs.length; i++)
+                    Container(
+                      padding: const EdgeInsets.only(top: 0),
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        children: [
+                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
+                              '400 Ung Van khiem', context, _date1, dateSlug2),
+                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
+                              '400 Ung Van khiem', context, _date1, dateSlug2),
+                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                              '400 Ung Van khiem', context, _date1, dateSlug2),
+                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
+                              '400 Ung Van khiem', context, _date1, dateSlug2),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.6,
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    child: ListView(
-                      scrollDirection: Axis.vertical,
-                      children: [
-                        HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                        HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                            '400 Ung Van khiem', context, _date1, dateSlug2),
-                      ],
-                    ),
-                  ),
                 ]),
               ),
             ],
