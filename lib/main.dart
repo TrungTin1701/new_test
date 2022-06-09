@@ -1,6 +1,8 @@
 // ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore
 
 import 'dart:async';
+import 'package:flutter/rendering.dart';
+
 import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -73,6 +75,21 @@ class _StackOverState extends State<StackOver>
   late TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<String> _tabs = ["Tất cả", "Đang chờ phục vụ", "Đang phục vụ"];
+  bool _isVisible = true;
+  bool isScrollingDown = false;
+  ScrollController _scrollController = ScrollController();
+  void Show() {
+    setState(() {
+      _isVisible = true;
+    });
+  }
+
+  void Hide() {
+    setState(() {
+      _isVisible = false;
+    });
+  }
+
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
@@ -80,6 +97,25 @@ class _StackOverState extends State<StackOver>
   @override
   void initState() {
     _tabController = TabController(length: _tabs.length, vsync: this);
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (!isScrollingDown) {
+          isScrollingDown = true;
+          Hide();
+          setState(() {});
+        }
+      }
+
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (isScrollingDown) {
+          isScrollingDown = false;
+          Show();
+          setState(() {});
+        }
+      }
+    });
     super.initState();
   }
 
@@ -99,46 +135,49 @@ class _StackOverState extends State<StackOver>
           key: _scaffoldKey,
           body: Column(
             children: [
-              Container(
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FlatButton(
-                      child: const Icon(
-                        Icons.arrow_back_ios_new,
-                        color: Colors.black,
-                      ),
-                      color: Colors.white,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    Container(
-                      color: Colors.white,
-                      child: const Center(
-                          child: Text(
-                        "Đặt phòng khác sạn",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      )),
-                    ),
-                    FlatButton(
-                      child: const Align(
-                        alignment: Alignment.topLeft,
-                        child: Icon(
-                          Icons.menu,
+              Visibility(
+                visible: _isVisible,
+                child: Container(
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FlatButton(
+                        child: const Icon(
+                          Icons.arrow_back_ios_new,
                           color: Colors.black,
                         ),
+                        color: Colors.white,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
-                      color: Colors.white,
-                      onPressed: () {
-                        _openEndDrawer();
-                      },
-                    ),
-                  ],
+                      Container(
+                        color: Colors.white,
+                        child: const Center(
+                            child: Text(
+                          "Đặt phòng khác sạn",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        )),
+                      ),
+                      FlatButton(
+                        child: const Align(
+                          alignment: Alignment.topLeft,
+                          child: Icon(
+                            Icons.menu,
+                            color: Colors.black,
+                          ),
+                        ),
+                        color: Colors.white,
+                        onPressed: () {
+                          _openEndDrawer();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // give the tab bar a height [can change hheight to preferred height]
@@ -180,6 +219,7 @@ class _StackOverState extends State<StackOver>
                       padding: const EdgeInsets.only(top: 0),
                       color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListView(
+                        controller: _scrollController,
                         scrollDirection: Axis.vertical,
                         children: [
                           HotelCard('/image/hotel2.jpg', 'Tôi và em',
