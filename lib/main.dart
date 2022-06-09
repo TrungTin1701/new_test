@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
@@ -154,14 +154,17 @@ class _StackOverState extends State<StackOver>
                       ),
                       Container(
                         color: Colors.white,
-                        child: const Center(
-                            child: Text(
-                          "Đặt phòng khác sạn",
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        )),
+                        child: Opacity(
+                          opacity: 1,
+                          child: const Center(
+                              child: Text(
+                            "Đặt phòng khác sạn",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          )),
+                        ),
                       ),
                       FlatButton(
                         child: const Align(
