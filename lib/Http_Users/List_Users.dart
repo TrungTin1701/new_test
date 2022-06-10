@@ -50,12 +50,29 @@ class _PostpageState extends State<Postpage> {
 
   @override
   void dispose() {
-    _refreshController.dispose();
     super.dispose();
   }
 
   void Remove(String id) {
     Posts.removeWhere((element) => element.email == id);
+
+    setState(() {
+      Posts;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: kPrimaryColor,
+      content: Text("Removed",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: Color.fromARGB(255, 247, 242, 242))),
+      duration: Duration(seconds: 1),
+    ));
+  }
+
+  void SortListUser() {
+    Posts.sort((a, b) => a.firstName.compareTo(b.firstName));
     setState(() {
       Posts;
     });
@@ -77,7 +94,7 @@ class _PostpageState extends State<Postpage> {
       });
     } else {
       Posts.addAll(list);
-      Remove("emma.wong@reqres.in");
+
       //
       setState(() {
         _refreshController.loadComplete();
@@ -103,7 +120,12 @@ class _PostpageState extends State<Postpage> {
                 label: "Delete",
                 onPressed: (context) {
                   Remove(Posts[index].email);
-                })
+                }),
+            SlidableAction(
+                onPressed: (context) {},
+                icon: Icons.favorite_border_outlined,
+                backgroundColor: Colors.redAccent,
+                label: "Like"),
           ]),
           child: GestureDetector(
             onTap: () => {
@@ -231,12 +253,20 @@ class _PostpageState extends State<Postpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "List Users",
-            style: TextStyle(fontSize: 18),
-          ),
-          backgroundColor: kPrimaryColor,
-        ),
+            title: Text(
+              "List Users",
+              style: TextStyle(fontSize: 18),
+            ),
+            backgroundColor: kPrimaryColor,
+            actions: [
+              IconButton(
+                onPressed: SortListUser,
+                icon: Icon(
+                  Icons.sort,
+                  color: Colors.white,
+                ),
+              )
+            ]),
         body: SmartRefresher(
           controller: _refreshController,
           key: _refreshIndicatorKey,
