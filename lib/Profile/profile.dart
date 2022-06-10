@@ -89,6 +89,11 @@ class ProfileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("PROFILE"),
+        centerTitle: true,
+        backgroundColor: Colors.redAccent,
+      ),
       body: ListView(
         children: <Widget>[
           Container(

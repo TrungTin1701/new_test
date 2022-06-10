@@ -3,9 +3,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
-import 'package:new_test/provider/font_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:new_test/Profile/profile.dart';
 
 // ignore: implementation_imports
 const kPrimaryColor = Color(0xFF0C9869);
@@ -29,156 +26,109 @@ class _Home1State extends State<Home1> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _openEndDrawer() {
-    _scaffoldKey.currentState!.openEndDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: const Text("HOME PAGE"),
-          centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {
-                _openEndDrawer();
-              },
-            ),
-          ],
-          backgroundColor: kPrimaryColor,
-        ),
-        body: ListView(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Stack(
-                children: [
-                  Container(
-                      height: MediaQuery.of(context).size.height * 0.3 - 50,
-                      decoration: const BoxDecoration(
-                        color: kPrimaryColor,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20)),
-                      ),
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 20 + 50),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Travel Hola",
-                              style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            const Spacer(),
-                          ],
-                        ),
-                      )),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: 20,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Color.fromARGB(41, 0, 0, 0),
-                              offset: Offset(0, 10),
-                              blurRadius: 20),
+      key: _scaffoldKey,
+      body: ListView(
+        //crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Stack(
+              children: [
+                Container(
+                    height: MediaQuery.of(context).size.height * 0.3 - 50,
+                    decoration: const BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                    ),
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, bottom: 20 + 50),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 50.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Travel Hola",
+                            style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          const Spacer(),
                         ],
                       ),
-                      height: 50,
-                      child: Material(
-                        elevation: 10.0,
-                        shadowColor: const Color.fromARGB(84, 44, 41, 41),
-                        child: TextField(
-                          controller: mycontroller,
-                          textAlign: TextAlign.start,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                            hintText: "Search for Hotel, Flight...",
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Color.fromARGB(137, 121, 67, 67),
+                    )),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 20,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color.fromARGB(41, 0, 0, 0),
+                            offset: Offset(0, 10),
+                            blurRadius: 20),
+                      ],
+                    ),
+                    height: 50,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: mycontroller,
+                            onChanged: (value) {},
+                            decoration: InputDecoration(
+                              hintText: "Search for Hotel, City, Area",
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                              ),
+                              hintStyle: TextStyle(
+                                color: kPrimaryColor.withOpacity(0.5),
+                              ),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
                             ),
-                            border: InputBorder.none,
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    right: 8,
-                    bottom: 15,
-                    child: FloatingActionButton(
-                        backgroundColor: kPrimaryColor,
-                        onPressed: () => {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      content: Text(mycontroller.text),
-                                      contentPadding: const EdgeInsets.only(
-                                          left: 5,
-                                          right: 5,
-                                          top: 10,
-                                          bottom: 10),
-                                    );
-                                  }),
-                            },
-                        child: const Icon(Icons.search)),
-                  ),
-                ],
-              ),
-            ),
-            const image_1(), //Search
-          ],
-        ),
-        endDrawer: Drawer(
-          backgroundColor: const Color.fromARGB(255, 59, 160, 175),
-          child: ListView(
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Info(),
-              const SizedBox(
-                height: 60,
-                child: DrawerHeader(
-                  child: Text(
-                    "Custom Settings",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  margin: EdgeInsets.only(top: 10),
                 ),
-              ),
-              ListTile(
-                title: Text("Font 1"),
-                onTap: () => context.read<FontProvider>().changeFont("Hehe"),
-              ),
-              ListTile(
-                title: Text("Font 2"),
-                onTap: () =>
-                    context.read<FontProvider>().changeFont("DancingScript"),
-              ),
-              ListTile(
-                title: Text("Font 3"),
-                onTap: () => context.read<FontProvider>().changeFont("Roboto1"),
-              ),
-            ],
+                Positioned(
+                  right: 8,
+                  bottom: 15,
+                  child: FloatingActionButton(
+                      backgroundColor: kPrimaryColor,
+                      onPressed: () => {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    content: Text(mycontroller.text),
+                                    contentPadding: const EdgeInsets.only(
+                                        left: 5, right: 5, top: 10, bottom: 10),
+                                  );
+                                }),
+                          },
+                      child: const Icon(Icons.search)),
+                ),
+              ],
+            ),
           ),
-        ));
+          const image_1(), //Search
+        ],
+      ),
+    );
   }
 }
 
@@ -218,7 +168,7 @@ class _image_1State extends State<image_1> {
       4,
     ),
     travelCard(
-      '/image/hotel1.jpg',
+      '/image/hotel2.jpg',
       'Park Hyatt',
       'Le Thanh Ton , District 1 , HCM',
       4,
