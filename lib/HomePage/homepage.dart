@@ -105,8 +105,8 @@ class _Home1State extends State<Home1> {
                   ),
                 ),
                 Positioned(
-                  right: 8,
-                  bottom: 15,
+                  right: 18,
+                  bottom: 17,
                   child: FloatingActionButton(
                       backgroundColor: kPrimaryColor,
                       onPressed: () => {
