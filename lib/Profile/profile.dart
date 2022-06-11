@@ -93,6 +93,12 @@ class ProfileApp extends StatelessWidget {
         elevation: 0.0,
         title: const Text("PROFILE"),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {},
+          ),
+        ],
         backgroundColor: Colors.redAccent,
       ),
       body: ListView(

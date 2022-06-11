@@ -77,9 +77,6 @@ class _StackOverState extends State<StackOver>
   final List<String> _tabs = ["Tất cả", "Đang chờ phục vụ", "Đang phục vụ"];
   bool _isVisible = true;
   bool isScrollingDown = false;
-  bool _pinned = false;
-  bool _snap = false;
-  bool _floating = true;
   ScrollController _scrollController = ScrollController();
   void Show() {
     setState(() {
