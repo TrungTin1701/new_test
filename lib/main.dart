@@ -77,6 +77,9 @@ class _StackOverState extends State<StackOver>
   final List<String> _tabs = ["Tất cả", "Đang chờ phục vụ", "Đang phục vụ"];
   bool _isVisible = true;
   bool isScrollingDown = false;
+  bool _pinned = false;
+  bool _snap = false;
+  bool _floating = true;
   ScrollController _scrollController = ScrollController();
   void Show() {
     setState(() {
@@ -424,7 +427,7 @@ class _MyHomePageState extends State<MyHomePage>
 
   static const List<Widget> _widgetOptions = <Widget>[
     Home1(),
-    Home(),
+    StackOver(),
     ProfileApp(),
   ];
   @override
@@ -461,6 +464,7 @@ class _MyHomePageState extends State<MyHomePage>
     var scaffold = Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          elevation: 0,
           title: const Text("HOME PAGE"),
           centerTitle: true,
           actions: <Widget>[
@@ -475,6 +479,7 @@ class _MyHomePageState extends State<MyHomePage>
         ),
         body: Center(child: _widgetOptions.elementAt(select)),
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 0.0,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

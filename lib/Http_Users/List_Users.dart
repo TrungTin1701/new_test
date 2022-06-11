@@ -24,6 +24,7 @@ class _PostpageState extends State<Postpage> {
   int page = 1;
   RefreshController _refreshController = RefreshController();
   List<Person> Posts = [];
+
   GlobalKey _contenKey = GlobalKey();
   GlobalKey _refreshIndicatorKey = GlobalKey();
   @override
