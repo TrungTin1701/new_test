@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
+import 'package:new_test/Search_Categories/Search_Screen.dart';
 
 // ignore: implementation_imports
 const kPrimaryColor = Color(0xFF0C9869);
@@ -66,42 +67,46 @@ class _Home1State extends State<Home1> {
                   left: 0,
                   right: 0,
                   bottom: 20,
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Color.fromARGB(41, 0, 0, 0),
-                            offset: Offset(0, 10),
-                            blurRadius: 20),
-                      ],
-                    ),
-                    height: 49,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: TextField(
-                            controller: mycontroller,
-                            onChanged: (value) {},
-                            decoration: InputDecoration(
-                              hintText: "Search for Hotel, City, Area",
-                              contentPadding: EdgeInsets.only(top: 14),
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color: Colors.grey,
+                  child: GestureDetector(
+                    onTap: () => showBottomSheet(
+                        context: context, builder: (context) => SearchScreen()),
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Color.fromARGB(41, 0, 0, 0),
+                              offset: Offset(0, 10),
+                              blurRadius: 20),
+                        ],
+                      ),
+                      height: 49,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+                              controller: mycontroller,
+                              onChanged: (value) {},
+                              decoration: InputDecoration(
+                                hintText: "Search for Hotel, City, Area",
+                                contentPadding: EdgeInsets.only(top: 14),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
+                                ),
+                                hintStyle: TextStyle(
+                                  color: kPrimaryColor.withOpacity(0.5),
+                                ),
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                               ),
-                              hintStyle: TextStyle(
-                                color: kPrimaryColor.withOpacity(0.5),
-                              ),
-                              enabledBorder: InputBorder.none,
-                              focusedBorder: InputBorder.none,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

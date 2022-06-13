@@ -14,6 +14,7 @@ import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
+import 'Search_Categories/Search_Screen.dart';
 
 DateTime today = DateTime.now();
 String weekday =
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             '/Home': (context) => const StackOver(),
             '/Home1': (context) => const Home1(),
             '/Users': (context) => const Postpage(),
+            '/Search': (context) => const SearchScreen(),
           },
         ),
       ),
