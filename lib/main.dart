@@ -182,7 +182,7 @@ class _StackOverState extends State<StackOver>
               ),
               // give the tab bar a height [can change hheight to preferred height]
               Container(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 0),
                 height: 40,
                 color: Colors.white,
                 child: TabBar(
@@ -216,7 +216,7 @@ class _StackOverState extends State<StackOver>
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
                     Container(
-                      padding: const EdgeInsets.only(top: 0),
+                      padding: const EdgeInsets.only(top: 10),
                       color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListView(
                         controller: _scrollController,

@@ -79,7 +79,7 @@ class _Home1State extends State<Home1> {
                             blurRadius: 20),
                       ],
                     ),
-                    height: 50,
+                    height: 49,
                     child: Row(
                       children: <Widget>[
                         Expanded(
@@ -88,6 +88,7 @@ class _Home1State extends State<Home1> {
                             onChanged: (value) {},
                             decoration: InputDecoration(
                               hintText: "Search for Hotel, City, Area",
+                              contentPadding: EdgeInsets.only(top: 14),
                               prefixIcon: Icon(
                                 Icons.search,
                                 color: Colors.grey,
@@ -105,8 +106,10 @@ class _Home1State extends State<Home1> {
                   ),
                 ),
                 Positioned(
+                  width: 49.8,
+                  height: 49.8,
                   right: 18,
-                  bottom: 17,
+                  bottom: 20.5,
                   child: FloatingActionButton(
                       backgroundColor: kPrimaryColor,
                       onPressed: () => {
@@ -120,7 +123,9 @@ class _Home1State extends State<Home1> {
                                   );
                                 }),
                           },
-                      child: const Icon(Icons.search)),
+                      child: const Icon(
+                        Icons.search,
+                      )),
                 ),
               ],
             ),
