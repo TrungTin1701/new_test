@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
+import 'package:new_test/Profile/Components/Info.dart';
 
 import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
@@ -142,12 +143,11 @@ class _StackOverState extends State<StackOver>
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      FlatButton(
-                        child: const Icon(
+                      IconButton(
+                        icon: const Icon(
                           Icons.arrow_back_ios_new,
                           color: Colors.black,
                         ),
-                        color: Colors.white,
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -166,13 +166,10 @@ class _StackOverState extends State<StackOver>
                           )),
                         ),
                       ),
-                      FlatButton(
-                        child: const Align(
-                          alignment: Alignment.topLeft,
-                          child: Icon(
-                            Icons.menu,
-                            color: Colors.black,
-                          ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.black,
                         ),
                         color: Colors.white,
                         onPressed: () {
@@ -185,7 +182,7 @@ class _StackOverState extends State<StackOver>
               ),
               // give the tab bar a height [can change hheight to preferred height]
               Container(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 0),
                 height: 40,
                 color: Colors.white,
                 child: TabBar(
@@ -219,7 +216,7 @@ class _StackOverState extends State<StackOver>
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
                     Container(
-                      padding: const EdgeInsets.only(top: 0),
+                      padding: const EdgeInsets.only(top: 10),
                       color: const Color.fromARGB(255, 255, 255, 255),
                       child: ListView(
                         controller: _scrollController,
@@ -420,10 +417,15 @@ class _MyHomePageState extends State<MyHomePage>
   //   _tabController = TabController(length: _widgetOptions.length, vsync: this);
   //   super.initState();
   // }
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openEndDrawer() {
+    _scaffoldKey.currentState!.openEndDrawer();
+  }
 
   static const List<Widget> _widgetOptions = <Widget>[
     Home1(),
-    Home(),
+    StackOver(),
     ProfileApp(),
   ];
   @override
@@ -458,45 +460,93 @@ class _MyHomePageState extends State<MyHomePage>
     //   ),
     // ));
     var scaffold = Scaffold(
-      body: Center(child: _widgetOptions.elementAt(select)),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.hotel),
-            label: 'Hotel',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
+        key: _scaffoldKey,
+        appBar: AppBar(
+          elevation: 0,
+          title: const Text("HOME PAGE"),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.more_vert),
+              onPressed: () {
+                _openEndDrawer();
+              },
             ),
-            label: 'Profile',
+          ],
+          backgroundColor: kPrimaryColor,
+        ),
+        body: Center(child: _widgetOptions.elementAt(select)),
+        bottomNavigationBar: BottomNavigationBar(
+          elevation: 0.0,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.hotel),
+              label: 'Hotel',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+              ),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: select,
+          selectedItemColor: Colors.amber[800],
+          onTap: (index) {
+            switch (index) {
+              case 0:
+                setState(() {
+                  select = index;
+                });
+                break;
+              case 1:
+                Navigator.pushNamed(context, '/Home');
+                break;
+              case 2:
+                // setState(() {
+                //   select = index;
+                // });
+                Navigator.pushNamed(context, '/profile');
+            }
+          },
+        ),
+        endDrawer: Drawer(
+          backgroundColor: const Color.fromARGB(255, 59, 160, 175),
+          child: ListView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              Info(),
+              const SizedBox(
+                height: 60,
+                child: DrawerHeader(
+                  child: Text(
+                    "Custom Settings",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  margin: EdgeInsets.only(top: 10),
+                ),
+              ),
+              ListTile(
+                title: Text("Font 1"),
+                onTap: () => context.read<FontProvider>().changeFont("Hehe"),
+              ),
+              ListTile(
+                title: Text("Font 2"),
+                onTap: () =>
+                    context.read<FontProvider>().changeFont("DancingScript"),
+              ),
+              ListTile(
+                title: Text("Font 3"),
+                onTap: () => context.read<FontProvider>().changeFont("Roboto1"),
+              ),
+            ],
           ),
-        ],
-        currentIndex: select,
-        selectedItemColor: Colors.amber[800],
-        onTap: (index) {
-          switch (index) {
-            case 0:
-              setState(() {
-                select = index;
-              });
-              break;
-            case 1:
-              Navigator.pushNamed(context, '/Home');
-              break;
-            case 2:
-              setState(() {
-                select = index;
-              });
-            // Navigator.pushNamed(context, '/Home');
-          }
-        },
-      ),
-    );
+        ));
     return scaffold;
   }
 }
