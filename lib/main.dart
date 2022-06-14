@@ -87,6 +87,10 @@ class _StackOverState extends State<StackOver>
     });
   }
 
+  void show_sheet() {
+    _scaffoldKey.currentState?.showBottomSheet((context) => SearchScreen());
+  }
+
   void Hide() {
     setState(() {
       _isVisible = false;
@@ -217,22 +221,44 @@ class _StackOverState extends State<StackOver>
               Expanded(
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
-                    Container(
-                      padding: const EdgeInsets.only(top: 10),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      child: ListView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                        ],
+                    GestureDetector(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        child: ListView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            HotelCard(
+                                '/image/hotel2.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel3.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel4.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel4.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                          ],
+                        ),
                       ),
                     ),
                 ]),
@@ -252,12 +278,10 @@ class _StackOverState extends State<StackOver>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text('Profile', style: TextStyle(color: Colors.blue)),
-                  onTap: () {
-                    Navigator.pushNamed(context, '');
-                  },
-                ),
+                    leading: const Icon(Icons.person),
+                    title:
+                        Text('Profile', style: TextStyle(color: Colors.blue)),
+                    onTap: () => show_sheet()),
               ],
             )),
           ),

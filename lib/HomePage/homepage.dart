@@ -69,7 +69,11 @@ class _Home1State extends State<Home1> {
                   bottom: 20,
                   child: GestureDetector(
                     onTap: () => showBottomSheet(
-                        context: context, builder: (context) => SearchScreen()),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(30))),
+                        context: context,
+                        builder: (context) => SearchScreen()),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -352,7 +356,12 @@ Widget buildButton(
       SizedBox(width: 10),
       Expanded(
         child: OutlinedButton(
-          onPressed: () => {},
+          onPressed: () => showBottomSheet(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(30))),
+              context: context,
+              builder: (context) => SearchScreen()),
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),

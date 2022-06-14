@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, must_be_immutable, non_constant_identifier_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, must_be_immutable, non_constant_identifier_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -12,11 +12,19 @@ class CircleOptions extends StatefulWidget {
 class _CircleOptionsState extends State<CircleOptions> {
   // Declare this variable
   late int selectedRadio;
+  bool state = true;
+  void checkstate() {
+    if (state = false) {
+      setState(() {
+        selectedRadio = 7;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    selectedRadio = 1;
+    selectedRadio = 7;
   }
 
 // Changes the selected value on 'onChanged' click on each radio button
@@ -26,39 +34,38 @@ class _CircleOptionsState extends State<CircleOptions> {
     });
   }
 
-  int _value = 1;
+  Widget buildRadio(int val, String name) {
+    return Expanded(
+        child: Row(
+      children: [
+        Radio(
+          value: val,
+          groupValue: selectedRadio,
+          onChanged: (val) {
+            setSelectedRadio(val);
+          },
+        ),
+        Text(name,
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.black)),
+      ],
+    ));
+  }
+
+  Widget buildRadio1(int val1, int val2, String name, String name2) {
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [buildRadio(val1, name), buildRadio(val2, name2)]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        for (int i = 1; i <= 5; i++)
-          ListTile(
-            leading: Radio<int>(
-              value: i,
-              groupValue: selectedRadio,
-              activeColor: Color.fromARGB(255, 62, 150, 222),
-              onChanged: (int? val) {
-                setSelectedRadio(val);
-              },
-            ),
-            title: Text(
-              ' $i sao',
-            ),
-          ),
-        ListTile(
-          leading: Radio<int>(
-            value: 6,
-            groupValue: selectedRadio,
-            activeColor: Color.fromARGB(255, 62, 150, 222),
-            onChanged: (int? val) {
-              setSelectedRadio(val);
-            },
-          ),
-          title: Text(
-            'Không đánh giá',
-          ),
-        ),
-      ],
-    );
+    return Column(children: [
+      buildRadio1(1, 4, '1 Sao', '4 sao'),
+      buildRadio1(2, 5, '2 Sao', '5 sao'),
+      buildRadio1(3, 6, '3 Sao', 'Không đánh giá ')
+    ]);
   }
 }

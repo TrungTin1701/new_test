@@ -21,7 +21,7 @@ Widget Convinients(String name) {
         ],
       ),
       Padding(
-        padding: EdgeInsets.only(top: 10, bottom: 10),
+        padding: EdgeInsets.only(bottom: 10),
         child: Divider(
           color: Color.fromARGB(255, 121, 115, 115),
           thickness: 1,
