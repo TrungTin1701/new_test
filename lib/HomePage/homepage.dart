@@ -19,6 +19,12 @@ class Home1 extends StatefulWidget {
 
 class _Home1State extends State<Home1> {
   final mycontroller = TextEditingController();
+
+  @override
+  RangeValues? prices;
+  int? star;
+  List<int> convenients = [];
+
   @override
   void dispose() {
     mycontroller.dispose();
@@ -68,12 +74,15 @@ class _Home1State extends State<Home1> {
                   right: 0,
                   bottom: 20,
                   child: GestureDetector(
-                    onTap: () => showBottomSheet(
+                    onTap: () => showModalBottomSheet(
+                        isScrollControlled: true,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(30))),
                         context: context,
-                        builder: (context) => SearchScreen()),
+                        builder: (context) => SearchScreen(
+                              star: star,
+                            )).then((value) => star = value),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -88,29 +97,28 @@ class _Home1State extends State<Home1> {
                         ],
                       ),
                       height: 49,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: TextField(
-                              controller: mycontroller,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                hintText: "Search for Hotel, City, Area",
-                                contentPadding: EdgeInsets.only(top: 14),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: Colors.grey,
+                      child: Container(height: 60) ??
+                          Row(
+                            children: <Widget>[
+                              TextField(
+                                controller: mycontroller,
+                                onChanged: (value) {},
+                                decoration: InputDecoration(
+                                  hintText: "Search for Hotel, City, Area",
+                                  contentPadding: EdgeInsets.only(top: 14),
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    color: Colors.grey,
+                                  ),
+                                  hintStyle: TextStyle(
+                                    color: kPrimaryColor.withOpacity(0.5),
+                                  ),
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
                                 ),
-                                hintStyle: TextStyle(
-                                  color: kPrimaryColor.withOpacity(0.5),
-                                ),
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
                     ),
                   ),
                 ),

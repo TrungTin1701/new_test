@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             '/Home': (context) => const StackOver(),
             '/Home1': (context) => const Home1(),
             '/Users': (context) => const Postpage(),
-            '/Search': (context) => const SearchScreen(),
+            '/Search': (context) => SearchScreen(),
           },
         ),
       ),

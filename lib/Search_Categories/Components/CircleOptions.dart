@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 
 class CircleOptions extends StatefulWidget {
-  const CircleOptions({Key? key}) : super(key: key);
+  const CircleOptions({Key? key, this.onSelectedStar, this.selectedStar})
+      : super(key: key);
+  final Function(int)? onSelectedStar;
+  final int? selectedStar;
 
   @override
   State<CircleOptions> createState() => _CircleOptionsState();
@@ -16,7 +19,7 @@ class _CircleOptionsState extends State<CircleOptions> {
   void checkstate() {
     if (state = false) {
       setState(() {
-        selectedRadio = 7;
+        selectedRadio = widget.selectedStar ?? 7;
       });
     }
   }
@@ -24,40 +27,48 @@ class _CircleOptionsState extends State<CircleOptions> {
   @override
   void initState() {
     super.initState();
-    selectedRadio = 7;
+    selectedRadio = widget.selectedStar ?? 7;
   }
 
 // Changes the selected value on 'onChanged' click on each radio button
-  setSelectedRadio(val) {
+  setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
+      widget.onSelectedStar?.call(val);
     });
   }
 
   Widget buildRadio(int val, String name) {
-    return Expanded(
-        child: Row(
-      children: [
-        Radio(
-          value: val,
-          groupValue: selectedRadio,
-          onChanged: (val) {
-            setSelectedRadio(val);
-          },
-        ),
-        Text(name,
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Colors.black)),
-      ],
-    ));
+    return GestureDetector(
+      onTap: () {
+        setSelectedRadio(val);
+      },
+      child: Row(
+        children: [
+          Radio(
+            value: val,
+            groupValue: selectedRadio,
+            onChanged: (value) =>
+                setSelectedRadio(int.tryParse(value.toString()) ?? 0),
+          ),
+          Text(name,
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black)),
+        ],
+      ),
+    );
   }
 
   Widget buildRadio1(int val1, int val2, String name, String name2) {
-    return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [buildRadio(val1, name), buildRadio(val2, name2)]);
+    return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+      buildRadio(val1, name),
+      SizedBox(
+        width: MediaQuery.of(context).size.width / 3,
+      ),
+      buildRadio(val2, name2)
+    ]);
   }
 
   @override

@@ -105,15 +105,10 @@ class ListButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Wrap(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            for (var i = 0; i < button_name.length; i++)
-              Button_Convinients(name_button: button_name[i]),
-          ],
-        ),
+        for (var i = 0; i < button_name.length; i++)
+          Button_Convinients(name_button: button_name[i]),
       ],
     );
   }

@@ -21,7 +21,7 @@ class _PriceSliderState extends State<PriceSlider> {
         Center(
           child: Text(
             '${_currentSliderValue.start.round()}000000 - ${_currentSliderValue.end.round()}000000',
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 16),
           ),
         ),
         RangeSlider(
