@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 
 class ButtonList extends StatefulWidget {
-  const ButtonList({Key? key}) : super(key: key);
+  const ButtonList({Key? key, this.onResetAll, this.onResult})
+      : super(key: key);
+  final VoidCallback? onResetAll;
+  final VoidCallback? onResult;
 
   @override
   State<ButtonList> createState() => _ButtonListState();
@@ -16,9 +19,12 @@ class _ButtonListState extends State<ButtonList> {
       padding: EdgeInsets.only(top: 20),
       child: Row(
         children: [
-          Button(button_name: "Thiêt lập lại"),
+          Button(
+            button_name: "Thiêt lập lại",
+            callback: widget.onResetAll,
+          ),
           const SizedBox(width: 10),
-          Button(button_name: "Hiển thị kết quả")
+          Button(button_name: "Hiển thị kết quả", callback: widget.onResult)
         ],
       ),
     );
@@ -27,7 +33,9 @@ class _ButtonListState extends State<ButtonList> {
 
 class Button extends StatefulWidget {
   String button_name;
-  Button({required this.button_name, Key? key}) : super(key: key);
+  Button({required this.button_name, Key? key, this.callback})
+      : super(key: key);
+  final VoidCallback? callback;
 
   @override
   State<Button> createState() => _ButtonState();
@@ -39,7 +47,7 @@ class _ButtonState extends State<Button> {
     var buttonname = widget.button_name;
     return Expanded(
       child: OutlinedButton(
-        onPressed: () => {},
+        onPressed: widget.callback,
         style: OutlinedButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
