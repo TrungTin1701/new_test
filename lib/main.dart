@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names, avoid_print
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
@@ -87,8 +87,19 @@ class _StackOverState extends State<StackOver>
     });
   }
 
+  Filter? filter;
   void show_sheet() {
-    _scaffoldKey.currentState?.showBottomSheet((context) => SearchScreen());
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+        context: context,
+        builder: (context) => SearchScreen(
+              filter: filter,
+            )).then((value) {
+      print("hhaahaahhahaahha => $value");
+      filter = value;
+    });
   }
 
   void Hide() {

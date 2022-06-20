@@ -1,18 +1,31 @@
 //Slider
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class PriceSlider extends StatefulWidget {
-  const PriceSlider({Key? key}) : super(key: key);
-
+  const PriceSlider({Key? key, this.onChanged, this.rangePrice})
+      : super(key: key);
+  final Function(RangeValues)? onChanged;
+  final RangeValues? rangePrice;
   @override
   State<PriceSlider> createState() => _PriceSliderState();
 }
 
 class _PriceSliderState extends State<PriceSlider> {
-  RangeValues _currentSliderValue = RangeValues(0, 60);
+  final RangeValues _currentSliderValue = RangeValues(0, 60);
+  late RangeValues? _rangePrice = widget.rangePrice;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _currentSliderValue;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +33,43 @@ class _PriceSliderState extends State<PriceSlider> {
       children: [
         Center(
           child: Text(
-            '${_currentSliderValue.start.round()}000000 - ${_currentSliderValue.end.round()}000000',
+            '${_rangePrice?.start.round() == null ? '0' : _rangePrice?.start.round()}00000 - ${_rangePrice?.end.round() == null ? '60' : _rangePrice?.end.round()}00000',
             style: TextStyle(fontSize: 16),
           ),
         ),
         RangeSlider(
-          labels: RangeLabels('${_currentSliderValue.start.round()}000000',
-              '${_currentSliderValue.end.round()}000000'),
-          values: _currentSliderValue,
-          max: 60,
-          onChanged: (RangeValues value) {
-            setState(() {
-              _currentSliderValue = value;
-            });
-          },
-        ),
+            activeColor: Colors.lightBlue.shade500,
+            inactiveColor: Colors.lightBlue.shade100,
+            labels: RangeLabels('${_rangePrice?.start.round()}000000',
+                '${_rangePrice?.end.round()}000000'),
+            values: _rangePrice ?? _currentSliderValue,
+            max: _currentSliderValue.end,
+            min: _currentSliderValue.start,
+            onChanged: (RangeValues value) => setState(() {
+                  widget.onChanged?.call(value);
+                  _rangePrice = value;
+                })),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            BoxTextField(name: "0 VNĐ"),
-            BoxTextField(name: "60000000 VNĐ"),
+            BoxTextField(
+                name: "0 VNĐ",
+                onChanged1: (value) {
+                  setState(() {
+                    var dou1 = double.tryParse(value) ?? 0;
+                    _rangePrice?.start == dou1;
+                    widget.onChanged?.call(RangeValues(dou1, 60));
+                  });
+                }),
+            BoxTextField(
+                name: "60.000.000 VNĐ",
+                onChanged1: (value) {
+                  setState(() {
+                    var dou1 = double.tryParse(value) ?? 0;
+                    _rangePrice?.end == dou1;
+                    widget.onChanged?.call(RangeValues(0, dou1));
+                  });
+                }),
           ],
         )
       ],
@@ -49,8 +79,9 @@ class _PriceSliderState extends State<PriceSlider> {
 
 class BoxTextField extends StatefulWidget {
   late String name;
-  BoxTextField({required this.name, Key? key}) : super(key: key);
-
+  BoxTextField({required this.name, Key? key, this.onChanged1})
+      : super(key: key);
+  final Function(String)? onChanged1;
   @override
   State<BoxTextField> createState() => _BoxTextFieldState();
 }
@@ -59,6 +90,14 @@ class _BoxTextFieldState extends State<BoxTextField> {
   ValueChanged<String>? onSubmitted;
 
   final TextEditingController _controler = TextEditingController();
+
+  void onChanged(String value) {
+    setState(() {
+      _controler.addListener(() {
+        widget.onChanged1?.call(_controler.text);
+      });
+    });
+  }
 
   void check() {
     var val = _controler.text;
@@ -85,7 +124,7 @@ class _BoxTextFieldState extends State<BoxTextField> {
     }
     if (val1 > 6000000) {
       setState(() {
-        _controler.text = "60000000";
+        _controler.text = "60.000.000";
       });
     }
   }
@@ -105,9 +144,7 @@ class _BoxTextFieldState extends State<BoxTextField> {
           controller: _controler,
           onSubmitted: (String str) {
             check();
-            setState(() {
-              result = str;
-            });
+            setState(() {});
           },
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly

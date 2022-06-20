@@ -7,13 +7,40 @@ import 'package:new_test/Search_Categories/Components/CircleOptions.dart';
 import 'Components/price.dart';
 import 'Components/Button.dart';
 
-class SearchScreen extends StatefulWidget {
-  SearchScreen({Key? key, this.prices, this.star, this.convenients = const []})
-      : super(key: key);
-
+class Filter {
   final RangeValues? prices;
   final int? star;
   final List<String> convenients;
+  Filter({this.prices, this.star, this.convenients = const []});
+
+  List startFilter(List<double> data) {
+    return data
+        .where((element) =>
+            element >= (prices?.start ?? 0.0) &&
+            element <= (prices?.end ?? 0.0))
+        .toList();
+
+    ///-------------filter price------
+
+    /// -------------filter start------
+    /// -------------filter convenients------
+  }
+
+  @override
+  String toString() {
+    return 'prices: ${prices?.start} - ${prices?.end} \n'
+        'star: $star \n'
+        'convenients: ${convenients.join(', ')}';
+  }
+}
+
+class SearchScreen extends StatefulWidget {
+  SearchScreen({
+    Key? key,
+    this.filter,
+  }) : super(key: key);
+
+  final Filter? filter;
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -22,13 +49,13 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   RangeValues? prices;
   int? star;
-  List<String> convenients = [];
+  late List<String> convenients;
 
   @override
   void initState() {
-    prices = widget.prices;
-    star = widget.star;
-    convenients = widget.convenients;
+    prices = widget.filter?.prices;
+    star = widget.filter?.star;
+    convenients = widget.filter?.convenients ?? [];
     super.initState();
   }
 
@@ -66,7 +93,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   Container(
                     height: 150,
                     child: Wrap(
-                      children: [PriceSlider()],
+                      children: [
+                        PriceSlider(
+                          rangePrice: prices,
+                          onChanged: (rangePrice) => prices = rangePrice,
+                        )
+                      ],
                     ),
                   ),
                   Convinients('Hạng sao'),
@@ -79,37 +111,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   )),
                   SizedBox(height: 20),
                   Convinients('Tiện nghi'),
-                  // Column(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     ListButton(
-                  //       button_name: ['Wifi miễn phí', 'Massage/Spa', 'Hồ Bơi'],
-                  //     ),
-                  //     SizedBox(
-                  //       height: 10,
-                  //     ),
-                  //     ListButton(
-                  //       button_name: [
-                  //         'Bãi đỗ xe',
-                  //         'Vui chơi giải trí',
-                  //         'Thuê xe máy'
-                  //       ],
-                  //     ),
-                  //     ButtonList()
-                  //   ],
-                  // )
                   ListButton(
-                    button_name: [
-                      'Wifi miễn phí',
-                      'Massage/Spa',
-                      'Hồ Bơi',
-                      'Bãi đỗ xe',
-                      'Vui chơi giải trí',
-                      'Thuê xe máy'
-                    ],
+                    list_button: convenients,
+                    on_pressedButton: (value) => convenients = value,
                   ),
                   ButtonList(
-                    onResult: () => Navigator.of(context).pop(star),
+                    onResult: () => Navigator.of(context).pop(Filter(
+                        star: star, prices: prices, convenients: convenients)),
+                    onResetAll: () => Navigator.of(context)
+                        .pop(Filter(star: null, prices: null, convenients: [])),
                   )
                 ]),
           ],

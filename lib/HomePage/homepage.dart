@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -20,10 +20,7 @@ class Home1 extends StatefulWidget {
 class _Home1State extends State<Home1> {
   final mycontroller = TextEditingController();
 
-  @override
-  RangeValues? prices;
-  int? star;
-  List<int> convenients = [];
+  Filter? filter;
 
   @override
   void dispose() {
@@ -81,8 +78,11 @@ class _Home1State extends State<Home1> {
                                 top: Radius.circular(30))),
                         context: context,
                         builder: (context) => SearchScreen(
-                              star: star,
-                            )).then((value) => star = value),
+                              filter: filter,
+                            )).then((value) {
+                      print("hhaahaahhahaahha => $value");
+                      filter = value;
+                    }),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -97,28 +97,29 @@ class _Home1State extends State<Home1> {
                         ],
                       ),
                       height: 49,
-                      child: Container(height: 60) ??
-                          Row(
-                            children: <Widget>[
-                              TextField(
-                                controller: mycontroller,
-                                onChanged: (value) {},
-                                decoration: InputDecoration(
-                                  hintText: "Search for Hotel, City, Area",
-                                  contentPadding: EdgeInsets.only(top: 14),
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    color: Colors.grey,
-                                  ),
-                                  hintStyle: TextStyle(
-                                    color: kPrimaryColor.withOpacity(0.5),
-                                  ),
-                                  enabledBorder: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: TextField(
+                              controller: mycontroller,
+                              onChanged: (value) {},
+                              decoration: InputDecoration(
+                                hintText: "Search for Hotel, City, Area",
+                                contentPadding: EdgeInsets.only(top: 14),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: Colors.grey,
                                 ),
+                                hintStyle: TextStyle(
+                                  color: kPrimaryColor.withOpacity(0.5),
+                                ),
+                                enabledBorder: InputBorder.none,
+                                focusedBorder: InputBorder.none,
                               ),
-                            ],
+                            ),
                           ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -364,12 +365,7 @@ Widget buildButton(
       SizedBox(width: 10),
       Expanded(
         child: OutlinedButton(
-          onPressed: () => showBottomSheet(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(30))),
-              context: context,
-              builder: (context) => SearchScreen()),
+          onPressed: () => {},
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),

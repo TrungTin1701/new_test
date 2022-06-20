@@ -27,10 +27,6 @@ Widget chitiet(
       actions: const [Icon(Icons.more_vert)],
       backgroundColor: const Color.fromARGB(255, 59, 160, 175),
     ),
-    body: Column(
-      children: [
-        HotelCard1(imgurl, Hotelname, location, context, Date1, date2),
-      ],
-    ),
+    body: HotelCard1(imgurl, Hotelname, location, context, Date1, date2),
   );
 }
