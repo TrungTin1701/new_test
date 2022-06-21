@@ -1,7 +1,5 @@
 //Slider
-// ignore_for_file: prefer_const_constructors, must_be_immutable
-
-import 'dart:ffi';
+// ignore_for_file: prefer_const_constructors, must_be_immutable, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,22 +16,44 @@ class PriceSlider extends StatefulWidget {
 class _PriceSliderState extends State<PriceSlider> {
   final RangeValues _currentSliderValue = RangeValues(0, 60);
   late RangeValues? _rangePrice = widget.rangePrice;
+  // final RangeValues rangePrice;
+
+  @override
+  void didUpdateWidget(covariant PriceSlider oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _rangePrice = widget.rangePrice;
+  }
 
   @override
   void initState() {
-    // TODO: implement initState
     _currentSliderValue;
-
     super.initState();
   }
 
+  double checkvalue(String value) {
+    var start = double.parse(value);
+    if (start < 500000) {
+      start = 5;
+    } else if (500000 < start && start < 1000000) {
+      start = start / 100000;
+    } else if (start > 60000000) {
+      start = 60;
+    } else if (1000000 <= start && start <= 10000000) {
+      start = start / 100000;
+    } else if (10000000 < start && start < 60000000) {
+      start = start / 1000000;
+    }
+    return start;
+  }
+
+  late RangeValues? rangeValues1;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Center(
           child: Text(
-            '${_rangePrice?.start.round() == null ? '0' : _rangePrice?.start.round()}00000 - ${_rangePrice?.end.round() == null ? '60' : _rangePrice?.end.round()}00000',
+            '${_rangePrice?.start.round() ?? '0'}00000 - ${_rangePrice?.end.round() ?? '60'}00000',
             style: TextStyle(fontSize: 16),
           ),
         ),
@@ -46,28 +66,31 @@ class _PriceSliderState extends State<PriceSlider> {
             max: _currentSliderValue.end,
             min: _currentSliderValue.start,
             onChanged: (RangeValues value) => setState(() {
-                  widget.onChanged?.call(value);
                   _rangePrice = value;
+                  widget.onChanged?.call(value);
                 })),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             BoxTextField(
-                name: "0 VNĐ",
-                onChanged1: (value) {
-                  setState(() {
-                    var dou1 = double.tryParse(value) ?? 0;
-                    _rangePrice?.start == dou1;
-                    widget.onChanged?.call(RangeValues(dou1, 60));
-                  });
-                }),
+              key: UniqueKey(),
+              name: "0 VNĐ",
+              onSubmit: (value) {
+                setState(() {
+                  var start = checkvalue(value);
+                  _rangePrice = RangeValues(start, _rangePrice?.end ?? 60);
+                });
+              },
+              inputext: '${_rangePrice?.start.round() ?? '0'}000000',
+            ),
             BoxTextField(
+                key: UniqueKey(),
                 name: "60.000.000 VNĐ",
-                onChanged1: (value) {
+                inputext: '${_rangePrice?.end.round() ?? '60'}000000',
+                onSubmit: (value) {
                   setState(() {
-                    var dou1 = double.tryParse(value) ?? 0;
-                    _rangePrice?.end == dou1;
-                    widget.onChanged?.call(RangeValues(0, dou1));
+                    var end = checkvalue(value);
+                    _rangePrice = RangeValues(_rangePrice?.start ?? 0, end);
                   });
                 }),
           ],
@@ -79,9 +102,16 @@ class _PriceSliderState extends State<PriceSlider> {
 
 class BoxTextField extends StatefulWidget {
   late String name;
-  BoxTextField({required this.name, Key? key, this.onChanged1})
-      : super(key: key);
-  final Function(String)? onChanged1;
+  BoxTextField({
+    required this.name,
+    this.inputext,
+    this.onChanged,
+    Key? key,
+    this.onSubmit,
+  }) : super(key: key);
+  late final String? inputext;
+  final Function(String)? onChanged;
+  final Function(String)? onSubmit;
   @override
   State<BoxTextField> createState() => _BoxTextFieldState();
 }
@@ -90,43 +120,26 @@ class _BoxTextFieldState extends State<BoxTextField> {
   ValueChanged<String>? onSubmitted;
 
   final TextEditingController _controler = TextEditingController();
-
-  void onChanged(String value) {
-    setState(() {
-      _controler.addListener(() {
-        widget.onChanged1?.call(_controler.text);
-      });
-    });
+  @override
+  void initState() {
+    _controler.text = widget.inputext ?? '0';
+    super.initState();
   }
 
-  void check() {
-    var val = _controler.text;
-    int val1 = int.tryParse(val) ?? 0;
-    if (1000000 <= val1 && val1 <= 60000000) {
-      var val2 = val1 % 500000;
-      val1 = val2 < 500000 ? val1 = val1 - val2 : val1 - val2 + 1000000;
-      setState(() {
-        _controler.text = '$val1';
-      });
+  int count_zero(int value) {
+    var count = 0;
+    while (value > 0) {
+      value = value ~/ 10;
+      count++;
     }
-    if (val1 < 500000) {
-      val1 = 500000;
-    }
-    if (val1 < 1000000) {
-      var val2 = val1 % 50000;
-      val1 = val2 < 50000 ? val1 = val1 - val2 : val1 - val2 + 100000;
-      setState(() {
-        _controler.text = '$val1';
-      });
-    }
-    if (val1 < 0) {
-      _controler.text = "0";
-    }
-    if (val1 > 6000000) {
-      setState(() {
-        _controler.text = "60.000.000";
-      });
-    }
+    return count;
+  }
+
+  void onChanged(String value) {
+    int val = int.tryParse(value) ?? 0;
+    val = val ~/ 1000000;
+    _controler.text = value;
+    widget.onChanged?.call(value);
   }
 
   String result = '';
@@ -142,10 +155,7 @@ class _BoxTextFieldState extends State<BoxTextField> {
           keyboardType: TextInputType.number,
           autocorrect: false,
           controller: _controler,
-          onSubmitted: (String str) {
-            check();
-            setState(() {});
-          },
+          onSubmitted: widget.onSubmit,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly
           ],

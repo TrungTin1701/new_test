@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 
 class CircleOptions extends StatefulWidget {
-  const CircleOptions({Key? key, this.onSelectedStar, this.selectedStar})
+  const CircleOptions(
+      {Key? key, this.onSelectedStar, this.selectedStar, this.isactive = false})
       : super(key: key);
   final Function(int)? onSelectedStar;
   final int? selectedStar;
-
+  final bool isactive;
   @override
   State<CircleOptions> createState() => _CircleOptionsState();
 }
@@ -15,19 +16,27 @@ class CircleOptions extends StatefulWidget {
 class _CircleOptionsState extends State<CircleOptions> {
   // Declare this variable
   late int selectedRadio;
-  bool state = true;
+
+  bool state = false;
   void checkstate() {
     if (state = false) {
       setState(() {
-        selectedRadio = widget.selectedStar ?? 7;
+        selectedRadio = widget.selectedStar ?? 0;
       });
     }
   }
 
   @override
+  void didUpdateWidget(covariant CircleOptions oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    selectedRadio != -1 ? selectedRadio : 0;
+    setSelectedRadio(widget.selectedStar ?? 0);
+  }
+
+  @override
   void initState() {
     super.initState();
-    selectedRadio = widget.selectedStar ?? 7;
+    selectedRadio = widget.selectedStar ?? 0;
   }
 
 // Changes the selected value on 'onChanged' click on each radio button
@@ -41,7 +50,7 @@ class _CircleOptionsState extends State<CircleOptions> {
   Widget buildRadio(int val, String name) {
     return GestureDetector(
       onTap: () {
-        setSelectedRadio(val);
+        setSelectedRadio(val == -1 ? 0 : val);
       },
       child: Row(
         children: [

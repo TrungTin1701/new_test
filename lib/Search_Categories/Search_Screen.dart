@@ -96,7 +96,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: [
                         PriceSlider(
                           rangePrice: prices,
-                          onChanged: (rangePrice) => prices = rangePrice,
+                          onChanged: (rangePrice) {
+                            prices = rangePrice;
+
+                            setState(() {});
+                          },
                         )
                       ],
                     ),
@@ -116,11 +120,17 @@ class _SearchScreenState extends State<SearchScreen> {
                     on_pressedButton: (value) => convenients = value,
                   ),
                   ButtonList(
-                    onResult: () => Navigator.of(context).pop(Filter(
-                        star: star, prices: prices, convenients: convenients)),
-                    onResetAll: () => Navigator.of(context)
-                        .pop(Filter(star: null, prices: null, convenients: [])),
-                  )
+                      onResult: () => Navigator.of(context).pop(Filter(
+                          star: star,
+                          prices: prices,
+                          convenients: convenients)),
+                      onResetAll: () {
+                        setState(() {
+                          star = -1;
+                          prices = RangeValues(0, 60);
+                          convenients = [];
+                        });
+                      })
                 ]),
           ],
         ),
