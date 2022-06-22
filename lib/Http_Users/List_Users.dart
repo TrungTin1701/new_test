@@ -91,7 +91,7 @@ class _PostpageState extends State<Postpage> {
 
       setState(() {
         enableLoadingWhenNoData = false;
-        _refreshController.loadComplete();
+        _refreshController.loadNoData();
       });
     } else {
       Posts.addAll(list);
@@ -303,7 +303,7 @@ class _PostpageState extends State<Postpage> {
             backgroundColor: kPrimaryColor,
             child: Icon(Icons.refresh_outlined),
             onPressed: () {
-              _refreshController.requestRefresh();
+              _onFresh();
             },
             heroTag: null,
           )

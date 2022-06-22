@@ -74,7 +74,7 @@ class _CircleOptionsState extends State<CircleOptions> {
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       buildRadio(val1, name),
       SizedBox(
-        width: MediaQuery.of(context).size.width / 3,
+        width: MediaQuery.of(context).size.width / 3.5,
       ),
       buildRadio(val2, name2)
     ]);
