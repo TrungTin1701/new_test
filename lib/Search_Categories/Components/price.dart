@@ -151,7 +151,7 @@ class _BoxTextFieldState extends State<BoxTextField> {
       height: 45,
       child: Center(
         child: TextField(
-          textAlignVertical: TextAlignVertical.center,
+          textAlignVertical: TextAlignVertical.bottom,
           keyboardType: TextInputType.number,
           autocorrect: false,
           controller: _controler,
