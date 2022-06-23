@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names
+// ignore_for_file: deprecated_member_use, unnecessary_brace_in_string_interps, prefer_const_constructors, duplicate_ignore, prefer_final_fields, non_constant_identifier_names, avoid_print
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
@@ -14,6 +14,7 @@ import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
+import 'Search_Categories/Search_Screen.dart';
 
 DateTime today = DateTime.now();
 String weekday =
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             '/Home': (context) => const StackOver(),
             '/Home1': (context) => const Home1(),
             '/Users': (context) => const Postpage(),
+            '/Search': (context) => SearchScreen(),
           },
         ),
       ),
@@ -82,6 +84,21 @@ class _StackOverState extends State<StackOver>
   void Show() {
     setState(() {
       _isVisible = true;
+    });
+  }
+
+  Filter? filter;
+  void show_sheet() {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+        context: context,
+        builder: (context) => SearchScreen(
+              filter: filter,
+            )).then((value) {
+      print("hhaahaahhahaahha => $value");
+      filter = value;
     });
   }
 
@@ -215,22 +232,44 @@ class _StackOverState extends State<StackOver>
               Expanded(
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
-                    Container(
-                      padding: const EdgeInsets.only(top: 10),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      child: ListView(
-                        controller: _scrollController,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          HotelCard('/image/hotel2.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel3.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                          HotelCard('/image/hotel4.jpg', 'Tôi và em',
-                              '400 Ung Van khiem', context, _date1, dateSlug2),
-                        ],
+                    GestureDetector(
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 10),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        child: ListView(
+                          controller: _scrollController,
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            HotelCard(
+                                '/image/hotel2.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel3.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel4.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                            HotelCard(
+                                '/image/hotel4.jpg',
+                                'Tôi và em',
+                                '400 Ung Van khiem',
+                                context,
+                                _date1,
+                                dateSlug2),
+                          ],
+                        ),
                       ),
                     ),
                 ]),
@@ -250,12 +289,10 @@ class _StackOverState extends State<StackOver>
                   },
                 ),
                 ListTile(
-                  leading: const Icon(Icons.person),
-                  title: Text('Profile', style: TextStyle(color: Colors.blue)),
-                  onTap: () {
-                    Navigator.pushNamed(context, '');
-                  },
-                ),
+                    leading: const Icon(Icons.person),
+                    title:
+                        Text('Profile', style: TextStyle(color: Colors.blue)),
+                    onTap: () => show_sheet()),
               ],
             )),
           ),
