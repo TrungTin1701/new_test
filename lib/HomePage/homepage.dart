@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
 import 'package:new_test/Search_Categories/Search_Screen.dart';
+import 'package:new_test/FlutterToNative/Battery.dart';
 
 // ignore: implementation_imports
 const kPrimaryColor = Color(0xFF0C9869);
@@ -365,7 +366,13 @@ Widget buildButton(
       SizedBox(width: 10),
       Expanded(
         child: OutlinedButton(
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BatteryLevel(),
+                ))
+          },
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),

@@ -31,7 +31,18 @@ late String dateSlug2 =
     "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
-  runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+  late int Case = 1;
+  switch (Case) {
+    case 1:
+      runApp(MyApp());
+      break;
+    case 2:
+      runApp(
+          DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+      break;
+  }
+
+  //
 }
 
 class MyApp extends StatelessWidget {
