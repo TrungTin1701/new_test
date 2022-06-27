@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+// ignore_for_file: file_names, unnecessary_import, prefer_const_constructors_in_immutables, non_constant_identifier_names, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -42,7 +43,7 @@ class _BatteryLevelState extends State<BatteryLevel> {
     String Battery_now;
 
     final int result = await BatteryLevel.platform.invokeMethod('GetBattery',
-        <String, String>{'BTN': 'Click Me', 'name': "Em met moi qua!!"});
+        <String, String>{'BTN': 'Hehe', 'name': "Em met moi qua!!"});
     Battery_now = "$result '%";
     setState(() {
       _Battery_now = Battery_now;

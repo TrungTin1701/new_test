@@ -16,7 +16,7 @@ class HttpService {
 
     if (res.statusCode == 200) {
       List<dynamic> body = jsonDecode(res.body)['data'];
-      print(body);
+
       List<Person> posts =
           body.map((dynamic item) => Person.fromJson(item)).toList();
 

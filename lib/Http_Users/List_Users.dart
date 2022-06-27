@@ -91,7 +91,7 @@ class _PostpageState extends State<Postpage> {
 
       setState(() {
         enableLoadingWhenNoData = false;
-        _refreshController.loadNoData();
+        _refreshController.loadComplete();
       });
     } else {
       Posts.addAll(list);
