@@ -2,8 +2,10 @@
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:new_test/Profile/Components/Info.dart';
-
+import 'package:new_test/Profile/EditProfile_Controller.dart';
+import 'package:new_test/Profile/Editprofile_Screen.dart';
 import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -31,15 +33,15 @@ late String dateSlug2 =
     "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
-  late int Case = 1;
+  int Case = 2;
+  Get.put(EditProfile());
   switch (Case) {
     case 1:
-      runApp(MyApp());
-      break;
+      return runApp(MyApp());
+
     case 2:
-      runApp(
+      return runApp(
           DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
-      break;
   }
 
   //
@@ -70,6 +72,7 @@ class MyApp extends StatelessWidget {
             '/Home1': (context) => const Home1(),
             '/Users': (context) => const Postpage(),
             '/Search': (context) => SearchScreen(),
+            '/editprofile': (context) => EditProfileScreen(),
           },
         ),
       ),
@@ -241,6 +244,7 @@ class _StackOverState extends State<StackOver>
               ),
               // tab bar view here
               Expanded(
+                flex: 3,
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
                     GestureDetector(

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unnecessary_import, prefer_const_constructors_in_immutables, non_constant_identifier_names, prefer_const_constructors
+// ignore_for_file: file_names, unnecessary_import, prefer_const_constructors_in_immutables, non_constant_identifier_names, prefer_const_constructors, prefer_final_fields
 
 import 'package:flutter/material.dart';
 
@@ -6,8 +6,9 @@ import 'package:flutter/services.dart';
 
 class BatteryLevel extends StatefulWidget {
   BatteryLevel({Key? key}) : super(key: key);
-  static const platform = MethodChannel("com.example.new_test");
+  static const platform = MethodChannel("com.example.new_test1");
   static const platform2 = MethodChannel("newactivity");
+  static const _evanchannel = EventChannel("com.example.new_test");
 
   @override
   State<BatteryLevel> createState() => _BatteryLevelState();
@@ -15,6 +16,19 @@ class BatteryLevel extends StatefulWidget {
 
 class _BatteryLevelState extends State<BatteryLevel> {
   String _Battery_now = " Waiting...";
+  String Intro2 = "Press Here to get info Battery from Native";
+
+  // ignore: annotate_overrides
+  void initState() {
+    super.initState();
+    BatteryLevel._evanchannel.receiveBroadcastStream().listen(onIntroNow);
+  }
+
+  onIntroNow(event) {
+    setState(() {
+      Intro2 = event;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +37,7 @@ class _BatteryLevelState extends State<BatteryLevel> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("Press Here to get info from Native"),
+          Text(Intro2),
           ElevatedButton(
               onPressed: () => {_ShowBattery()}, child: Text("Click Me !!!")),
           Text(

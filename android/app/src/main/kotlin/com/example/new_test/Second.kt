@@ -1,5 +1,6 @@
 package com.example.new_test
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -16,19 +17,13 @@ class SecondActivity :AppCompatActivity(){
 //
 //    }
 
-
+    val data = 17
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
-        val data = 17
-        fun returnResult(){
-            val intent=Intent()
-            intent.putExtra("data",data)
-            setResult(RESULT_OK,intent)
-            onBackPressed()
-            finish()
-        }
+
+        var textinput=findViewById<TextView>(R.id.editText)
         var intent=getIntent()
        val Btnname=intent.getStringExtra("BTN")
         val TextVietName=intent.getStringExtra("name")
@@ -43,9 +38,15 @@ class SecondActivity :AppCompatActivity(){
         var temp= findViewById<Button>(R.id.BtnNatoFlu)
         temp.setOnClickListener{
 
-            Toast.makeText(this,"Nguyen Trung Tin ", Toast.LENGTH_LONG).show()
-            returnResult()
+
+            returnResult(textinput.text.toString())
         }
 
+    }
+    fun returnResult(temp:String){
+        val intent=Intent()
+        intent.putExtra("result", temp)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }
