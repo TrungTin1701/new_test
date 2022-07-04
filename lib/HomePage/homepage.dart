@@ -86,7 +86,6 @@ class _Home1State extends State<Home1> {
                     }),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Color.fromARGB(255, 255, 255, 255),
@@ -106,7 +105,6 @@ class _Home1State extends State<Home1> {
                               onChanged: (value) {},
                               decoration: InputDecoration(
                                 hintText: "Search for Hotel, City, Area",
-                                contentPadding: EdgeInsets.only(top: 14),
                                 prefixIcon: Icon(
                                   Icons.search,
                                   color: Colors.grey,

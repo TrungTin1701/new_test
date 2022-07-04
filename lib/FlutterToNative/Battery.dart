@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:new_test/HomePage/homepage.dart';
 
 class BatteryLevel extends StatefulWidget {
   BatteryLevel({Key? key}) : super(key: key);
@@ -37,6 +38,43 @@ class _BatteryLevelState extends State<BatteryLevel> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            height: 50,
+            width: MediaQuery.of(context).size.width * 0.8,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(children: <Widget>[
+              Icon(
+                Icons.battery_full,
+                color: kPrimaryColor,
+              ),
+              VerticalDivider(
+                thickness: 2,
+                color: Colors.black,
+              ),
+              Expanded(
+                child: TextField(
+                  onChanged: (value) {},
+                  decoration: InputDecoration(
+                    hintText: "Search for Hotel, City, Area",
+                    hintStyle: TextStyle(
+                      color: kPrimaryColor.withOpacity(0.5),
+                    ),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  ),
+                ),
+              ),
+            ]),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           Text(Intro2),
           ElevatedButton(
               onPressed: () => {_ShowBattery()}, child: Text("Click Me !!!")),
@@ -54,7 +92,7 @@ class _BatteryLevelState extends State<BatteryLevel> {
   }
 
   Future<void> _ShowBattery() async {
-    String Battery_now;
+    String Battery_now = "No massage";
 
     final int result = await BatteryLevel.platform.invokeMethod('GetBattery',
         <String, String>{'BTN': 'Hehe', 'name': "Em met moi qua!!"});

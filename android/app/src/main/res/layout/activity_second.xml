@@ -8,16 +8,16 @@
     android:theme="@style/AppTheme">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:id="@+id/editText"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/primary_text_dark"
-            android:hint="hint" />
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editText"
+            android:layout_width="392dp"
+            android:layout_height="39dp"
+            android:hint="hint"
+            android:textColor="@android:color/primary_text_dark" />
 
         <Button
             android:id="@+id/BtnNatoFlu"

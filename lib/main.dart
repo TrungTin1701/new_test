@@ -14,9 +14,11 @@ import 'package:new_test/provider/font_provider.dart';
 import 'package:provider/provider.dart';
 import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
+import 'Map_Hotel/Map_Screen.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
 import 'Search_Categories/Search_Screen.dart';
+import 'Login Page/login_Page.dart';
 
 DateTime today = DateTime.now();
 String weekday =
@@ -33,7 +35,7 @@ late String dateSlug2 =
     "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
-  int Case = 1;
+  int Case = 2;
   Get.put(EditProfile());
   switch (Case) {
     case 1:
@@ -65,7 +67,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: MyHomePage(title: "Travel "),
           theme: ThemeData(fontFamily: value.fontFamily),
-          initialRoute: '/',
+          initialRoute: '/map',
           routes: {
             '/profile': (context) => const ProfileApp(),
             '/Home': (context) => const StackOver(),
@@ -73,6 +75,8 @@ class MyApp extends StatelessWidget {
             '/Users': (context) => const Postpage(),
             '/Search': (context) => SearchScreen(),
             '/editprofile': (context) => EditProfileScreen(),
+            '/loginpage': (context) => LoginPage(),
+            '/map': (context) => const MapScreen(),
           },
         ),
       ),
