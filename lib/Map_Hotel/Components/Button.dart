@@ -6,7 +6,8 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(
+          top: MediaQuery.of(context).size.width / 15, bottom: 10),
       width: double.maxFinite,
       child: Expanded(
         // ignore: duplicate_ignore
