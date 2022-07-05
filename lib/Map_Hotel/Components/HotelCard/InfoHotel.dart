@@ -26,7 +26,7 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 5, top: 10),
+      margin: EdgeInsets.only(left: 10, right: 5, top: 5),
       width: double.maxFinite,
       height: double.maxFinite,
       child: Column(

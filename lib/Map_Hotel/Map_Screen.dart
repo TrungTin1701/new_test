@@ -22,6 +22,7 @@ class MapScreen extends StatelessWidget {
           ),
           elevation: 0.0,
           // ignore: prefer_const_constructors
+          centerTitle: true,
           title: Text('Map', style: TextStyle(color: Colors.black)),
           actions: [
             IconButton(
