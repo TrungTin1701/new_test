@@ -30,7 +30,7 @@ class InfoCard extends StatelessWidget {
       width: double.maxFinite,
       height: double.maxFinite,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           TextInput(

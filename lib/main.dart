@@ -57,7 +57,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => FontProvider())],
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => FontProvider(),
+        )
+      ],
       child: Consumer<FontProvider>(
         builder: (context, value, child) => MaterialApp(
           useInheritedMediaQuery: true,
