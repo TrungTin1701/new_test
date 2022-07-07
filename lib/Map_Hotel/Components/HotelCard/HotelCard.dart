@@ -34,7 +34,7 @@ class _HotelCardState extends State<HotelCard> {
                 ),
               ]),
           width: MediaQuery.of(context).size.width * 0.8,
-          height: MediaQuery.of(context).size.height / 4.5),
+          height: MediaQuery.of(context).size.height / 4),
     );
   }
 }

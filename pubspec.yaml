@@ -41,6 +41,8 @@ dependencies:
   pull_to_refresh: ^2.0.0
   tuple: ^2.0.0
   get: ^4.6.5
+  carousel_slider: ^4.1.1
+
 
 dev_dependencies:
   flutter_test:
