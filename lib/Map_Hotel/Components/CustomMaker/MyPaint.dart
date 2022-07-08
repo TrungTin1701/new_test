@@ -21,9 +21,9 @@ class MyPainter extends CustomPainter {
       text: TextSpan(
         text: this.label,
         style: TextStyle(
-          color: this.color == Colors.white ? Colors.black : Colors.white,
-          fontSize: 45,
-        ),
+            color: this.color == Colors.white ? Colors.black : Colors.white,
+            fontSize: 45,
+            fontWeight: FontWeight.bold),
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.start,
