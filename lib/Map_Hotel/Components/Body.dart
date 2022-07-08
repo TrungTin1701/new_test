@@ -1,10 +1,49 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_final_fields, avoid_print
 
+import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+import 'package:new_test/Map_Hotel/Components/CustomMaker/MyPaint.dart';
 import 'package:new_test/Map_Hotel/Components/HotelCard/HotelCard.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:google_maps_flutter_web/google_maps_flutter_web.dart';
+
+List<Marker> _list = const [
+  Marker(
+    zIndex: 0,
+    markerId: MarkerId('1'),
+    position: LatLng(37.42830266604936, -122.09190431982279),
+  ),
+  Marker(
+    zIndex: 0,
+    markerId: MarkerId('2'),
+    position: LatLng(37.429816002294984, -122.09238041192293),
+  ),
+  Marker(
+      markerId: MarkerId('3'),
+      position: LatLng(37.43397778545293, -122.08606280386448)),
+  Marker(
+      zIndex: 0,
+      markerId: MarkerId('4'),
+      position: LatLng(37.42796133580664, -122.085749655962),
+      infoWindow: InfoWindow(title: 'a')),
+  Marker(
+      zIndex: 0,
+      markerId: MarkerId('5'),
+      position: LatLng(37.43231091684314, -122.0917095243931),
+      infoWindow: InfoWindow(title: "hehe")),
+  Marker(
+      zIndex: 0,
+      markerId: MarkerId('6'),
+      position: LatLng(37.42796133580664, -122.089),
+      infoWindow: InfoWindow(title: 'b')),
+  Marker(
+      zIndex: 0,
+      markerId: MarkerId('6'),
+      position: LatLng(37.42796133580664, -122.090),
+      infoWindow: InfoWindow(title: 'c')),
+];
 
 class MapBody extends StatefulWidget {
   const MapBody({Key? key}) : super(key: key);
@@ -14,20 +53,79 @@ class MapBody extends StatefulWidget {
 }
 
 class _MapBodyState extends State<MapBody> {
-  // static const _initialPosition =
-  //     CameraPosition(target: LatLng(37.773972, 122.431297), zoom: 15);
+  Completer<GoogleMapController> _controller = Completer();
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
+  // Load Custom Marker
+  Future<Uint8List?> _myPainterToMap(String Label, Color color) async {
+    ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
+    final canvas = ui.Canvas(pictureRecorder);
+    MyPainter myPainter = MyPainter(Label, color);
+    myPainter.paint(canvas, Size(300, 100));
+    final ui.Image picture =
+        await pictureRecorder.endRecording().toImage(300, 100);
+    final ByteData? byteData =
+        await picture.toByteData(format: ui.ImageByteFormat.png);
+    return byteData!.buffer.asUint8List();
+  }
+
+  // Load List Data
+  Set<Marker> _markers = {};
+  Set<Marker> temp = {};
+  Future<Set<Marker>> _loadListMarkers() async {
+    _markers.clear();
+    var bytes = await _myPainterToMap("4.500.000", Colors.white);
+    for (var i in _list) {
+      Marker marker = Marker(
+        zIndex: 0,
+        markerId: i.markerId,
+        position: i.position,
+        infoWindow: InfoWindow(title: "Quynh"),
+        icon: BitmapDescriptor.fromBytes(bytes!),
+        onDrag: (LatLng latLng) {
+          print(latLng);
+        },
+      );
+      setState(() {
+        _markers.add(marker);
+      });
+    }
+    return _markers;
+  }
+
+  // Set in InitState
+  @override
+  void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    //_loadListMarkers();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _loadListMarkers();
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Container(
         width: double.maxFinite,
         height: double.maxFinite,
-        color: Color.fromARGB(255, 169, 147, 147),
-        // child: GoogleMap(
-        //   myLocationButtonEnabled: false,
-        //   zoomControlsEnabled: false,
-        //   initialCameraPosition: _initialPosition,
-        // ),
+        color: Color.fromARGB(255, 7, 7, 7),
+        child: GoogleMap(
+          mapType: MapType.normal,
+          onMapCreated: (GoogleMapController controller) {
+            _controller.complete(controller);
+          },
+          markers: Set.from(_markers),
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: true,
+          initialCameraPosition: _kGooglePlex,
+          onTap: (position) => {print(position)},
+        ),
       ),
       Positioned(
         // child: Container(
@@ -56,7 +154,7 @@ class _MapBodyState extends State<MapBody> {
               initialPage: 4,
             ),
             items: [
-              Container(
+              SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: HotelCard()),

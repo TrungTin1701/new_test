@@ -1,23 +1,45 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_const_constructors, unnecessary_this, file_names
 import 'package:flutter/material.dart';
 
-class MyPaint extends CustomPainter {
-  MyPaint({required this.color, required this.strokeWidth});
+class MyPainter extends CustomPainter {
+  final String label;
   final Color color;
-  final double strokeWidth;
+  MyPainter(
+    this.label,
+    this.color,
+  );
+  bool isColor = false;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint();
-    paint.color = color;
-    paint.strokeWidth = strokeWidth;
-    paint.style = PaintingStyle.stroke;
-    final path = Path();
-    path.moveTo(0, size.height);
-    path.lineTo(size.width, 0);
-    canvas.drawPath(path, paint);
+    Paint paint = Paint();
+    final rect = Rect.fromLTWH(0, 0, size.width, size.height);
+    final RRect rRect = RRect.fromRectAndRadius(rect, Radius.circular(50));
+    paint.color = this.color;
+    canvas.drawRRect(rRect, paint);
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: this.label,
+        style: TextStyle(
+          color: this.color == Colors.white ? Colors.black : Colors.white,
+          fontSize: 45,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.start,
+    );
+    textPainter.layout(
+      minWidth: 0,
+      maxWidth: size.width,
+    );
+    textPainter.paint(
+      canvas,
+      Offset(40, size.height / 2 - textPainter.height / 2),
+    );
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
+    return false;
   }
 }

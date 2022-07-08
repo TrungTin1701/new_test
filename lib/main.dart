@@ -35,7 +35,7 @@ late String dateSlug2 =
     "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
-  int Case = 2;
+  int Case = 1;
   Get.put(EditProfile());
   switch (Case) {
     case 1:
