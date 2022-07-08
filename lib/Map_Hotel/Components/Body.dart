@@ -38,11 +38,6 @@ List<Marker> _list = const [
       markerId: MarkerId('6'),
       position: LatLng(37.42796133580664, -122.089),
       infoWindow: InfoWindow(title: 'b')),
-  Marker(
-      zIndex: 0,
-      markerId: MarkerId('6'),
-      position: LatLng(37.42796133580664, -122.090),
-      infoWindow: InfoWindow(title: 'c')),
 ];
 
 class MapBody extends StatefulWidget {
@@ -74,20 +69,42 @@ class _MapBodyState extends State<MapBody> {
   // Load List Data
   Set<Marker> _markers = {};
   Set<Marker> temp = {};
-  Future<Set<Marker>> _loadListMarkers() async {
+
+  Future<Set<Marker>> _loadListMarkers(List<Marker> listtemp) async {
+    var newlist = listtemp;
     _markers.clear();
+    int index1 = 0;
+    int index2 = 0;
     var bytes = await _myPainterToMap("4.500.000", Colors.white);
-    for (var i in _list) {
+    var bytes1 = await _myPainterToMap("4.500.000", Colors.blue);
+
+    int count = 0;
+    for (var i in newlist) {
       Marker marker = Marker(
-        zIndex: 0,
-        markerId: i.markerId,
-        position: i.position,
-        infoWindow: InfoWindow(title: "Quynh"),
-        icon: BitmapDescriptor.fromBytes(bytes!),
-        onDrag: (LatLng latLng) {
-          print(latLng);
-        },
-      );
+          zIndex: index2++ == 0 ? 1 : 0,
+          markerId: i.markerId,
+          position: i.position,
+          infoWindow: InfoWindow(title: "${count++}"),
+          icon: BitmapDescriptor.fromBytes(index1++ == 0 ? bytes1! : bytes!),
+          onTap: () {
+            final index =
+                newlist.indexWhere((element) => element.markerId == i.markerId);
+
+            print("hhahahaha3312312 => $index");
+
+            try {
+              newlist = List.of(newlist)
+                ..insert(0, newlist[index].copyWith())
+                ..removeAt(index + 1);
+            } catch (e) {
+              print('hahahahahahaha => ${e}');
+            }
+
+            setState(() {
+              print("hehe");
+              _loadListMarkers(newlist);
+            });
+          });
       setState(() {
         _markers.add(marker);
       });
@@ -102,7 +119,7 @@ class _MapBodyState extends State<MapBody> {
     // TODO: implement initState
     //_loadListMarkers();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _loadListMarkers();
+      _loadListMarkers(_list);
     });
 
     super.initState();
@@ -118,9 +135,11 @@ class _MapBodyState extends State<MapBody> {
         child: GoogleMap(
           mapType: MapType.normal,
           onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
+            setState(() {
+              _controller.complete(controller);
+            });
           },
-          markers: Set.from(_markers),
+          markers: Set<Marker>.from(_markers),
           myLocationButtonEnabled: false,
           zoomControlsEnabled: true,
           initialCameraPosition: _kGooglePlex,
