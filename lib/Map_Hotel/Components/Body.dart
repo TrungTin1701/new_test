@@ -8,6 +8,8 @@ import 'package:new_test/Map_Hotel/Components/CustomMaker/MyPaint.dart';
 import 'package:new_test/Map_Hotel/Components/HotelCard/HotelCard.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:new_test/provider/changeapi.dart';
+import 'package:provider/provider.dart';
 
 List<Marker> _list = const [
   Marker(
@@ -128,24 +130,27 @@ class _MapBodyState extends State<MapBody> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      Container(
-        width: double.maxFinite,
-        height: double.maxFinite,
-        color: Color.fromARGB(255, 7, 7, 7),
-        child: GoogleMap(
-          mapType: MapType.normal,
-          onMapCreated: (GoogleMapController controller) {
-            setState(() {
-              _controller.complete(controller);
-            });
-          },
-          markers: Set<Marker>.from(_markers),
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: true,
-          initialCameraPosition: _kGooglePlex,
-          onTap: (position) => {print(position)},
-        ),
-      ),
+      Consumer<ChangeLocation>(builder: ((context, value, child) {
+        return Container(
+          width: double.maxFinite,
+          height: double.maxFinite,
+          color: Color.fromARGB(255, 7, 7, 7),
+          child: GoogleMap(
+            key: UniqueKey(),
+            mapType: MapType.normal,
+            onMapCreated: (GoogleMapController controller) {
+              setState(() {
+                _controller.complete(controller);
+              });
+            },
+            markers: Set<Marker>.from(_markers),
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: true,
+            initialCameraPosition: value.kGooglePlex1,
+            onTap: (position) => {print(position)},
+          ),
+        );
+      })),
       Positioned(
         // child: Container(
         //     width: MediaQuery.of(context).size.width * 0.8,

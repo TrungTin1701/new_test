@@ -1,6 +1,9 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:new_test/provider/changeapi.dart';
+import 'package:provider/provider.dart';
 
 class Button extends StatelessWidget {
   const Button({Key? key}) : super(key: key);
@@ -13,7 +16,14 @@ class Button extends StatelessWidget {
       child: Expanded(
         // ignore: duplicate_ignore
         child: OutlinedButton(
-          onPressed: () => {},
+          onPressed: () => {
+            context.read<ChangeLocation>().changeLocation(
+                  CameraPosition(
+                    target: LatLng(37.42796133580664, -122.085749655962),
+                    zoom: 14.4746,
+                  ),
+                ),
+          },
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
