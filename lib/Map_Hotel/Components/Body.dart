@@ -79,7 +79,7 @@ class _MapBodyState extends State<MapBody> {
     int index2 = 0;
     var bytes = await _myPainterToMap("4.500.000", Colors.white);
     var bytes1 = await _myPainterToMap("4.500.000", Colors.blue);
-
+    bool isClick = false;
     int count = 0;
     for (var i in newlist) {
       Marker marker = Marker(
@@ -89,23 +89,26 @@ class _MapBodyState extends State<MapBody> {
           infoWindow: InfoWindow(title: "${count++}"),
           icon: BitmapDescriptor.fromBytes(index1++ == 0 ? bytes1! : bytes!),
           onTap: () {
-            final index =
-                newlist.indexWhere((element) => element.markerId == i.markerId);
+            isClick = !isClick;
+            if (!isClick) {
+              final index = newlist
+                  .indexWhere((element) => element.markerId == i.markerId);
 
-            print("hhahahaha3312312 => $index");
+              print("hhahahaha3312312 => $index");
 
-            try {
-              newlist = List.of(newlist)
-                ..insert(0, newlist[index].copyWith())
-                ..removeAt(index + 1);
-            } catch (e) {
-              print('hahahahahahaha => ${e}');
+              try {
+                newlist = List.of(newlist)
+                  ..insert(0, newlist[index].copyWith())
+                  ..removeAt(index + 1);
+              } catch (e) {
+                print('hahahahahahaha => ${e}');
+              }
+
+              setState(() {
+                print("hehe");
+                _loadListMarkers(newlist);
+              });
             }
-
-            setState(() {
-              print("hehe");
-              _loadListMarkers(newlist);
-            });
           });
       setState(() {
         _markers.add(marker);
@@ -120,9 +123,9 @@ class _MapBodyState extends State<MapBody> {
     // ignore: todo
     // TODO: implement initState
     //_loadListMarkers();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _loadListMarkers(_list);
-    });
+    // WidgetsBinding.instance?.addPostFrameCallback((_) {
+    _loadListMarkers(_list);
+    // });
 
     super.initState();
   }
@@ -134,7 +137,7 @@ class _MapBodyState extends State<MapBody> {
         return Container(
           width: double.maxFinite,
           height: double.maxFinite,
-          color: Color.fromARGB(255, 7, 7, 7),
+          color: ui.Color.fromARGB(255, 29, 167, 176),
           child: GoogleMap(
             key: UniqueKey(),
             mapType: MapType.normal,
