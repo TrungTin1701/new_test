@@ -50,11 +50,6 @@ class MapBody extends StatefulWidget {
 }
 
 class _MapBodyState extends State<MapBody> {
-  Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
   // Load Custom Marker
   Future<Uint8List?> _myPainterToMap(String Label, Color color) async {
     ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
@@ -68,46 +63,56 @@ class _MapBodyState extends State<MapBody> {
     return byteData!.buffer.asUint8List();
   }
 
+  //
+  CarouselController _carouselController = CarouselController();
   // Load List Data
+  Set<Marker> trueMarkers = {};
   Set<Marker> _markers = {};
   Set<Marker> temp = {};
 
   Future<Set<Marker>> _loadListMarkers(List<Marker> listtemp) async {
     var newlist = listtemp;
     _markers.clear();
-    int index1 = 0;
-    int index2 = 0;
+
     var bytes = await _myPainterToMap("4.500.000", Colors.white);
     var bytes1 = await _myPainterToMap("4.500.000", Colors.blue);
-    bool isClick = false;
-    int count = 0;
-    for (var i in newlist) {
+    bool isClick = newlist.first == listtemp.first;
+
+    for (var i in listtemp) {
       Marker marker = Marker(
-          zIndex: index2++ == 0 ? 1 : 0,
+          zIndex: i == listtemp.first ? 1 : 0,
           markerId: i.markerId,
           position: i.position,
-          infoWindow: InfoWindow(title: "${count++}"),
-          icon: BitmapDescriptor.fromBytes(index1++ == 0 ? bytes1! : bytes!),
+          //infoWindow: InfoWindow(title: "${count++}"),
+          icon:
+              BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
+            // CameraPosition cameraPosition = CameraPosition(
+            //   target: listtemp.first.position,
+            //   zoom: 16,
+            // );
+            // context.read<ChangeLocation>().changeLocation(cameraPosition);
+            _carouselController.animateToPage(_list.indexOf(i),
+                duration: Duration(milliseconds: 500), curve: Curves.ease);
             isClick = !isClick;
             if (!isClick) {
-              final index = newlist
+              final index = listtemp
                   .indexWhere((element) => element.markerId == i.markerId);
 
               print("hhahahaha3312312 => $index");
 
               try {
-                newlist = List.of(newlist)
+                listtemp = List.of(listtemp)
                   ..insert(0, newlist[index].copyWith())
                   ..removeAt(index + 1);
               } catch (e) {
-                print('hahahahahahaha => ${e}');
+                print('hahahahahahaha => $e');
               }
 
-              setState(() {
-                print("hehe");
-                _loadListMarkers(newlist);
-              });
+              // setState(() {
+              //   print("hehe");
+              _loadListMarkers(listtemp);
+              // });
             }
           });
       setState(() {
@@ -123,34 +128,40 @@ class _MapBodyState extends State<MapBody> {
     // ignore: todo
     // TODO: implement initState
     //_loadListMarkers();
-    // WidgetsBinding.instance?.addPostFrameCallback((_) {
-    _loadListMarkers(_list);
-    // });
-
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _loadListMarkers(_list);
+    });
+    trueMarkers = _markers;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    CameraPosition cameraPosition = CameraPosition(
+      target: trueMarkers.first.position,
+      zoom: 16,
+    );
+    context.read<ChangeLocation>().changeLocation(cameraPosition);
     return Stack(children: [
       Consumer<ChangeLocation>(builder: ((context, value, child) {
-        return Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          color: ui.Color.fromARGB(255, 29, 167, 176),
-          child: GoogleMap(
-            key: UniqueKey(),
-            mapType: MapType.normal,
-            onMapCreated: (GoogleMapController controller) {
-              setState(() {
-                _controller.complete(controller);
-              });
-            },
-            markers: Set<Marker>.from(_markers),
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: true,
-            initialCameraPosition: value.kGooglePlex1,
-            onTap: (position) => {print(position)},
+        return Positioned.fill(
+          child: Container(
+            width: double.maxFinite,
+            height: double.maxFinite,
+            color: ui.Color.fromARGB(255, 29, 167, 176),
+            child: GoogleMap(
+              key: UniqueKey(),
+              mapType: MapType.normal,
+              // onMapCreated: (GoogleMapController controller) {
+              //   setState(() {
+              //     _controller.complete(controller);
+              //   });
+              // },
+              markers: Set<Marker>.from(trueMarkers),
+              myLocationButtonEnabled: false,
+              zoomControlsEnabled: true,
+              initialCameraPosition: value.kGooglePlex1,
+            ),
           ),
         );
       })),
@@ -178,14 +189,35 @@ class _MapBodyState extends State<MapBody> {
               enlargeCenterPage: true,
               viewportFraction: 1,
               aspectRatio: 2.0,
-              initialPage: 4,
+              initialPage: 0,
             ),
             items: [
               SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.height * 0.4,
                   child: HotelCard()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: HotelCard()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: HotelCard()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: HotelCard()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: HotelCard()),
+              SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  child: HotelCard()),
             ],
+            carouselController: _carouselController,
           ),
         ),
         bottom: MediaQuery.of(context).size.height / 10,
