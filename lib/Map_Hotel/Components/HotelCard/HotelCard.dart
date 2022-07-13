@@ -23,16 +23,9 @@ class _HotelCardState extends State<HotelCard> {
             ],
           ),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ]),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
           width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height / 4),
     );

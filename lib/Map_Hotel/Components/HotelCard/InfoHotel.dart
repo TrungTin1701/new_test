@@ -9,41 +9,43 @@ class InfoCard extends StatelessWidget {
   const InfoCard({Key? key}) : super(key: key);
   @override
   Widget buildRow(Widget a, Widget b, BuildContext context, double size) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5.0),
-      child: Row(
-        children: [
-          a,
-          SizedBox(
-            width: size,
-          ),
-          b,
-        ],
-      ),
+    return Row(
+      children: [
+        a,
+        SizedBox(
+          width: size,
+        ),
+        b,
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 5, top: 5),
+      margin: EdgeInsets.only(left: 10, right: 5),
       width: double.maxFinite,
       height: double.maxFinite,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          TextInput(
-            text: "Intercontinental Hotel",
-            size: 17,
-            isBold: true,
-            isLinethroug: false,
+          Row(
+            children: [
+              TextInput(
+                text: "Intercontinental Hotel",
+                size: MediaQuery.of(context).size.width * 0.041,
+                isBold: true,
+                isLinethroug: false,
+              ),
+            ],
           ),
           buildRow(
-              StarRate(size: 16, rate: 4),
+              StarRate(
+                  size: MediaQuery.of(context).size.width * 0.041 - 1, rate: 4),
               TextInput(
                 text: "Khách sạn",
-                size: 15,
+                size: MediaQuery.of(context).size.width * 0.041 - 2,
                 isBold: false,
                 isLinethroug: false,
               ),
@@ -53,7 +55,7 @@ class InfoCard extends StatelessWidget {
               LocationIcon(),
               TextInput(
                 text: "Mai Anh Tuấn , Ba Đình ,Hà Nội",
-                size: 15,
+                size: MediaQuery.of(context).size.width * 0.041 - 2,
                 isBold: false,
                 isLinethroug: false,
               ),
@@ -64,12 +66,12 @@ class InfoCard extends StatelessWidget {
             children: [
               TextInput(
                   text: "2 Phòng/4 Đêm",
-                  size: 13,
+                  size: MediaQuery.of(context).size.width * 0.041 - 3,
                   isBold: false,
                   isLinethroug: false),
               TextInput(
                   text: "8.000.000đ",
-                  size: 13,
+                  size: MediaQuery.of(context).size.width * 0.041 - 3,
                   isBold: false,
                   isLinethroug: true),
             ],
@@ -79,7 +81,7 @@ class InfoCard extends StatelessWidget {
             children: [
               Text('7.500.000',
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: MediaQuery.of(context).size.width * 0.041 - 2,
                       color: Color.fromARGB(255, 193, 16, 16),
                       fontWeight: FontWeight.bold)),
             ],
