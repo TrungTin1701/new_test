@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_final_fields, avoid_print
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_final_fields, avoid_print, unused_field
 
 import 'dart:async';
 import 'dart:developer';
@@ -51,6 +51,35 @@ class MapBody extends StatefulWidget {
 }
 
 class _MapBodyState extends State<MapBody> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // ignore: todo
+    // TODO: implement initState
+
+    _loadListMarkers(
+      _list,
+      () {
+        trueMarkers = _markers;
+        _notifier.value = _markers;
+        _sinkMarkers.add(_markers);
+
+        WidgetsBinding.instance?.addPostFrameCallback((_) {
+          //_loadListMarkers(_list);
+
+          CameraPosition cameraPosition = CameraPosition(
+            target: _markers.first.position,
+            zoom: 16,
+          );
+
+          context.read<ChangeLocation>().changeLocation(cameraPosition);
+        });
+      },
+    );
+
+    super.initState();
+  }
+
   // Load Custom Marker
   Future<Uint8List?> _myPainterToMap(String Label, Color color) async {
     ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
@@ -64,15 +93,20 @@ class _MapBodyState extends State<MapBody> {
     return byteData!.buffer.asUint8List();
   }
 
+  late GoogleMapController _controller;
   //
   CarouselController _carouselController = CarouselController();
   // Load List Data
   Set<Marker> trueMarkers = {};
   Set<Marker> _markers = {};
   Set<Marker> temp = {};
-  ValueNotifier<Set<Marker>> _notifier = ValueNotifier(Set<Marker>());
+  ValueNotifier<Set<Marker>> _notifier = ValueNotifier(<Marker>{});
+// Use Stream to catch Data
+  final _streamMarkers = StreamController<Set<Marker>>.broadcast();
+  StreamSink<Set<Marker>> get _sinkMarkers => _streamMarkers.sink;
+  Stream<Set<Marker>> get streamMarkers => _streamMarkers.stream;
 
-  Future<Set<Marker>> _loadListMarkers(List<Marker> listtemp) async {
+  void _loadListMarkers(List<Marker> listtemp, Function() onFinsh) async {
     var newlist = listtemp;
     _markers.clear();
 
@@ -85,15 +119,11 @@ class _MapBodyState extends State<MapBody> {
           zIndex: i == listtemp.first ? 1 : 0,
           markerId: i.markerId,
           position: i.position,
+
           //infoWindow: InfoWindow(title: "${count++}"),
           icon:
               BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
-            // CameraPosition cameraPosition = CameraPosition(
-            //   target: listtemp.first.position,
-            //   zoom: 16,
-            // );
-            // context.read<ChangeLocation>().changeLocation(cameraPosition);
             _carouselController.animateToPage(_list.indexOf(i),
                 duration: Duration(milliseconds: 500), curve: Curves.ease);
             isClick = !isClick;
@@ -113,126 +143,111 @@ class _MapBodyState extends State<MapBody> {
 
               // setState(() {
               //   print("hehe");
-              _loadListMarkers(listtemp);
+              _loadListMarkers(listtemp, onFinsh);
               // });
             }
           });
-      setState(() {
-        _markers.add(marker);
-      });
+      _markers.add(marker);
     }
 
-    return _markers;
-  }
-
-  // Set in InitState
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    //_loadListMarkers();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _loadListMarkers(_list);
-    });
-    trueMarkers = _markers;
-    _notifier.value = _markers;
-    super.initState();
+    onFinsh.call();
   }
 
   @override
   Widget build(BuildContext context) {
     log("Rebuild MapBody");
-    CameraPosition cameraPosition = CameraPosition(
-      target: _notifier.value.first.position,
-      zoom: 16,
-    );
-    context.read<ChangeLocation>().changeLocation(cameraPosition);
-    return Stack(children: [
-      Consumer<ChangeLocation>(builder: ((context, value, child) {
-        return Positioned.fill(
-          child: Container(
-            width: double.maxFinite,
-            height: double.maxFinite,
-            color: ui.Color.fromARGB(255, 29, 167, 176),
-            child: ValueListenableBuilder<Set<Marker>>(
-              valueListenable: _notifier,
-              builder: (context, value1, child) {
-                return GoogleMap(
-                  key: UniqueKey(),
-                  mapType: MapType.normal,
-                  // onMapCreated: (GoogleMapController controller) {
-                  //   setState(() {
-                  //     _controller.complete(controller);
-                  //   });
-                  // },
-                  markers: value1,
-                  myLocationButtonEnabled: false,
-                  zoomControlsEnabled: true,
-                  initialCameraPosition: value.kGooglePlex1,
-                );
-              },
+
+    return StreamBuilder<Set<Marker>>(
+        stream: streamMarkers,
+        builder: (context, snapshot) {
+          return Stack(children: [
+            Consumer<ChangeLocation>(builder: ((context, value, child) {
+              return Positioned.fill(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: ui.Color.fromARGB(255, 29, 167, 176),
+                  child: ValueListenableBuilder<Set<Marker>>(
+                    valueListenable: _notifier,
+                    builder: (context, value1, child) {
+                      return GoogleMap(
+                        // key: UniqueKey(),
+                        mapType: MapType.normal,
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller = controller;
+                        },
+                        markers: Set<Marker>.of(_markers),
+                        myLocationButtonEnabled: false,
+                        zoomControlsEnabled: true,
+                        initialCameraPosition: CameraPosition(
+                          target: value1.first.position,
+                          zoom: 16,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            })),
+            Positioned(
+              // child: Container(
+              //     width: MediaQuery.of(context).size.width * 0.8,
+              //     height: MediaQuery.of(context).size.height * 0.45,
+              //     child: HotelCard()),
+              child: Container(
+                height: MediaQuery.of(context).size.height / 4,
+                width: MediaQuery.of(context).size.width * 0.8,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(3.0, 5.0), // changes position of shadow
+                      )
+                    ]),
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    autoPlay: false,
+                    enlargeCenterPage: true,
+                    viewportFraction: 1,
+                    aspectRatio: 2.0,
+                    initialPage: 0,
+                  ),
+                  items: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        child: HotelCard()),
+                  ],
+                  carouselController: _carouselController,
+                ),
+              ),
+              bottom: MediaQuery.of(context).size.height / 10,
+              left: MediaQuery.of(context).size.width * 0.1,
             ),
-          ),
-        );
-      })),
-      Positioned(
-        // child: Container(
-        //     width: MediaQuery.of(context).size.width * 0.8,
-        //     height: MediaQuery.of(context).size.height * 0.45,
-        //     child: HotelCard()),
-        child: Container(
-          height: MediaQuery.of(context).size.height / 4,
-          width: MediaQuery.of(context).size.width * 0.8,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(3.0, 5.0), // changes position of shadow
-                )
-              ]),
-          child: CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: false,
-              enlargeCenterPage: true,
-              viewportFraction: 1,
-              aspectRatio: 2.0,
-              initialPage: 0,
-            ),
-            items: [
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.4,
-                  child: HotelCard()),
-            ],
-            carouselController: _carouselController,
-          ),
-        ),
-        bottom: MediaQuery.of(context).size.height / 10,
-        left: MediaQuery.of(context).size.width * 0.1,
-      ),
-    ]);
+          ]);
+        });
   }
 }
