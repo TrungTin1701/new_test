@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_final_fields, avoid_print
 
 import 'dart:async';
+import 'dart:developer';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -69,6 +70,7 @@ class _MapBodyState extends State<MapBody> {
   Set<Marker> trueMarkers = {};
   Set<Marker> _markers = {};
   Set<Marker> temp = {};
+  ValueNotifier<Set<Marker>> _notifier = ValueNotifier(Set<Marker>());
 
   Future<Set<Marker>> _loadListMarkers(List<Marker> listtemp) async {
     var newlist = listtemp;
@@ -119,6 +121,7 @@ class _MapBodyState extends State<MapBody> {
         _markers.add(marker);
       });
     }
+
     return _markers;
   }
 
@@ -132,13 +135,15 @@ class _MapBodyState extends State<MapBody> {
       _loadListMarkers(_list);
     });
     trueMarkers = _markers;
+    _notifier.value = _markers;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    log("Rebuild MapBody");
     CameraPosition cameraPosition = CameraPosition(
-      target: trueMarkers.first.position,
+      target: _notifier.value.first.position,
       zoom: 16,
     );
     context.read<ChangeLocation>().changeLocation(cameraPosition);
@@ -149,18 +154,23 @@ class _MapBodyState extends State<MapBody> {
             width: double.maxFinite,
             height: double.maxFinite,
             color: ui.Color.fromARGB(255, 29, 167, 176),
-            child: GoogleMap(
-              key: UniqueKey(),
-              mapType: MapType.normal,
-              // onMapCreated: (GoogleMapController controller) {
-              //   setState(() {
-              //     _controller.complete(controller);
-              //   });
-              // },
-              markers: Set<Marker>.from(trueMarkers),
-              myLocationButtonEnabled: false,
-              zoomControlsEnabled: true,
-              initialCameraPosition: value.kGooglePlex1,
+            child: ValueListenableBuilder<Set<Marker>>(
+              valueListenable: _notifier,
+              builder: (context, value1, child) {
+                return GoogleMap(
+                  key: UniqueKey(),
+                  mapType: MapType.normal,
+                  // onMapCreated: (GoogleMapController controller) {
+                  //   setState(() {
+                  //     _controller.complete(controller);
+                  //   });
+                  // },
+                  markers: value1,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: true,
+                  initialCameraPosition: value.kGooglePlex1,
+                );
+              },
             ),
           ),
         );
@@ -171,7 +181,7 @@ class _MapBodyState extends State<MapBody> {
         //     height: MediaQuery.of(context).size.height * 0.45,
         //     child: HotelCard()),
         child: Container(
-          height: MediaQuery.of(context).size.height / 2 * 0.4,
+          height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width * 0.8,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),

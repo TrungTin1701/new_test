@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:new_test/Profile/Components/Info.dart';
 import 'package:new_test/Profile/EditProfile_Controller.dart';
 import 'package:new_test/Profile/Editprofile_Screen.dart';
+import 'package:new_test/provider/Marker_provider.dart';
 import 'package:new_test/provider/changeapi.dart';
 import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
@@ -62,7 +63,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ChangeLocation()),
         ChangeNotifierProvider(
           create: (_) => FontProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ChangeMarker(),
+        ),
       ],
       child: Consumer<FontProvider>(
         builder: (context, value, child) => MaterialApp(
