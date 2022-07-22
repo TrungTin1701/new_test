@@ -176,7 +176,7 @@ class _MapBodyState extends State<MapBody> {
                         onMapCreated: (GoogleMapController controller) {
                           _controller = controller;
                         },
-                        markers: Set<Marker>.of(_markers),
+                        markers: Set<Marker>.of(snapshot.data ?? value1),
                         myLocationButtonEnabled: false,
                         zoomControlsEnabled: true,
                         initialCameraPosition: CameraPosition(
