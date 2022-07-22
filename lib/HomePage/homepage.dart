@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:new_test/HotelPage/Details/details.dart';
 import 'package:new_test/Search_Categories/Search_Screen.dart';
+import 'package:new_test/FlutterToNative/Battery.dart';
 
 // ignore: implementation_imports
 const kPrimaryColor = Color(0xFF0C9869);
@@ -85,7 +86,6 @@ class _Home1State extends State<Home1> {
                     }),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 20),
-                      padding: EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         color: Color.fromARGB(255, 255, 255, 255),
@@ -105,7 +105,6 @@ class _Home1State extends State<Home1> {
                               onChanged: (value) {},
                               decoration: InputDecoration(
                                 hintText: "Search for Hotel, City, Area",
-                                contentPadding: EdgeInsets.only(top: 14),
                                 prefixIcon: Icon(
                                   Icons.search,
                                   color: Colors.grey,
@@ -365,7 +364,13 @@ Widget buildButton(
       SizedBox(width: 10),
       Expanded(
         child: OutlinedButton(
-          onPressed: () => {},
+          onPressed: () => {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BatteryLevel(),
+                ))
+          },
           style: OutlinedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),

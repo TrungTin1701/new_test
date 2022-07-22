@@ -2,8 +2,12 @@
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:new_test/Profile/Components/Info.dart';
-
+import 'package:new_test/Profile/EditProfile_Controller.dart';
+import 'package:new_test/Profile/Editprofile_Screen.dart';
+import 'package:new_test/provider/Marker_provider.dart';
+import 'package:new_test/provider/changeapi.dart';
 import 'Http_Users/List_Users.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
@@ -12,9 +16,11 @@ import 'package:new_test/provider/font_provider.dart';
 import 'package:provider/provider.dart';
 import 'HotelPage/hotelcart.dart' show HotelCard;
 import 'HomePage/homepage.dart';
+import 'Map_Hotel/Map_Screen.dart';
 import 'Profile/profile.dart';
 import 'HotelPage/hotelcart.dart';
 import 'Search_Categories/Search_Screen.dart';
+import 'Login Page/login_Page.dart';
 
 DateTime today = DateTime.now();
 String weekday =
@@ -31,7 +37,18 @@ late String dateSlug2 =
     "${weekday3} /${(today.year).toString()}-${today.month.toString().padLeft(2, '0')}-${(today.day).toString().padLeft(2, '0')},  ${today.hour}:${min}";
 
 void main() {
-  runApp(DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+  int Case = 1;
+  Get.put(EditProfile());
+  switch (Case) {
+    case 1:
+      return runApp(MyApp());
+
+    case 2:
+      return runApp(
+          DevicePreview(enabled: !kReleaseMode, builder: (context) => MyApp()));
+  }
+
+  //
 }
 
 class MyApp extends StatelessWidget {
@@ -42,7 +59,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => FontProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ChangeLocation()),
+        ChangeNotifierProvider(
+          create: (_) => FontProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ChangeMarker(),
+        ),
+      ],
       child: Consumer<FontProvider>(
         builder: (context, value, child) => MaterialApp(
           useInheritedMediaQuery: true,
@@ -52,13 +77,16 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: MyHomePage(title: "Travel "),
           theme: ThemeData(fontFamily: value.fontFamily),
-          initialRoute: '/',
+          initialRoute: '/map',
           routes: {
             '/profile': (context) => const ProfileApp(),
             '/Home': (context) => const StackOver(),
             '/Home1': (context) => const Home1(),
             '/Users': (context) => const Postpage(),
             '/Search': (context) => SearchScreen(),
+            '/editprofile': (context) => EditProfileScreen(),
+            '/loginpage': (context) => LoginPage(),
+            '/map': (context) => const MapScreen(),
           },
         ),
       ),
@@ -230,6 +258,7 @@ class _StackOverState extends State<StackOver>
               ),
               // tab bar view here
               Expanded(
+                flex: 3,
                 child: TabBarView(controller: _tabController, children: [
                   for (var i = 0; i < _tabs.length; i++)
                     GestureDetector(

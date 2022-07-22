@@ -2,6 +2,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../EditProfile_Controller.dart';
 
 class Info extends StatefulWidget {
   const Info({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
+  final resname = EditProfile.to;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,11 +27,13 @@ class _InfoState extends State<Info> {
         ),
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Text(
-            "Marc Spector",
-            style: TextStyle(
-              fontSize: 22.0,
-              color: Colors.white,
+          child: Obx(
+            () => Text(
+              resname.name.value,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 47, 108, 119)),
             ),
           ),
         ),
@@ -163,15 +169,16 @@ class _UIState extends State<UI> {
           ),
           Container(
             constraints: const BoxConstraints(maxHeight: 100),
-            child: const Text(
-              'My name is Marc Spector and I am  a freelance mobile app developper.\n'
-              'if you need any mobile app for your company then contact me for more informations',
-              style: TextStyle(
-                fontSize: 17.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.w300,
-                color: Colors.black,
-                letterSpacing: 2,
+            child: Obx(
+              () => Text(
+                EditProfile.to.introduction.value,
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.black,
+                  letterSpacing: 2,
+                ),
               ),
             ),
           ),

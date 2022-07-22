@@ -97,7 +97,9 @@ class ProfileApp extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/editprofile');
+            },
           ),
         ],
         backgroundColor: Colors.redAccent,
