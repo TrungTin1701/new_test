@@ -125,7 +125,7 @@ class _MapBodyState extends State<MapBody> {
               BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
             _carouselController.animateToPage(_list.indexOf(i),
-                duration: Duration(milliseconds: 500), curve: Curves.ease);
+                duration: Duration(milliseconds: 400), curve: Curves.ease);
             isClick = !isClick;
             if (!isClick) {
               final index = listtemp
@@ -176,12 +176,12 @@ class _MapBodyState extends State<MapBody> {
                         onMapCreated: (GoogleMapController controller) {
                           _controller = controller;
                         },
-                        markers: Set<Marker>.of(snapshot.data ?? value1),
+                        markers: Set<Marker>.of(value1),
                         myLocationButtonEnabled: false,
                         zoomControlsEnabled: true,
                         initialCameraPosition: CameraPosition(
                           target: value1.first.position,
-                          zoom: 16,
+                          zoom: 17,
                         ),
                       );
                     },
@@ -201,10 +201,10 @@ class _MapBodyState extends State<MapBody> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset: Offset(3.0, 5.0), // changes position of shadow
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                        spreadRadius: 4,
+                        blurRadius: 8,
+                        offset: Offset(3.0, 3.0), // changes position of shadow
                       )
                     ]),
                 child: CarouselSlider(
