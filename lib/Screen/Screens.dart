@@ -2,15 +2,12 @@
 
 import 'dart:async';
 import 'package:flutter/rendering.dart';
-
 import 'package:new_test/Profile/Components/Info.dart';
-
 import 'package:flutter/material.dart';
 import 'package:new_test/provider/font_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:new_test/HotelPage/hotelcart.dart' show HotelCard;
 import 'package:new_test/HomePage/homepage.dart';
-
 import 'package:new_test/Profile/profile.dart';
 import 'package:new_test/HotelPage/hotelcart.dart';
 import 'package:new_test/Search_Categories/Search_Screen.dart';
