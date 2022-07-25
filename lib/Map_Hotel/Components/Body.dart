@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:developer';
+
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -101,14 +102,18 @@ class _MapBodyState extends State<MapBody> {
   Set<Marker> _markers = {};
   Set<Marker> temp = {};
   ValueNotifier<Set<Marker>> _notifier = ValueNotifier(<Marker>{});
+  // New Stream
+  final _streamState = StreamController<int>();
+  StreamSink<int> get _sinkState => _streamState.sink;
+  Stream<int> get streamState => _streamState.stream;
 // Use Stream to catch Data
   final _streamMarkers = StreamController<Set<Marker>>.broadcast();
   StreamSink<Set<Marker>> get _sinkMarkers => _streamMarkers.sink;
   Stream<Set<Marker>> get streamMarkers => _streamMarkers.stream;
-
+  late bool onpagechange;
   void _loadListMarkers(List<Marker> listtemp, Function() onFinsh) async {
     var newlist = listtemp;
-    _markers.clear();
+    // _markers.clear();
 
     var bytes = await _myPainterToMap("4.500.000", Colors.white);
     var bytes1 = await _myPainterToMap("4.500.000", Colors.blue);
@@ -124,8 +129,10 @@ class _MapBodyState extends State<MapBody> {
           icon:
               BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
+            onpagechange = false;
+            _sinkState.add(1);
             _carouselController.animateToPage(_list.indexOf(i),
-                duration: Duration(milliseconds: 400), curve: Curves.ease);
+                duration: Duration(milliseconds: 600), curve: Curves.ease);
             isClick = !isClick;
             if (!isClick) {
               final index = listtemp
@@ -144,9 +151,11 @@ class _MapBodyState extends State<MapBody> {
               // setState(() {
               //   print("hehe");
               _loadListMarkers(listtemp, onFinsh);
+
               // });
             }
           });
+
       _markers.add(marker);
     }
 
@@ -171,19 +180,14 @@ class _MapBodyState extends State<MapBody> {
                     valueListenable: _notifier,
                     builder: (context, value1, child) {
                       return GoogleMap(
-                        // key: UniqueKey(),
-                        mapType: MapType.normal,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller = controller;
-                        },
-                        markers: Set<Marker>.of(value1),
-                        myLocationButtonEnabled: false,
-                        zoomControlsEnabled: true,
-                        initialCameraPosition: CameraPosition(
-                          target: value1.first.position,
-                          zoom: 17,
-                        ),
-                      );
+                          mapType: MapType.normal,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller = controller;
+                          },
+                          markers: snapshot.data!,
+                          myLocationButtonEnabled: false,
+                          zoomControlsEnabled: true,
+                          initialCameraPosition: value.kGooglePlex1);
                     },
                   ),
                 ),
@@ -201,7 +205,7 @@ class _MapBodyState extends State<MapBody> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                         spreadRadius: 4,
                         blurRadius: 8,
                         offset: Offset(3.0, 3.0), // changes position of shadow
@@ -214,6 +218,33 @@ class _MapBodyState extends State<MapBody> {
                     viewportFraction: 1,
                     aspectRatio: 2.0,
                     initialPage: 0,
+                    onPageChanged: (index, reason) {
+                      Marker temp = _list.elementAt(index);
+
+                      if (onpagechange) {
+                        _controller.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: temp.position,
+                              zoom: 16,
+                            ),
+                          ),
+                        );
+                        List<Marker> newList = _list.toList();
+                        newList.insert(0, temp.copyWith());
+                        newList.removeAt(index + 1);
+                        print(newList.length);
+                        print("HGeee");
+
+                        _loadListMarkers(newList,
+                            () => {_sinkMarkers.add(_markers), print("Huuhu")});
+
+                        print("index => $index");
+                      }
+                      Future.delayed(Duration(milliseconds: 500), () {
+                        onpagechange = true;
+                      });
+                    },
                   ),
                   items: [
                     SizedBox(
