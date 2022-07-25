@@ -105,10 +105,10 @@ class _MapBodyState extends State<MapBody> {
   final _streamMarkers = StreamController<Set<Marker>>.broadcast();
   StreamSink<Set<Marker>> get _sinkMarkers => _streamMarkers.sink;
   Stream<Set<Marker>> get streamMarkers => _streamMarkers.stream;
-
+  bool onpagechange = false;
   void _loadListMarkers(List<Marker> listtemp, Function() onFinsh) async {
     var newlist = listtemp;
-    _markers.clear();
+    // _markers.clear();
 
     var bytes = await _myPainterToMap("4.500.000", Colors.white);
     var bytes1 = await _myPainterToMap("4.500.000", Colors.blue);
@@ -124,6 +124,7 @@ class _MapBodyState extends State<MapBody> {
           icon:
               BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
+            onpagechange = !onpagechange;
             _carouselController.animateToPage(_list.indexOf(i),
                 duration: Duration(milliseconds: 600), curve: Curves.ease);
             isClick = !isClick;
@@ -147,6 +148,7 @@ class _MapBodyState extends State<MapBody> {
               // });
             }
           });
+      onpagechange = !onpagechange;
       _markers.add(marker);
     }
 
@@ -210,26 +212,28 @@ class _MapBodyState extends State<MapBody> {
                     aspectRatio: 2.0,
                     initialPage: 0,
                     onPageChanged: (index, reason) {
-                      setState(() {
-                        Marker temp = _list.elementAt(index);
+                      Marker temp = _list.elementAt(index);
 
-                        _controller.animateCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: temp.position,
-                              zoom: 16,
-                            ),
+                      _controller.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: temp.position,
+                            zoom: 16,
                           ),
-                        );
-                        List<Marker> newList = _list.toList();
-                        newList.insert(0, temp.copyWith());
-                        newList.removeAt(index + 1);
-                        print(newList.length);
-                        print("HGeee");
-                        _loadListMarkers(
-                            newList, () => {_sinkMarkers.add(_markers)});
-                      });
+                        ),
+                      );
+                      // if (onpagechange) {
+                      List<Marker> newList = _list.toList();
+                      newList.insert(0, temp.copyWith());
+                      newList.removeAt(index + 1);
+                      print(newList.length);
+                      print("HGeee");
+
+                      _loadListMarkers(newList,
+                          () => {_sinkMarkers.add(_markers), print("Huuhu")});
+
                       print("index => $index");
+                      // }
                     },
                   ),
                   items: [
