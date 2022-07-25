@@ -125,7 +125,7 @@ class _MapBodyState extends State<MapBody> {
               BitmapDescriptor.fromBytes(i == newlist.first ? bytes1! : bytes!),
           onTap: () {
             _carouselController.animateToPage(_list.indexOf(i),
-                duration: Duration(milliseconds: 400), curve: Curves.ease);
+                duration: Duration(milliseconds: 600), curve: Curves.ease);
             isClick = !isClick;
             if (!isClick) {
               final index = listtemp
@@ -171,19 +171,14 @@ class _MapBodyState extends State<MapBody> {
                     valueListenable: _notifier,
                     builder: (context, value1, child) {
                       return GoogleMap(
-                        // key: UniqueKey(),
-                        mapType: MapType.normal,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller = controller;
-                        },
-                        markers: Set<Marker>.of(value1),
-                        myLocationButtonEnabled: false,
-                        zoomControlsEnabled: true,
-                        initialCameraPosition: CameraPosition(
-                          target: value1.first.position,
-                          zoom: 17,
-                        ),
-                      );
+                          mapType: MapType.normal,
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller = controller;
+                          },
+                          markers: snapshot.data!,
+                          myLocationButtonEnabled: false,
+                          zoomControlsEnabled: true,
+                          initialCameraPosition: value.kGooglePlex1);
                     },
                   ),
                 ),
@@ -201,7 +196,7 @@ class _MapBodyState extends State<MapBody> {
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
-                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.2),
+                        color: Color.fromARGB(255, 0, 0, 0).withOpacity(0.4),
                         spreadRadius: 4,
                         blurRadius: 8,
                         offset: Offset(3.0, 3.0), // changes position of shadow
@@ -214,6 +209,28 @@ class _MapBodyState extends State<MapBody> {
                     viewportFraction: 1,
                     aspectRatio: 2.0,
                     initialPage: 0,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        Marker temp = _list.elementAt(index);
+
+                        _controller.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: temp.position,
+                              zoom: 16,
+                            ),
+                          ),
+                        );
+                        List<Marker> newList = _list.toList();
+                        newList.insert(0, temp.copyWith());
+                        newList.removeAt(index + 1);
+                        print(newList.length);
+                        print("HGeee");
+                        _loadListMarkers(
+                            newList, () => {_sinkMarkers.add(_markers)});
+                      });
+                      print("index => $index");
+                    },
                   ),
                   items: [
                     SizedBox(
